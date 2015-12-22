@@ -1,0 +1,271 @@
+
+* {
+	color: silver;
+	font-family: Ubuntu, Consolas;
+	font-size: 14px;
+}
+
+QMainWindow {
+	/*43443A*/
+	background-color: #272822;
+
+
+}
+
+/*
+QMenuBar {
+	background-color: #43443A;
+	border: 1px solid black;
+}
+
+QMenuBar::item {
+	border: 1px solid silver;
+	padding: 10px;
+	background-color: transparent;
+}
+*/
+
+QMenuBar
+{
+	background-color: #43443A;
+	color: silver;
+}
+
+QMenuBar::item
+{
+	background: transparent;
+}
+
+QMenuBar::item:selected
+{
+	background: transparent;
+	border: 1px solid #3A3939;
+}
+
+QMenuBar::item:pressed
+{
+	border: 1px solid #3A3939;
+	background-color: #78879b;
+	color: black;
+	margin-bottom:-1px;
+	padding-bottom:1px;
+}
+
+QMenu
+{
+	border: 1px solid #3A3939;
+	color: silver;
+	margin: 2px;
+}
+
+QMenu::icon
+{
+	margin: 5px;
+}
+
+QMenu::item
+{
+	padding: 5px 30px 5px 30px;
+	margin-left: 5px;
+	border: 1px solid transparent; /* reserve space for selection border */
+}
+
+QMenu::item:selected
+{
+	color: black;
+}
+
+#WORLDVIEWPANEL {
+	background-color: #43443A;
+}
+
+QToolBar {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 gray, stop:0.8 #636363);
+	border-top-right-radius: 7px;
+	border-top-left-radius: 7px;
+}
+
+#WORLDVIEWPANEL QLabel, QToolButton {
+	padding: 4px;
+}
+
+#WORLDVIEW_WIRE {
+	image: url(:icons/render_wire.png);
+}
+
+#WORLDVIEW_WIRE:hover {
+	image: url(:icons/render_wire_hover.png);
+}
+
+#WORLDVIEW_WIRE:pressed {
+	image: url(:icons/render_wire_pressed.png);
+}
+
+#WORLDVIEW_FILL {
+	image: url(:icons/render_fill.png);
+}
+
+#WORLDVIEW_FILL:hover {
+	image: url(:icons/render_fill_hover.png);
+}
+
+#WORLDVIEW_FILL:pressed {
+	image: url(:icons/render_fill_pressed.png);
+}
+
+#WORLDVIEW_TEXTURE {
+	image: url(:icons/render_texture.png);s
+}
+
+#WORLDVIEW_TEXTURE:hover {
+	image: url(:icons/render_texture_hover.png);
+}
+
+#WORLDVIEW_TEXTURE:pressed {
+	image: url(:icons/render_texture_pressed.png);
+}
+
+
+#WORLDVIEW_PLAY {
+	image: url(:icons/play.png);
+}
+
+#WORLDVIEW_PLAY:hover {
+	image: url(:icons/play_hover.png);
+}
+
+
+QToolButton {
+	width: 24;
+	height: 24;
+	margin-left: 3px;
+	margin-right: 3px;
+	border: none;
+}
+
+QToolBar:separator {
+	image: url(:icons/horizontal_separator.png);
+	width: 32px;
+	height: 32px
+}
+
+QDialog {
+	background-color: #272822;
+}
+
+QToolTip {
+	background-color: #43443A;
+	opacity: 150;
+}
+
+QTabWidget {
+	background-color: #43443A;
+}
+
+QTabBar::tab {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 gray, stop:0.8 #636363);
+	border-top-right-radius: 7px;
+	border-top-left-radius: 7px;
+	padding: 10px;
+	min-width: 100px;
+}
+
+QTabBar::tab:hover {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 #AFAFAF, stop:0.8 #636363);
+}
+
+QTabBar::tab:selected {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 #AFAFAF, stop:0.6 #636363);
+	color: orange;
+	font-weight: bold;
+}
+
+QTabBar::tab:!selected {
+     margin-top: 2px; /* make non-selected tabs look smaller */
+ }
+
+ /* make use of negative margins for overlapping tabs */
+ QTabBar::tab:selected {
+     /* expand/overlap to the left and right by 4px */
+     margin-left: -4px;
+     margin-right: -4px;
+ }
+
+ QTabBar::tab:first:selected {
+     margin-left: 0; /* the first selected tab has nothing to overlap with on the left */
+ }
+
+ QTabBar::tab:last:selected {
+     margin-right: 0; /* the last selected tab has nothing to overlap with on the right */
+ }
+
+ QTabBar::tab:only-one {
+     margin: 0; /* if there is only one tab, we don't want overlapping margins */
+ }
+
+ /*
+ QTreeWidget {
+	background-color: #272822;
+ }
+ */
+
+ QTreeView {
+	background-color: #272822;
+ }
+
+ QTreeView::item::selected {
+    background-color: orange;
+}
+
+QTreeView QHeaderView:section {
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 gray, stop:0.8 #636363);
+}
+
+QTreeView::item:selected {
+	background-color: orange;
+}
+
+QScrollBar {
+	background-color: #43443A;
+	border-radius: 5px;
+}
+
+QDockWidget {
+	titlebar-close-icon: url(:icons/dock_close.png);
+	titlebar-normal-icon: url(:icons/dock_float.png);
+}
+
+QDockWidget::title
+{
+	text-align: center;
+	spacing: 3px; /* spacing between items in the tool bar */
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 gray, stop:0.8 #636363);
+}
+
+QDockWidget::close-button, QDockWidget::float-button
+{
+	spacing: 1px; /* spacing between items in the tool bar */
+}
+
+QDockWidget::close-button:hover, QDockWidget::float-button:hover
+{
+	border: none;
+	background: transparent;
+	titlebar-close-icon: url(:icons/dock_close_hover.png);
+	titlebar-normal-icon: url(:icons/dock_float.png);
+}
+
+
+QPushButton {
+	background-color: #43443A;
+}
+
+QPushButton::disabled {
+	background-color: #272822;
+}
