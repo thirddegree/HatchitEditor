@@ -1,0 +1,3 @@
+#define HatchitEditor_VERSION_MAJOR @HatchitEditor_VERSION_MAJOR@
+#define HatchitEditor_VERSION_MINOR @HatchitEditor_VERSION_MINOR@
+#define HatchitEditor_VERSION_BUILD @HatchitEditor_VERSION_BUILD@
