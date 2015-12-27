@@ -23,7 +23,7 @@ configure_file (
     "../../include/ht_editor_version.h"
 )
 
-add_subdirectory("${PROJECT_SOURCE_DIR}/../Hatchit/Linux" "${CMAKE_CURRENT_BINARY_DIR}/HatchitCore/")
+add_subdirectory("${PROJECT_SOURCE_DIR}/../Hatchit/Linux" "${CMAKE_CURRENT_BINARY_DIR}/Hatchit/")
 
 #Instruct CMake to run moc automatically when needed
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -36,6 +36,7 @@ find_package(Qt5 COMPONENTS Core Gui Multimedia Network OpenGL Script Svg WebKit
 include_directories("../include/"
                     "../Hatchit/HatchitCore/include/"
                     "../Hatchit/HatchitResource/include"
+                    "../Hatchit/HatchitMath/include"
                     "../Hatchit/HatchitGame/include"
                     "../Hatchit/ThirdParty/inih/")
 
@@ -54,7 +55,7 @@ add_custom_command(TARGET HatchitEditor POST_BUILD
 
 #Use the widgets module from Qt5.
 target_link_libraries(HatchitEditor Qt5::Core Qt5::Gui Qt5::Network Qt5::OpenGL
-  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore)
+  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitMath HatchitGame )
 
 #install
 
