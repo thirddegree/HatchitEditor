@@ -1,5 +1,5 @@
 /**
-**    Hatchit Engine
+**    Hatchit Editor
 **    Copyright(c) 2015 Third-Degree
 **
 **    GNU General Public License

@@ -12,30 +12,25 @@
 **
 **/
 
-#pragma once
-
-#include <ht_editor_filemenu.h>
 #include <ht_editor_helpmenu.h>
-
-#include <QMenuBar>
 
 namespace Hatchit {
 
     namespace Editor {
 
-        class MenuBar : public QMenuBar
+        HelpMenu::HelpMenu(QWidget* widget /* = 0 */)
+            : QMenu(tr("Help"), widget)
         {
-            Q_OBJECT
-        public:
-            MenuBar(QWidget* parent = 0);
 
-            FileMenu* GetFileMenu();
-            HelpMenu* GetHelpMenu();
+            m_about = new QAction(tr("About"), nullptr);
 
-        private:
-            FileMenu*  m_fileMenu;
-            HelpMenu*  m_helpMenu;
-        };
+            addAction(m_about);
+        }
+
+        QAction* HelpMenu::About()
+        {
+            return m_about;
+        }
     }
 
 }

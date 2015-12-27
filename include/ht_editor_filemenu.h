@@ -1,5 +1,5 @@
 /**
-**    Hatchit Engine
+**    Hatchit Editor
 **    Copyright(c) 2015 Third-Degree
 **
 **    GNU General Public License
@@ -11,6 +11,7 @@
 **    will be met: https://www.gnu.org/licenses/gpl.html
 **
 **/
+
 #pragma once
 
 #include <QMenu>
@@ -21,7 +22,6 @@ namespace Hatchit {
 
         class FileMenu : public QMenu
         {
-            Q_OBJECT
         public:
             FileMenu(QWidget* parent = 0);
 

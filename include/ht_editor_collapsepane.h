@@ -14,28 +14,37 @@
 
 #pragma once
 
-#include <ht_editor_filemenu.h>
-#include <ht_editor_helpmenu.h>
-
-#include <QMenuBar>
+#include <QWidget>
+#include <QVBoxLayout>
+#include <QCheckBox>
+#include <QPropertyAnimation>
 
 namespace Hatchit {
 
     namespace Editor {
 
-        class MenuBar : public QMenuBar
+        class CollapsePane : public QWidget
         {
             Q_OBJECT
         public:
-            MenuBar(QWidget* parent = 0);
+            CollapsePane(const QString& title, QWidget* contents, bool collapsed = true, QWidget* parent = 0);
 
-            FileMenu* GetFileMenu();
-            HelpMenu* GetHelpMenu();
+
+        protected:
+            void paintEvent(QPaintEvent* e);
+
+        private slots:
+            void OnToggle(int);
 
         private:
-            FileMenu*  m_fileMenu;
-            HelpMenu*  m_helpMenu;
+            QWidget*        m_contents;
+            QString         m_title;
+            QCheckBox*      m_button;
+            QVBoxLayout*    m_layout;
+            QPropertyAnimation* m_collapseAnimation;
+            bool            m_collapsed;
         };
+
     }
 
 }

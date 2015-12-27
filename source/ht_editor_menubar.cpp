@@ -1,5 +1,5 @@
 /**
-**    Hatchit Engine
+**    Hatchit Editor
 **    Copyright(c) 2015 Third-Degree
 **
 **    GNU General Public License
@@ -23,13 +23,20 @@ namespace Hatchit {
             : QMenuBar(parent)
         {
             m_fileMenu = new FileMenu;
+            m_helpMenu = new HelpMenu;
 
             addMenu(m_fileMenu);
+            addMenu(m_helpMenu);
         }
 
         FileMenu* MenuBar::GetFileMenu()
         {
             return m_fileMenu;
+        }
+
+        HelpMenu* MenuBar::GetHelpMenu()
+        {
+            return m_helpMenu;
         }
     }
 }

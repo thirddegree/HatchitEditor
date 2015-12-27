@@ -14,28 +14,38 @@
 
 #pragma once
 
-#include <ht_editor_filemenu.h>
-#include <ht_editor_helpmenu.h>
+#include <ht_editor_collapsepane.h>
 
-#include <QMenuBar>
+#include <QDialog>
+#include <QTextBrowser>
+#include <QWebView>
+#include <QScrollArea>
+#include <QLabel>
 
 namespace Hatchit {
 
     namespace Editor {
 
-        class MenuBar : public QMenuBar
+        class AboutDialog : public QDialog
         {
             Q_OBJECT
         public:
-            MenuBar(QWidget* parent = 0);
+            AboutDialog(QWidget* parent);
 
-            FileMenu* GetFileMenu();
-            HelpMenu* GetHelpMenu();
+        private slots:
+            void OnLoadLicense(bool);
 
         private:
-            FileMenu*  m_fileMenu;
-            HelpMenu*  m_helpMenu;
+            QScrollArea*    m_scrollArea;
+            QLabel*         m_info;
+            QWebView*       m_webView;
+            CollapsePane*   m_collapsePane;
+            CollapsePane*   m_aboutPane;
+            CollapsePane*   m_versionInfo;
+            QVBoxLayout*    m_mainLayout;
+            bool            m_firstLoad;
         };
+
     }
 
 }

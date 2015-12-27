@@ -1,5 +1,5 @@
 /**
-**    Hatchit Engine
+**    Hatchit Editor
 **    Copyright(c) 2015 Third-Degree
 **
 **    GNU General Public License
@@ -14,6 +14,7 @@
 
 #include <ht_editor_window.h>
 #include <ht_debug.h>
+#include <ht_editor_about.h>
 
 namespace Hatchit {
 
@@ -49,6 +50,13 @@ namespace Hatchit {
             close();
         }
 
+        void Window::OnHelpAbout()
+        {
+            AboutDialog dialog(this);
+
+            dialog.exec();
+        }
+
         void Window::ConnectMenuSlots()
         {
             connect(m_menuBar->GetFileMenu()->NewProject(), SIGNAL(triggered()),
@@ -59,6 +67,9 @@ namespace Hatchit {
                 this, SLOT(OnFileSave()));
             connect(m_menuBar->GetFileMenu()->Exit(), SIGNAL(triggered()),
                 this, SLOT(OnFileExit()));
+
+            connect(m_menuBar->GetHelpMenu()->About(), SIGNAL(triggered()),
+                this, SLOT(OnHelpAbout()));
         }
     }
 

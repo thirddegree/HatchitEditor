@@ -2,7 +2,7 @@
 * {
 	color: silver;
 	font-family: Ubuntu, Consolas;
-	font-size: 14px;
+	
 }
 
 QMainWindow {
@@ -16,6 +16,7 @@ QMainWindow {
 QMenuBar {
 	background-color: #43443A;
 	border: 1px solid black;
+	font-size: 14px;
 }
 
 QMenuBar::item {
@@ -75,10 +76,6 @@ QMenu::item:selected
 	color: black;
 }
 
-#WORLDVIEWPANEL {
-	background-color: #43443A;
-}
-
 QToolBar {
 	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
                  stop:0 gray, stop:0.8 #636363);
@@ -86,69 +83,6 @@ QToolBar {
 	border-top-left-radius: 7px;
 }
 
-#WORLDVIEWPANEL QLabel, QToolButton {
-	padding: 4px;
-}
-
-#WORLDVIEW_WIRE {
-	image: url(:icons/render_wire.png);
-}
-
-#WORLDVIEW_WIRE:hover {
-	image: url(:icons/render_wire_hover.png);
-}
-
-#WORLDVIEW_WIRE:pressed {
-	image: url(:icons/render_wire_pressed.png);
-}
-
-#WORLDVIEW_FILL {
-	image: url(:icons/render_fill.png);
-}
-
-#WORLDVIEW_FILL:hover {
-	image: url(:icons/render_fill_hover.png);
-}
-
-#WORLDVIEW_FILL:pressed {
-	image: url(:icons/render_fill_pressed.png);
-}
-
-#WORLDVIEW_TEXTURE {
-	image: url(:icons/render_texture.png);s
-}
-
-#WORLDVIEW_TEXTURE:hover {
-	image: url(:icons/render_texture_hover.png);
-}
-
-#WORLDVIEW_TEXTURE:pressed {
-	image: url(:icons/render_texture_pressed.png);
-}
-
-
-#WORLDVIEW_PLAY {
-	image: url(:icons/play.png);
-}
-
-#WORLDVIEW_PLAY:hover {
-	image: url(:icons/play_hover.png);
-}
-
-
-QToolButton {
-	width: 24;
-	height: 24;
-	margin-left: 3px;
-	margin-right: 3px;
-	border: none;
-}
-
-QToolBar:separator {
-	image: url(:icons/horizontal_separator.png);
-	width: 32px;
-	height: 32px
-}
 
 QDialog {
 	background-color: #272822;
@@ -268,4 +202,51 @@ QPushButton {
 
 QPushButton::disabled {
 	background-color: #272822;
+}
+
+
+QCheckBox::indicator {
+     width: 14px;
+     height: 14px;
+ }
+
+#CollapseCheck::indicator:checked
+{
+image: url(:icons/collapsed.png);
+}
+#CollapseCheck::indicator:unchecked
+{
+image: url(:icons/expanded.png);
+}
+
+#CollapseCheck::indicator:checked:hover
+{
+image: url(:icons/collapsed_hover.png);
+}
+#CollapseCheck::indicator:unchecked:hover
+{
+image: url(:icons/expanded_hover.png);
+}
+#CollapseCheck::indicator:checked:pressed
+{
+image: url(:icons/collapsed.png);
+}
+#CollapseCheck::indicator:unchecked:pressed
+{
+image: url(:icons/expanded.png);
+}
+#CollapseCheck::indicator:checked:disabled
+{
+image: url(:icons/collapsed.png);
+}
+#CollapseCheck::indicator:unchecked:disabled
+{
+image: url(:icons/expanded.png);
+}
+
+QWidget#CollapsePane {
+	background-color: #32332B;
+	border-radius: 5px;
+	spacing: 1px;
+	min-height: 28px;
 }
