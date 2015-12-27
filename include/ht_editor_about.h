@@ -21,6 +21,7 @@
 #include <QWebView>
 #include <QScrollArea>
 #include <QLabel>
+#include <QEvent>
 
 namespace Hatchit {
 
@@ -34,6 +35,9 @@ namespace Hatchit {
 
         private slots:
             void OnLoadLicense(bool);
+
+        protected:
+            void keyPressEvent(QKeyEvent* e);
 
         private:
             QScrollArea*    m_scrollArea;

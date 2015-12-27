@@ -18,7 +18,7 @@
 
 #include <QBoxLayout>
 #include <QFile>
-
+#include <QKeyEvent>
 
 namespace Hatchit {
 
@@ -27,10 +27,10 @@ namespace Hatchit {
         AboutDialog::AboutDialog(QWidget* widget)
             : QDialog(widget)
         {
-            resize(1080, 720);
+            setMinimumSize(1080, 720);
             setWindowTitle(tr("About Hatchit Editor"));
 
-            m_webView = new QWebView;
+            m_webView = new QWebView(this);
             m_firstLoad = true;
             connect(m_webView, SIGNAL(loadFinished(bool)), this, SLOT(OnLoadLicense(bool)));
             m_webView->load(QUrl("http://www.gnu.org/licenses/gpl.html"));
@@ -43,12 +43,18 @@ namespace Hatchit {
 
             QTextBrowser* aboutBrowser = new QTextBrowser;
             aboutBrowser->setText(aboutText + "\n" + creditsText);
-            m_aboutPane = new CollapsePane("About", aboutBrowser, false);
-
-   
+            m_aboutPane = new CollapsePane("About", aboutBrowser);
+            m_aboutPane->setCollapseState(CollapseState::ExpandedDisabled);
+            
 
             m_mainLayout = new QVBoxLayout;
             m_mainLayout->addWidget(m_aboutPane);
+        }
+
+        void AboutDialog::keyPressEvent(QKeyEvent* e)
+        {
+            if (e->key() == Qt::Key::Key_Escape)
+                close();
         }
 
 
@@ -64,14 +70,13 @@ namespace Hatchit {
                     license.open(QIODevice::ReadOnly);
                     browser->setText(license.readAll());
 
-                    m_collapsePane = new CollapsePane(tr("License"), browser, false);
+                    m_collapsePane = new CollapsePane(tr("License"), browser);
                 }
                 else
-                {
-                    m_collapsePane = new CollapsePane(tr("License"), m_webView, false);
-                }
-
+                    m_collapsePane = new CollapsePane(tr("License"), m_webView);
                 
+
+                m_collapsePane->setCollapseState(CollapseState::ExpandedDisabled);
                 m_mainLayout->addWidget(m_collapsePane);
                 m_mainLayout->addStretch();
                 setLayout(m_mainLayout);

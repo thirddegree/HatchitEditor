@@ -1,8 +1,7 @@
 
 * {
 	color: silver;
-	font-family: Ubuntu, Consolas;
-	
+	font-family: "Ubuntu", "Consolas";
 }
 
 QMainWindow {
@@ -16,7 +15,6 @@ QMainWindow {
 QMenuBar {
 	background-color: #43443A;
 	border: 1px solid black;
-	font-size: 14px;
 }
 
 QMenuBar::item {
@@ -30,6 +28,7 @@ QMenuBar
 {
 	background-color: #43443A;
 	color: silver;
+	font-size: 14px;
 }
 
 QMenuBar::item
@@ -241,12 +240,34 @@ image: url(:icons/collapsed.png);
 }
 #CollapseCheck::indicator:unchecked:disabled
 {
-image: url(:icons/expanded.png);
+image: url(:icons/expanded_disabled.png);
 }
 
 QWidget#CollapsePane {
 	background-color: #32332B;
-	border-radius: 5px;
+	border-radius: 8px;
 	spacing: 1px;
+}
+
+QWidget#CollapsePaneHeader {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 #4c4c4c, stop:0.12 #595959, stop:0.25 #666666, stop:0.25 #474747, stop:0.48 #000000,
+				 stop:0.50 #000000, stop:0.52 #000000,
+				 stop:0.55 #000000,  stop:0.62 #000000, stop:1.00 #000000);
+	border-radius: 8px;
+	padding-left: 6px;
 	min-height: 28px;
+	max-height: 28px;
+}
+
+QWidget#CollapsePaneHeader:hover {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 #888888, stop:0.12 #757575, stop:0.25 #737373, stop:0.25 #5C5C5C, stop:0.48 #000000,
+				 stop:0.50 #000000, stop:0.52 #000000,
+				 stop:0.55 #000000,  stop:0.62 #000000, stop:1.00 #000000);
+}
+
+QLabel#CollapsePaneHeaderTitle {
+	font-family: "Arial Black";
+	font-size: 12px;
 }

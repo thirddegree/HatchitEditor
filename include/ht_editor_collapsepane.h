@@ -17,32 +17,60 @@
 #include <QWidget>
 #include <QVBoxLayout>
 #include <QCheckBox>
-#include <QPropertyAnimation>
+#include <QLabel>
+#include <QEvent>
 
 namespace Hatchit {
 
     namespace Editor {
 
+        enum class CollapseState
+        {
+            Collapsed,
+            Expanded,
+            CollapsedDisabled,
+            ExpandedDisabled
+        };
+
+        class CollapsePane;
+        class CollapsePaneHeader : public QWidget
+        {
+            Q_OBJECT
+        public:
+            CollapsePaneHeader(const QString& title, CollapsePane* parent, CollapseState state = CollapseState::Collapsed);
+
+            void setCollapseState(CollapseState state);
+
+        protected:
+            void paintEvent(QPaintEvent* e);
+            void enterEvent(QEvent* e);
+            void leaveEvent(QEvent* e);
+            void mousePressEvent(QMouseEvent* e);
+
+        private:
+            QLabel*         m_title;
+            QCheckBox*      m_toggle;
+            CollapseState   m_state;
+        };
+
         class CollapsePane : public QWidget
         {
             Q_OBJECT
         public:
-            CollapsePane(const QString& title, QWidget* contents, bool collapsed = true, QWidget* parent = 0);
+            CollapsePane(const QString& title, QWidget* contents, QWidget* parent = 0);
 
+            void setCollapseState(CollapseState state);
 
         protected:
             void paintEvent(QPaintEvent* e);
 
         private slots:
-            void OnToggle(int);
+            void onToggle(int);
 
         private:
-            QWidget*        m_contents;
-            QString         m_title;
-            QCheckBox*      m_button;
-            QVBoxLayout*    m_layout;
-            QPropertyAnimation* m_collapseAnimation;
-            bool            m_collapsed;
+            CollapsePaneHeader* m_header;
+            QWidget*            m_contents;
+            QVBoxLayout*        m_layout;
         };
 
     }
