@@ -1,0 +1,9 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+    <file>../icons/collapsed.png</file>
+    <file>../icons/expanded.png</file>
+    <file>../icons/collapsed_hover.png</file>
+    <file>../icons/expanded_hover.png</file>
+    <file>../icons/expanded_disabled.png</file>
+</qresource>
+</RCC>

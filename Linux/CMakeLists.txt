@@ -31,24 +31,30 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
 #Find the QtWidgets library
-find_package(Qt5Widgets)
+find_package(Qt5 COMPONENTS Core Gui Multimedia Network OpenGL Script Svg WebKit WebKitWidgets Xml UiTools)
 
 include_directories("../include/"
                     "../Hatchit/HatchitCore/include/"
+                    "../Hatchit/HatchitResource/include"
+                    "../Hatchit/HatchitGame/include"
                     "../Hatchit/ThirdParty/inih/")
 
 file(GLOB HT_EDITOR_INC ../include/*.h)
 file(GLOB HT_EDITOR_SRC ../source/*.cpp)
 
 #Tell CMake to create the main HatchitEditor executable
-add_executable(HatchitEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC})
+add_executable(HatchitEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ../source/HatchitEditor.qrc)
 
 add_custom_command(TARGET HatchitEditor POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy
                    ${PROJECT_SOURCE_DIR}/../stylesheets/HatchitEditor.qss $<TARGET_FILE_DIR:HatchitEditor>)
+add_custom_command(TARGET HatchitEditor POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy
+                   ${PROJECT_SOURCE_DIR}/../LICENSE.GPLv3 $<TARGET_FILE_DIR:HatchitEditor>)
 
 #Use the widgets module from Qt5.
-target_link_libraries(HatchitEditor Qt5::Widgets HatchitCore)
+target_link_libraries(HatchitEditor Qt5::Core Qt5::Gui Qt5::Network Qt5::OpenGL
+  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore)
 
 #install
 
