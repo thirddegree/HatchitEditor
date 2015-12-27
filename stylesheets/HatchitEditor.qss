@@ -1,7 +1,7 @@
 
 * {
 	color: silver;
-	font-family: "Ubuntu", "Consolas";
+	font-family: "Ubuntu", "Arial";
 }
 
 QMainWindow {

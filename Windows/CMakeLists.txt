@@ -26,7 +26,10 @@ configure_file (
 
 add_subdirectory("${PROJECT_SOURCE_DIR}/../Hatchit/Windows/HatchitCore" "${CMAKE_CURRENT_BINARY_DIR}/HatchitCore")
 add_subdirectory("${PROJECT_SOURCE_DIR}/../Hatchit/Windows/HatchitResource" "${CMAKE_CURRENT_BINARY_DIR}/HatchitResource")
+add_subdirectory("${PROJECT_SOURCE_DIR}/../Hatchit/Windows/HatchitMath" "${CMAKE_CURRENT_BINARY_DIR}/HatchitMath")
 add_subdirectory("${PROJECT_SOURCE_DIR}/../Hatchit/Windows/HatchitGame" "${CMAKE_CURRENT_BINARY_DIR}/HatchitGame")
+
+set_target_properties(HatchitCore HatchitResource HatchitMath HatchitGame PROPERTIES FOLDER Hatchit)
 
 #Find QtWidgets library
 find_package(Qt5 COMPONENTS Core Gui Multimedia Network OpenGL Script Svg WebKit WebKitWidgets Xml UiTools)
@@ -34,6 +37,7 @@ find_package(Qt5 COMPONENTS Core Gui Multimedia Network OpenGL Script Svg WebKit
 include_directories("../include/"
                     "../Hatchit/HatchitCore/include/"
                     "../Hatchit/HatchitResource/include/"
+                    "../Hatchit/HatchitMath/include/"
                     "../Hatchit/HatchitGame/include/"
                     "../Hatchit/ThirdParty/assimp/include"
                     "../Hatchit/ThirdParty/SDL2/include"
@@ -50,7 +54,7 @@ add_definitions(-D_UNICODE)
 
 source_group("Moc\\" FILES ${HT_EDITOR_MOC})
 
-add_executable(HatchitEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ${HT_EDITOR_MOC} ${PROJECT_SOURCE_DIR}/HatchitEditor.qrc ../stylesheets/HatchitEditor.qss)
+add_executable(HatchitEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ${HT_EDITOR_MOC} ${PROJECT_SOURCE_DIR}/../source/HatchitEditor.qrc ../stylesheets/HatchitEditor.qss)
 
 
 add_custom_command(TARGET HatchitEditor POST_BUILD
@@ -85,6 +89,9 @@ add_custom_command(TARGET HatchitEditor POST_BUILD
                   $<TARGET_FILE_DIR:HatchitResource>/HatchitResource.dll $<TARGET_FILE_DIR:HatchitEditor>)
 add_custom_command(TARGET HatchitEditor POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy
+                  $<TARGET_FILE_DIR:HatchitMath>/HatchitMath.dll $<TARGET_FILE_DIR:HatchitEditor>)
+add_custom_command(TARGET HatchitEditor POST_BUILD
+                   COMMAND ${CMAKE_COMMAND} -E copy
                   $<TARGET_FILE_DIR:HatchitGame>/HatchitGame.dll $<TARGET_FILE_DIR:HatchitEditor>)
 add_custom_command(TARGET HatchitEditor POST_BUILD
                    COMMAND ${CMAKE_COMMAND} -E copy
@@ -98,4 +105,4 @@ add_custom_command(TARGET HatchitEditor POST_BUILD
                                  
 #Use the widgets module from Qt5.
 target_link_libraries(HatchitEditor Qt5::Core Qt5::Gui Qt5::Network Qt5::OpenGL 
-  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitGame assimp SDL2)
+  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitMath HatchitGame assimp SDL2)
