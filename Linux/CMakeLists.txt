@@ -20,7 +20,7 @@ endif()
 #CMake settings to source code
 configure_file (
     "../include/ht_editor_version.h.in"
-    "../../include/ht_editor_version.h"
+    "${PROJECT_SOURCE_DIR}/../include/ht_editor_version.h"
 )
 
 add_subdirectory("${PROJECT_SOURCE_DIR}/../Hatchit/Linux" "${CMAKE_CURRENT_BINARY_DIR}/Hatchit/")
