@@ -30,6 +30,9 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
+
+set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
+
 #Find the QtWidgets library
 find_package(Qt5 COMPONENTS Core Gui Multimedia Network OpenGL Script Svg WebKit WebKitWidgets Xml UiTools)
 
@@ -37,6 +40,8 @@ include_directories("../include/"
                     "../Hatchit/HatchitCore/include/"
                     "../Hatchit/HatchitResource/include"
                     "../Hatchit/HatchitMath/include"
+                    "../Hatchit/HatchitGraphics/include"
+                    "../Hatchit/HatchitGraphics/include/opengl"
                     "../Hatchit/HatchitGame/include"
                     "../Hatchit/ThirdParty/inih/")
 
@@ -55,7 +60,7 @@ add_custom_command(TARGET HatchitEditor POST_BUILD
 
 #Use the widgets module from Qt5.
 target_link_libraries(HatchitEditor Qt5::Core Qt5::Gui Qt5::Network Qt5::OpenGL
-  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitMath HatchitGame )
+  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitMath HatchitGame SDL2 assimp tinyxml2 GLEW GL GLU)
 
 #install
 
