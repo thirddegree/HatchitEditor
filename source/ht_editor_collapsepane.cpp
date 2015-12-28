@@ -18,6 +18,7 @@
 #include <QStyleOption>
 #include <QPainter>
 #include <QMouseEvent>
+#include <QSizePolicy>
 
 namespace Hatchit {
 
@@ -114,14 +115,15 @@ namespace Hatchit {
             m_layout = new QVBoxLayout;
             m_contents = contents;
             m_header = new CollapsePaneHeader(title, this);
-           
-            
+
+
             m_layout->setContentsMargins(4, 4, 4, 4);
             m_layout->addWidget(m_header);
             m_layout->addWidget(m_contents);
-            
+
 
             setLayout(m_layout);
+
         }
 
         void CollapsePane::onToggle(int state)
@@ -132,7 +134,7 @@ namespace Hatchit {
             else {
                 m_contents->setVisible(true);
             }
-                
+
         }
 
         void CollapsePane::paintEvent(QPaintEvent* e)
