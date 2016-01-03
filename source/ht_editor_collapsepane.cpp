@@ -120,10 +120,9 @@ namespace Hatchit {
             m_layout->setContentsMargins(4, 4, 4, 4);
             m_layout->addWidget(m_header);
             m_layout->addWidget(m_contents);
-
-
             setLayout(m_layout);
 
+            setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         }
 
         void CollapsePane::onToggle(int state)

@@ -24,6 +24,7 @@ configure_file (
 )
 
 add_subdirectory("${PROJECT_SOURCE_DIR}/../Hatchit/Linux" "${CMAKE_CURRENT_BINARY_DIR}/Hatchit/")
+add_subdirectory("${PROJECT_SOURCE_DIR}/../HatchitForms/Linux" "${CMAKE_CURRENT_BINARY_DIR}/HatchitForms/")
 
 #Instruct CMake to run moc automatically when needed
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -60,9 +61,7 @@ add_custom_command(TARGET HatchitEditor POST_BUILD
 
 #Use the widgets module from Qt5.
 target_link_libraries(HatchitEditor Qt5::Core Qt5::Gui Qt5::Network Qt5::OpenGL
-  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitMath HatchitGame SDL2 assimp tinyxml2 GLEW GL GLU)
-
-#install
+  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitMath HatchitGraphics HatchitGame HatchitForms SDL2 assimp tinyxml2 GLEW GL GLU)
 
 #install
 

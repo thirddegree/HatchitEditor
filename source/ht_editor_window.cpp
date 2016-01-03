@@ -16,7 +16,10 @@
 #include <ht_debug.h>
 #include <ht_editor_about.h>
 
+#ifdef HT_SYS_WINDOWS
 #include <ht_editor_dxview.h>
+#endif
+
 #include <ht_editor_glview.h>
 
 
@@ -30,7 +33,11 @@ namespace Hatchit {
             m_menuBar = new MenuBar;
             setMenuBar(m_menuBar);
 
+#ifdef HT_SYS_WINDOWS
+            m_view = new DXView;
+#else
             m_view = new GLView;
+#endif
             QWidget* w = new QWidget;
             QHBoxLayout* layout = new QHBoxLayout;
             layout->addWidget(m_view);
@@ -42,7 +49,7 @@ namespace Hatchit {
 
         void Window::OnFileNew()
         {
-            
+
         }
 
         void Window::OnFileOpen()

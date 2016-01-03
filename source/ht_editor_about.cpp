@@ -27,7 +27,6 @@ namespace Hatchit {
         AboutDialog::AboutDialog(QWidget* widget)
             : QDialog(widget)
         {
-            setMinimumSize(1080, 720);
             setWindowTitle(tr("About Hatchit Editor"));
 
             m_webView = new QWebView(this);
@@ -44,11 +43,12 @@ namespace Hatchit {
             QTextBrowser* aboutBrowser = new QTextBrowser;
             aboutBrowser->setText(aboutText + "\n" + creditsText);
             m_aboutPane = new CollapsePane("About", aboutBrowser);
-            m_aboutPane->setCollapseState(CollapseState::ExpandedDisabled);
+            //m_aboutPane->setCollapseState(CollapseState::ExpandedDisabled);
 
 
             m_mainLayout = new QVBoxLayout;
             m_mainLayout->addWidget(m_aboutPane);
+            m_mainLayout->setAlignment(m_aboutPane, Qt::AlignTop);
         }
 
         void AboutDialog::keyPressEvent(QKeyEvent* e)
@@ -76,8 +76,9 @@ namespace Hatchit {
                     m_collapsePane = new CollapsePane(tr("License"), m_webView);
 
 
-                m_collapsePane->setCollapseState(CollapseState::ExpandedDisabled);
+                //m_collapsePane->setCollapseState(CollapseState::ExpandedDisabled);
                 m_mainLayout->addWidget(m_collapsePane);
+                m_mainLayout->setAlignment(m_collapsePane, Qt::AlignTop);
                 setLayout(m_mainLayout);
 
             }
