@@ -16,6 +16,10 @@
 #include <ht_debug.h>
 #include <ht_editor_about.h>
 
+#include <ht_editor_dxview.h>
+#include <ht_editor_glview.h>
+
+
 namespace Hatchit {
 
     namespace Editor {
@@ -26,6 +30,12 @@ namespace Hatchit {
             m_menuBar = new MenuBar;
             setMenuBar(m_menuBar);
 
+            m_view = new GLView;
+            QWidget* w = new QWidget;
+            QHBoxLayout* layout = new QHBoxLayout;
+            layout->addWidget(m_view);
+            w->setLayout(layout);
+            setCentralWidget(w);
 
             ConnectMenuSlots();
         }

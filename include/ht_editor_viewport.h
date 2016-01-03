@@ -3,7 +3,7 @@
 **    Copyright(c) 2015 Third-Degree
 **
 **    GNU General Public License
-**    This file may be used under the terms of 
+**    This file may be used under the terms of
 **    the GNU General Public License version 3 as published by the Free
 **    Software Foundation and appearing in the file LICENSE.GPLv3 included
 **    in the packaging of this file. Please review the following information
@@ -14,35 +14,20 @@
 
 #pragma once
 
-#include <ht_editor_menubar.h>
-
-#include <QMainWindow>
+#include <QWidget>
 
 namespace Hatchit {
 
     namespace Editor {
 
-        class Window : public QMainWindow
+        class Viewport : public QWidget
         {
-            Q_OBJECT
         public:
-            Window(QWidget* parent = 0);
-
-        protected slots:
-            void OnFileNew();
-            void OnFileOpen();
-            void OnFileSave();
-            void OnFileExit();
-
-            void OnHelpAbout();
+            Viewport(QWidget* parent = 0);
 
         private:
-            MenuBar* m_menuBar;
-            QWidget* m_view;
 
-        private:
-            void ConnectMenuSlots();
         };
-
     }
+
 }
