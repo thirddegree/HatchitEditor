@@ -12,14 +12,15 @@
 **
 **/
 
-#include <ht_editor_window.h>
 #include <ht_os.h>
 #include <QApplication>
 #include <QFile>
 #include <QStyleFactory>
+#include <QPalette>
+#include <QMainWindow>
 
 using namespace Hatchit;
-using namespace Hatchit::Editor;
+//using namespace Hatchit::Editor;
 
 int main(int argc, char* argv[])
 {
@@ -35,7 +36,7 @@ int main(int argc, char* argv[])
     palette.setColor(QPalette::Disabled, QPalette::Light, Qt::gray);
     app.setPalette(palette);
 
-    Window window;
+    QMainWindow window;
 
     QFile stylesheet(QString::fromStdString(Hatchit::Core::os_exec_dir()) + "HatchitEditor.qss");
     if (stylesheet.open(QIODevice::ReadOnly))
