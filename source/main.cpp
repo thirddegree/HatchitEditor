@@ -19,8 +19,10 @@
 #include <QPalette>
 #include <QMainWindow>
 
+#include <ht_editor_resourcedatabase.h>
+
 using namespace Hatchit;
-//using namespace Hatchit::Editor;
+using namespace Hatchit::Editor;
 
 int main(int argc, char* argv[])
 {
@@ -36,7 +38,7 @@ int main(int argc, char* argv[])
     palette.setColor(QPalette::Disabled, QPalette::Light, Qt::gray);
     app.setPalette(palette);
 
-    QMainWindow window;
+    ResourceDatabase window;
 
     QFile stylesheet(QString::fromStdString(Hatchit::Core::os_exec_dir()) + "HatchitEditor.qss");
     if (stylesheet.open(QIODevice::ReadOnly))

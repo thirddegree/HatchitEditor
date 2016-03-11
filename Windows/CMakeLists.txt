@@ -109,6 +109,7 @@ set_target_properties(HatchitCore HatchitResource HatchitMath HatchitGraphics Ha
 find_package(Qt5 COMPONENTS Core Gui Multimedia Network OpenGL Script Svg Xml UiTools)
 
 include_directories("../include/"
+                    "../include/qjsonmodel/"
                     "../Hatchit/HatchitCore/include/"
                     "../Hatchit/HatchitResource/include/"
                     "../Hatchit/HatchitMath/include/"
@@ -128,14 +129,18 @@ link_directories("${PROJECT_SOURCE_DIR}/../Hatchit/Windows/_build/dependencies/a
                  "${PROJECT_SOURCE_DIR}/../Hatchit/Windows/_build/dependencies/Python/lib/$(Configuration)/")
 
 file(GLOB HT_EDITOR_INC ../include/*.h)
+file(GLOB QJSONMODEL_INC ../include/qjsonmodel/*.h)
 file(GLOB HT_EDITOR_SRC ../source/*.cpp)
+file(GLOB QJSONMODEL_SRC ../source/qjsonmodel/*.cpp)
 file(GLOB HT_EDITOR_MOC /_build/${PLATFORM_TOOLSET}/moc/*.cpp)
 
 add_definitions(-D_UNICODE)
 
 source_group("Moc\\" FILES ${HT_EDITOR_MOC})
+source_group("Header Files\\qjsonmodel" FILES ${QJSONMODEL_INC})
+source_group("Source Files\\qjsonmodel" FILES ${QJSONMODEL_SRC})
 
-add_executable(HatchitEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ${HT_EDITOR_MOC} ${PROJECT_SOURCE_DIR}/../source/HatchitEditor.qrc ../stylesheets/HatchitEditor.qss)
+add_executable(HatchitEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ${QJSONMODEL_INC} ${QJSONMODEL_SRC} ${HT_EDITOR_MOC} ${PROJECT_SOURCE_DIR}/../source/HatchitEditor.qrc ../stylesheets/HatchitEditor.qss)
 
 set_target_properties(HatchitEditor
                       PROPERTIES
