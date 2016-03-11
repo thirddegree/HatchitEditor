@@ -31,8 +31,27 @@ QJsonModel::QJsonModel(QObject *parent) :
     mRootItem = new QJsonTreeItem;
     mHeaders.append("key");
     mHeaders.append("value");
+}
 
+Qt::ItemFlags QJsonModel::flags(const QModelIndex& index) const
+{
+    if (!index.isValid())
+        return 0;
 
+    
+    QJsonTreeItem* item = static_cast<QJsonTreeItem*>(index.internalPointer());
+    if (item)
+    {
+        if (item->type() != QJsonValue::Array)
+        {
+            if (index.column() == 1)
+                return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
+        }
+    }
+   
+    
+
+    return QAbstractItemModel::flags(index);
 }
 
 bool QJsonModel::load(const QString &fileName)
@@ -71,6 +90,54 @@ bool QJsonModel::loadJson(const QByteArray &json)
     return false;
 }
 
+bool QJsonModel::write(const QString & fileName)
+{
+    /*Need to build a QJsonDocument containing the modified data*/
+    QJsonDocument document;
+    
+    QJsonTreeItem* parent = mRootItem->child(0);
+    if (mDocument.isObject())
+    {
+        document.setObject(buildObject(parent));
+    }
+    else if (mDocument.isArray())
+    {
+        document.setArray(buildArray(parent));
+    }
+
+    QFile file(fileName);
+    if (file.open(QIODevice::WriteOnly))
+    {
+        file.write(document.toJson());
+        file.close();
+        return true;
+    }
+
+    return false;
+}
+
+QJsonObject QJsonModel::buildObject(QJsonTreeItem * item)
+{
+    QJsonObject obj;
+    obj.insert(item->key(), item->value());
+    
+    return obj;
+}
+
+QJsonArray QJsonModel::buildArray(QJsonTreeItem * item)
+{
+    QJsonArray array;
+    
+    array.append(buildObject(item));
+    int childCount = item->childCount();
+    for (int i = 0; i < childCount; i++)
+    {
+        array.append(buildArray(item->child(i)));
+    }
+
+    return array;
+}
+
 
 QVariant QJsonModel::data(const QModelIndex &index, int role) const
 {
@@ -80,7 +147,7 @@ QVariant QJsonModel::data(const QModelIndex &index, int role) const
 
 
     QJsonTreeItem *item = static_cast<QJsonTreeItem*>(index.internalPointer());
-
+    
 
     if ((role == Qt::DecorationRole) && (index.column() == 0)){
 
@@ -128,9 +195,15 @@ QModelIndex QJsonModel::index(int row, int column, const QModelIndex &parent) co
     else
         parentItem = static_cast<QJsonTreeItem*>(parent.internalPointer());
 
+    
+
     QJsonTreeItem *childItem = parentItem->child(row);
     if (childItem)
+    {
+        if (column == 1)
+            childItem->setEditable(true);
         return createIndex(row, column, childItem);
+    }
     else
         return QModelIndex();
 }
@@ -173,3 +246,28 @@ void QJsonModel::setIcon(const QJsonValue::Type &type, const QIcon &icon)
 {
     mTypeIcons.insert(type,icon);
 }
+
+bool QJsonModel::setData(const QModelIndex & index, const QVariant & value, int role)
+{
+    if (role != Qt::EditRole)
+        return false;
+
+    if (value.toString().isEmpty())
+        return false;
+
+    QJsonTreeItem* item = static_cast<QJsonTreeItem*>(index.internalPointer());
+    if (item)
+    {
+        if (index.column() == 0)
+            item->setKey(value.toString());
+        if (index.column() == 1)
+            item->setValue(value.toString());
+
+        emit dataChanged(index, index);
+        
+        return true;
+    }
+
+    return false;
+}
+

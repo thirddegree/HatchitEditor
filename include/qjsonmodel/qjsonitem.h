@@ -17,13 +17,13 @@ public:
     void setKey(const QString& key);
     void setValue(const QString& value);
     void setType(const QJsonValue::Type& type);
+    void setEditable(bool canEdit);
     QString key() const;
     QString value() const;
     QJsonValue::Type type() const;
-
+    bool isEditable() const;
 
     static QJsonTreeItem* load(const QJsonValue& value, QJsonTreeItem * parent = 0);
-
 protected:
 
 
@@ -31,7 +31,7 @@ private:
     QString mKey;
     QString mValue;
     QJsonValue::Type mType;
-
+    bool    mEditable;
     QList<QJsonTreeItem*> mChilds;
     QJsonTreeItem * mParent;
 

@@ -23,7 +23,7 @@ QJsonTreeItem::QJsonTreeItem(QJsonTreeItem *parent)
 {
 
     mParent = parent;
-
+    mEditable = false;
 
 }
 
@@ -76,6 +76,11 @@ void QJsonTreeItem::setType(const QJsonValue::Type &type)
     mType = type;
 }
 
+void QJsonTreeItem::setEditable(bool canEdit)
+{
+    mEditable = canEdit;
+}
+
 QString QJsonTreeItem::key() const
 {
     return mKey;
@@ -91,12 +96,18 @@ QJsonValue::Type QJsonTreeItem::type() const
     return mType;
 }
 
+bool QJsonTreeItem::isEditable() const
+{
+    return mEditable;
+}
+
 QJsonTreeItem* QJsonTreeItem::load(const QJsonValue& value, QJsonTreeItem* parent)
 {
 
 
     QJsonTreeItem * rootItem = new QJsonTreeItem(parent);
     rootItem->setKey("root");
+   
 
     if ( value.isObject())
     {

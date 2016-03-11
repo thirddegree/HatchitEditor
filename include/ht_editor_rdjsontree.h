@@ -31,6 +31,8 @@ namespace Hatchit
 
             void load(const QString& filePath);
 
+            void write(const QString& filePath);
+
         private:
             QJsonModel* m_model;
         };

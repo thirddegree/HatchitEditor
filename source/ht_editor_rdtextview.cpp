@@ -14,14 +14,16 @@
 
 #include <ht_editor_rdtextview.h>
 
+#include <QLayout>
+
 namespace Hatchit
 {
     namespace Editor
     {
         ResourceDatabaseTextView::ResourceDatabaseTextView(QWidget* parent)
-            : QTextBrowser(parent)
+            : QTextEdit(parent)
         {
-
+            this->setFont(QFont("Consolas"));
         }
     }
 }

@@ -36,5 +36,10 @@ namespace Hatchit
         {
             m_model->load(filePath);
         }
+
+        void ResourceDatabaseJsonTree::write(const QString& filePath)
+        {
+            m_model->write(filePath);
+        }
     }
 }

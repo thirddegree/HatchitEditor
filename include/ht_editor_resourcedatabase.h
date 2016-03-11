@@ -19,6 +19,7 @@
 #include <QMenu>
 #include <QBoxLayout>
 #include <QSplitter>
+#include <QCheckBox>
 
 #include <ht_editor_rdtreeview.h>
 #include <ht_editor_rdtextview.h>
@@ -36,9 +37,11 @@ namespace Hatchit
 
         protected slots:
             void OnFileMenuOpen();
+            void OnFileSave();
 
             void OnFileSelection(const QItemSelection& selected,
                                  const QItemSelection& deselected);
+            void OnTextReadOnly(int state);
 
         private:
             QMenuBar*                   m_menuBar;
@@ -48,6 +51,10 @@ namespace Hatchit
             ResourceDatabaseTreeView*   m_treeView;
             ResourceDatabaseTextView*   m_textView;
             ResourceDatabaseJsonTree*   m_jsonTree;
+            QCheckBox*                  m_readOnlyCheck;
+            QString                     m_activeFile;
+
+            QAction*                    m_saveAction;
 
 
             static const QString ASSET_DIRECTORY_CHECK;

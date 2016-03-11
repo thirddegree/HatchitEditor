@@ -32,7 +32,11 @@ namespace Hatchit
             m_fileMenu = new QMenu(tr("File"));
             QAction* open = new QAction(tr("Open"), nullptr);
             connect(open, SIGNAL(triggered()), this, SLOT(OnFileMenuOpen()));
+            m_saveAction = new QAction(tr("Save"), nullptr);
+            m_saveAction->setShortcut(QKeySequence::Save);
+            connect(m_saveAction, SIGNAL(triggered()), this, SLOT(OnFileSave()));
             m_fileMenu->addAction(open);
+            m_fileMenu->addAction(m_saveAction);
 
             m_menuBar->addMenu(m_fileMenu);
 
@@ -44,8 +48,18 @@ namespace Hatchit
             connect(m_treeView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
                 this, SLOT(OnFileSelection(const QItemSelection&, const QItemSelection&)));
 
+            m_readOnlyCheck = new QCheckBox(tr("Read-only"));
+            connect(m_readOnlyCheck, SIGNAL(stateChanged(int)), this,
+                SLOT(OnTextReadOnly(int)));
             m_splitter->addWidget(m_treeView);
-            m_splitter->addWidget(m_textView);
+
+            QVBoxLayout* textViewLayout = new QVBoxLayout;
+            textViewLayout->addWidget(m_textView);
+            textViewLayout->addWidget(m_readOnlyCheck, 0, Qt::AlignRight);
+
+            QWidget* textWidgetContainer = new QWidget;
+            textWidgetContainer->setLayout(textViewLayout);
+            m_splitter->addWidget(textWidgetContainer);
             m_splitter->addWidget(m_jsonTree);
 
             m_layout = new QVBoxLayout;
@@ -74,7 +88,13 @@ namespace Hatchit
                     m_jsonTree->loadJson(text);
                     m_textView->setText(text);
                 }
+                m_activeFile = path;
             }
+        }
+
+        void ResourceDatabase::OnTextReadOnly(int state)
+        {
+            m_textView->setReadOnly(state == Qt::Checked ? true : false);
         }
 
         void ResourceDatabase::OnFileMenuOpen()
@@ -96,6 +116,11 @@ namespace Hatchit
                 }
             }
 
+        }
+
+        void ResourceDatabase::OnFileSave()
+        {
+            m_jsonTree->write(m_activeFile);
         }
     }
 }

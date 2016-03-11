@@ -14,13 +14,14 @@
 
 #pragma once
 
-#include <QTextBrowser>
+#include <QTextEdit>
+#include <QCheckBox>
 
 namespace Hatchit
 {
     namespace Editor
     {
-        class ResourceDatabaseTextView : public QTextBrowser
+        class ResourceDatabaseTextView : public QTextEdit
         {
         public:
             ResourceDatabaseTextView(QWidget* parent = 0);

@@ -29,6 +29,7 @@ namespace Hatchit
             this->hideColumn(1);
             this->hideColumn(2);
             
+            
         }
 
         void ResourceDatabaseTreeView::setDirectory(const QDir& directory)

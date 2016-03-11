@@ -14,6 +14,10 @@ public:
     bool load(const QString& fileName);
     bool load(QIODevice * device);
     bool loadJson(const QByteArray& json);
+    bool write(const QString& fileName);
+    
+    QJsonObject buildObject(QJsonTreeItem* item);
+    QJsonArray  buildArray(QJsonTreeItem* item);
     QVariant data(const QModelIndex &index, int role) const;
     QVariant headerData(int section, Qt::Orientation orientation, int role) const;
     QModelIndex index(int row, int column,const QModelIndex &parent = QModelIndex()) const;
@@ -22,7 +26,10 @@ public:
     int columnCount(const QModelIndex &parent = QModelIndex()) const;
     void setIcon(const QJsonValue::Type& type, const QIcon& icon);
 
+    bool setData(const QModelIndex &index, const QVariant &value,
+        int role = Qt::EditRole);
 
+    Qt::ItemFlags flags(const QModelIndex& index) const;
 
 private:
     QJsonTreeItem * mRootItem;
