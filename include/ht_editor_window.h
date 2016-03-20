@@ -15,6 +15,8 @@
 #pragma once
 
 #include <ht_editor_menubar.h>
+#include <ht_editor_scenetree.h>
+#include <ht_editor_projectview.h>
 
 #include <QMainWindow>
 
@@ -37,8 +39,10 @@ namespace Hatchit {
             void OnHelpAbout();
 
         private:
-            MenuBar* m_menuBar;
-            QWidget* m_view;
+            MenuBar*        m_menuBar;
+            QWidget*        m_view;
+            SceneTree*      m_sceneTree;
+            ProjectView*    m_projView;
 
         private:
             void ConnectMenuSlots();

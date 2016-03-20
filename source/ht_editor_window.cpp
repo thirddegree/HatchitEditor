@@ -22,6 +22,8 @@
 
 #include <ht_editor_glview.h>
 
+#include <QDockWidget>
+#include <QFileDialog>
 
 namespace Hatchit {
 
@@ -38,6 +40,16 @@ namespace Hatchit {
 #else
             m_view = new GLView;
 #endif
+            QDockWidget* sceneDock = new QDockWidget(tr("Scene View"));
+            m_sceneTree = new SceneTree;
+            sceneDock->setWidget(m_sceneTree);
+            addDockWidget(Qt::LeftDockWidgetArea, sceneDock);
+
+            QDockWidget* projViewDock = new QDockWidget(tr("Project View"));
+            m_projView = new ProjectView;
+            projViewDock->setWidget(m_projView);
+            addDockWidget(Qt::BottomDockWidgetArea, projViewDock);
+
             QWidget* w = new QWidget;
             QHBoxLayout* layout = new QHBoxLayout;
             layout->addWidget(m_view);
@@ -54,7 +66,12 @@ namespace Hatchit {
 
         void Window::OnFileOpen()
         {
-
+            QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
+                    "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+            if(!dir.isEmpty())
+            {
+                m_projView->SetViewDirectory(dir);
+            }
         }
 
         void Window::OnFileSave()

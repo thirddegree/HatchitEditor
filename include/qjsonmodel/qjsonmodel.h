@@ -11,6 +11,9 @@ class QJsonModel : public QAbstractItemModel
     Q_OBJECT
 public:
     explicit QJsonModel(QObject *parent = 0);
+    
+    virtual ~QJsonModel() { };
+
     bool load(const QString& fileName);
     bool load(QIODevice * device);
     bool loadJson(const QByteArray& json);

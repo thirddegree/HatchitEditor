@@ -24,7 +24,6 @@ configure_file (
 )
 
 add_subdirectory("${PROJECT_SOURCE_DIR}/../Hatchit/Linux" "${CMAKE_CURRENT_BINARY_DIR}/Hatchit/")
-add_subdirectory("${PROJECT_SOURCE_DIR}/../HatchitForms/Linux" "${CMAKE_CURRENT_BINARY_DIR}/HatchitForms/")
 
 #Instruct CMake to run moc automatically when needed
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
@@ -38,16 +37,21 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 find_package(Qt5 COMPONENTS Core Gui Multimedia Network OpenGL Script Svg WebKit WebKitWidgets Xml UiTools)
 
 include_directories("../include/"
+		    "../include/qjsonmodel/"
                     "../Hatchit/HatchitCore/include/"
                     "../Hatchit/HatchitResource/include"
                     "../Hatchit/HatchitMath/include"
+                    "../Hatchit/HatchitMath/source/inline"
                     "../Hatchit/HatchitGraphics/include"
                     "../Hatchit/HatchitGraphics/include/opengl"
                     "../Hatchit/HatchitGame/include"
-                    "../Hatchit/ThirdParty/inih/")
+	                  "../Hatchit/HatchitGame/include/xcb"
+		                "../Hatchit/HatchitGame/include/sdl"
+                    "../Hatchit/ThirdParty/inih/"
+                    "../Hatchit/ThirdParty/cppformat/")
 
-file(GLOB HT_EDITOR_INC ../include/*.h)
-file(GLOB HT_EDITOR_SRC ../source/*.cpp)
+file(GLOB HT_EDITOR_INC ../include/*.h ../include/qjsonmodel/*.h)
+file(GLOB HT_EDITOR_SRC ../source/*.cpp ../source/qjsonmodel/*.cpp)
 
 #Tell CMake to create the main HatchitEditor executable
 add_executable(HatchitEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ../source/HatchitEditor.qrc)
@@ -61,7 +65,7 @@ add_custom_command(TARGET HatchitEditor POST_BUILD
 
 #Use the widgets module from Qt5.
 target_link_libraries(HatchitEditor Qt5::Core Qt5::Gui Qt5::Network Qt5::OpenGL
-  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitMath HatchitGraphics HatchitGame HatchitForms SDL2 assimp tinyxml2 GLEW GL GLU)
+  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitMath HatchitGraphics HatchitGame SDL2 assimp tinyxml2 GLEW GL GLU)
 
 #install
 
