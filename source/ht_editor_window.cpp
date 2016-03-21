@@ -105,6 +105,12 @@ namespace Hatchit {
             connect(m_menuBar->GetHelpMenu()->About(), SIGNAL(triggered()),
                 this, SLOT(OnHelpAbout()));
         }
+
+        void Window::setProjectPath(QString path)
+        {
+            m_projPath = path;
+            m_projView->SetViewDirectory(m_projPath);
+        }
     }
 
 }

@@ -18,8 +18,12 @@
 #include <QStyleFactory>
 #include <QPalette>
 #include <QMainWindow>
+#include <QDialog>
+#include <QStyle>
+#include <QDesktopWidget>
 
 #include <ht_editor_window.h>
+#include <ht_editor_launcher.h>
 
 using namespace Hatchit;
 using namespace Hatchit::Editor;
@@ -39,11 +43,25 @@ int main(int argc, char* argv[])
     app.setPalette(palette);
 
     Window window;
-
     QFile stylesheet(QString::fromStdString(Hatchit::Core::os_exec_dir()) + "HatchitEditor.qss");
     if (stylesheet.open(QIODevice::ReadOnly))
         window.setStyleSheet(stylesheet.readAll());
 
+    /*Create Launcher window and exec first to prompt user for project selection/creation.*/
+    Launcher dlg(&window);
+    dlg.setGeometry(
+            QStyle::alignedRect(
+                Qt::LeftToRight,
+                Qt::AlignCenter,
+                dlg.size(),
+                qApp->desktop()->availableGeometry()
+                )
+            );
+    int result = dlg.exec();
+    if(result == QDialog::Rejected)
+        return -1;
+
+    window.setProjectPath(dlg.ProjectPath());
     window.showMaximized();
     return app.exec();
 }

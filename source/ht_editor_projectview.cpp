@@ -25,7 +25,10 @@ namespace Hatchit
         {
             m_model = new QFileSystemModel;
             m_model->setRootPath(QDir::currentPath());
-
+                        
+            this->setViewMode(QListView::IconMode);            
+            this->setFlow(QListView::LeftToRight);
+            this->setWrapping(false);
             this->setUniformItemSizes(true);
             this->setModel(m_model);
         }

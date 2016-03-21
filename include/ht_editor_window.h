@@ -30,6 +30,9 @@ namespace Hatchit {
         public:
             Window(QWidget* parent = 0);
 
+
+            void setProjectPath(QString path);
+
         protected slots:
             void OnFileNew();
             void OnFileOpen();
@@ -43,7 +46,7 @@ namespace Hatchit {
             QWidget*        m_view;
             SceneTree*      m_sceneTree;
             ProjectView*    m_projView;
-
+            QString         m_projPath;
         private:
             void ConnectMenuSlots();
         };
