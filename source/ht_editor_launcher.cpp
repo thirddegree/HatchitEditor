@@ -33,6 +33,7 @@ namespace Hatchit
 
             m_createNew = new QPushButton(tr("Create New"));
             m_openExisting = new QPushButton(tr("Open Existing"));
+
             m_directoryEdit = new QLineEdit;
             m_directoryEdit->setText(QDir::homePath());
             m_directoryEdit->setReadOnly(true);

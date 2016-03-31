@@ -23,19 +23,75 @@ namespace Hatchit
         ProjectView::ProjectView(QWidget* parent)
             : QListView(parent)
         {
-            m_model = new QFileSystemModel;
-            m_model->setRootPath(QDir::currentPath());
-                        
-            this->setViewMode(QListView::IconMode);            
-            this->setFlow(QListView::LeftToRight);
-            this->setWrapping(false);
+            m_dirModel = new ProjectViewModel;
+
             this->setUniformItemSizes(true);
-            this->setModel(m_model);
+            this->setModel(m_dirModel);
+
+            connect(this, SIGNAL(clicked(const QModelIndex&)), SLOT(OnItemClicked(const QModelIndex&)));
+            connect(this, SIGNAL(doubleClicked(const QModelIndex&)), SLOT(OnItemDoubleClicked(const QModelIndex&)));
         }
 
         void ProjectView::SetViewDirectory(const QString& path)
         {
-            this->setRootIndex(m_model->setRootPath(path));
+            m_activeDirectory = path;
+
+            this->setRootIndex(m_dirModel->index(path));
+
+            emit ActiveDirectoryChanged(m_activeDirectory);
+        }
+
+
+        void ProjectView::SetRootDirectory(const QString& path)
+        {
+            m_rootDirectory = path;
+        }
+
+        void ProjectView::MoveToParentDirectory()
+        {
+            QDir dir(m_activeDirectory);
+            dir.cdUp();
+            m_activeDirectory = dir.absolutePath();
+
+            this->setRootIndex(m_dirModel->index(m_activeDirectory));
+
+            emit ActiveDirectoryChanged(m_activeDirectory);
+        }
+
+
+        void ProjectView::OnItemClicked(const QModelIndex& index)
+        {
+            QFileInfo info(m_dirModel->filePath(index));
+            if(info.isFile())
+            {
+                /*Handle each type of file*/
+                if(info.completeSuffix() == "png")
+                {
+                    emit ImageFileSelected(info.absoluteFilePath());
+                }               
+            }
+        }
+
+        void ProjectView::OnItemDoubleClicked(const QModelIndex& index)
+        {
+            QFileInfo info(m_dirModel->filePath(index));
+            if(info.isDir())
+            {
+                m_activeDirectory = m_dirModel->filePath(index);
+                this->setRootIndex(m_dirModel->index(m_activeDirectory));
+            
+                emit ActiveDirectoryChanged(m_activeDirectory);
+            }
+        }
+
+        QString ProjectView::ActiveDirectoryPath()
+        {
+            return m_activeDirectory;
+        }
+
+        QString ProjectView::RootDirectoryPath()
+        {
+            return m_rootDirectory;
         }
     }
 }

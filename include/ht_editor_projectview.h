@@ -16,6 +16,9 @@
 
 #include <QListView>
 #include <QFileSystemModel>
+#include <QDirModel>
+#include <QPushButton>
+#include <ht_editor_projectviewmodel.h>
 
 namespace Hatchit
 {
@@ -23,13 +26,30 @@ namespace Hatchit
     {
         class ProjectView : public QListView
         {
+          Q_OBJECT
         public:
             ProjectView(QWidget* parent = 0);
 
             void SetViewDirectory(const QString& path);
+            void SetRootDirectory(const QString& path);
+
+            QString RootDirectoryPath();
+            QString ActiveDirectoryPath();
+
+            void MoveToParentDirectory();
+
+        signals:
+            void ActiveDirectoryChanged(const QString&);
+            void ImageFileSelected(const QString&);
+    
+        public slots:
+            void OnItemClicked(const QModelIndex& index);
+            void OnItemDoubleClicked(const QModelIndex& index);
 
         private:
-            QFileSystemModel* m_model;
+            ProjectViewModel*   m_dirModel;    
+            QString             m_activeDirectory;
+            QString             m_rootDirectory;      
         };
     }
 }

@@ -24,7 +24,8 @@
 
 #include <QDockWidget>
 #include <QFileDialog>
-
+#include <QApplication>
+#include <QStyle>
 namespace Hatchit {
 
     namespace Editor {
@@ -46,9 +47,17 @@ namespace Hatchit {
             addDockWidget(Qt::LeftDockWidgetArea, sceneDock);
 
             QDockWidget* projViewDock = new QDockWidget(tr("Project View"));
-            m_projView = new ProjectView;
-            projViewDock->setWidget(m_projView);
+            m_projViewCont = new ProjectViewContainer;
+            projViewDock->setWidget(m_projViewCont);
+            projViewDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
+            projViewDock->setAllowedAreas(Qt::BottomDockWidgetArea);
             addDockWidget(Qt::BottomDockWidgetArea, projViewDock);
+
+            QDockWidget* resourcePrevDock = new QDockWidget(tr("Resource Preview"));
+            m_resourcePreview = new ResourcePreview;
+            resourcePrevDock->setWidget(m_resourcePreview);
+            addDockWidget(Qt::RightDockWidgetArea, resourcePrevDock);
+
 
             QWidget* w = new QWidget;
             QHBoxLayout* layout = new QHBoxLayout;
@@ -57,6 +66,9 @@ namespace Hatchit {
             setCentralWidget(w);
 
             ConnectMenuSlots();
+
+            connect(m_projViewCont->View(), SIGNAL(ImageFileSelected(const QString&)),
+                    m_resourcePreview, SLOT(OnImageResourceSelected(const QString&)));
         }
 
         void Window::OnFileNew()
@@ -70,7 +82,7 @@ namespace Hatchit {
                     "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
             if(!dir.isEmpty())
             {
-                m_projView->SetViewDirectory(dir);
+                m_projViewCont->View()->SetViewDirectory(dir);
             }
         }
 
@@ -109,7 +121,8 @@ namespace Hatchit {
         void Window::setProjectPath(QString path)
         {
             m_projPath = path;
-            m_projView->SetViewDirectory(m_projPath);
+            m_projViewCont->View()->SetRootDirectory(m_projPath);
+            m_projViewCont->View()->SetViewDirectory(m_projPath);
         }
     }
 
