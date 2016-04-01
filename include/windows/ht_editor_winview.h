@@ -17,27 +17,39 @@
 #include <QWidget>
 #include <QEvent>
 #include <QPaintEngine>
+#include <QTimer>
+
+#include <ht_renderer.h>
 
 namespace Hatchit {
 
     namespace Editor
     {
-        class DXView : public QWidget
+        class WinView : public QWidget
         {
+            Q_OBJECT
         public:
-            DXView(QWidget* parent = 0);
+            WinView(Graphics::RendererType type, QWidget* parent = 0);
 
-            ~DXView();
+            ~WinView();
 
             inline virtual QPaintEngine* paintEngine() const { return NULL; }
+
+        signals:
+            void NeedsRepaint();
+
+        protected slots:
+            void OnFrameUpdate();
 
         protected:
             void paintEvent(QPaintEvent* e);
             void resizeEvent(QResizeEvent* e);
+           
             virtual bool nativeEvent(const QByteArray& eventType, void* message, long* result);
             
             void render();
             
+            QTimer timer;
         };
     }
 

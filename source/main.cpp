@@ -31,32 +31,33 @@ using namespace Hatchit::Editor;
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
-    app.setStyle(QStyleFactory::create("fusion"));
+    //app.setStyle(QStyleFactory::create("fusion"));
 
     /*UPDATE PALETTE FOR USE WITH FUSION STYLE*/
-    QPalette palette;
+    /*QPalette palette;
     palette.setColor(QPalette::Highlight, QColor(255, 153, 0));
     palette.setColor(QPalette::Base, QColor(39, 40, 34));
     palette.setColor(QPalette::Text, Qt::white);
     palette.setColor(QPalette::Disabled, QPalette::Text, Qt::gray);
     palette.setColor(QPalette::Disabled, QPalette::Light, Qt::gray);
-    app.setPalette(palette);
+    app.setPalette(palette);*/
 
+   
+    //QFile stylesheet(QString::fromStdString(Hatchit::Core::os_exec_dir()) + "HatchitEditor.qss");
     Window window;
-    QFile stylesheet(QString::fromStdString(Hatchit::Core::os_exec_dir()) + "HatchitEditor.qss");
-    if (stylesheet.open(QIODevice::ReadOnly))
-        window.setStyleSheet(stylesheet.readAll());
+    /*if (stylesheet.open(QIODevice::ReadOnly))
+        window.setStyleSheet(stylesheet.readAll());*/
 
     /*Create Launcher window and exec first to prompt user for project selection/creation.*/
     Launcher dlg(&window);
     dlg.setGeometry(
-            QStyle::alignedRect(
-                Qt::LeftToRight,
-                Qt::AlignCenter,
-                dlg.size(),
-                qApp->desktop()->availableGeometry()
-                )
-            );
+        QStyle::alignedRect(
+            Qt::LeftToRight,
+            Qt::AlignCenter,
+            dlg.size(),
+            qApp->desktop()->availableGeometry()
+            )
+        );
     int result = dlg.exec();
     if(result == QDialog::Rejected)
         return -1;

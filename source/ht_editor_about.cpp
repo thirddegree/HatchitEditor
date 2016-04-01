@@ -29,11 +29,8 @@ namespace Hatchit {
         {
             setWindowTitle(tr("About Hatchit Editor"));
 
-            m_webView = new QWebView(this);
             m_firstLoad = true;
-            connect(m_webView, SIGNAL(loadFinished(bool)), this, SLOT(OnLoadLicense(bool)));
-            m_webView->load(QUrl("http://www.gnu.org/licenses/gpl.html"));
-
+           
             QString aboutText = QString("Hatchit Editor\nVersion %1.%2.%3\n").arg(HatchitEditor_VERSION_MAJOR)
                                                                            .arg(HatchitEditor_VERSION_MINOR)
                                                                            .arg(HatchitEditor_VERSION_BUILD);
@@ -72,9 +69,7 @@ namespace Hatchit {
 
                     m_collapsePane = new CollapsePane(tr("License"), browser);
                 }
-                else
-                    m_collapsePane = new CollapsePane(tr("License"), m_webView);
-
+               
 
                 //m_collapsePane->setCollapseState(CollapseState::ExpandedDisabled);
                 m_mainLayout->addWidget(m_collapsePane);

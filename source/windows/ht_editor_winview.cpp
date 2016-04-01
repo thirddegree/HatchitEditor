@@ -12,50 +12,69 @@
 **
 **/
 
-#include <ht_editor_dxview.h>
+#include <ht_editor_winview.h>
 #include <ht_renderer_singleton.h>
+#include <ht_time_singleton.h>
 #include <ht_renderer.h>
 #include <ht_debug.h>
 
 #include <QResizeEvent>
 #include <QTimer>
+#include <QApplication>
 
 namespace Hatchit {
 
     namespace Editor {
 
-        DXView::DXView(QWidget* parent)
+        WinView::WinView(Graphics::RendererType type, QWidget* parent)
             : QWidget(parent)
         {
-            
-
+           
             Graphics::RendererParams params;
-            params.renderer = Graphics::RendererType::DIRECTX;
+            params.renderer = type;
             params.clearColor = Graphics::Colors::CornflowerBlue;
             params.window = (HWND)winId();
+            params.viewportWidth = this->width();
+            params.viewportHeight = this->height();
             Game::Renderer::Initialize(params);
-            
+
             setAttribute(Qt::WA_PaintOnScreen);
             setAttribute(Qt::WA_NativeWindow);
             setUpdatesEnabled(false);
+
+            connect(&timer, SIGNAL(timeout()), this, SLOT(OnFrameUpdate()));
+
+            Game::Time::Start();
+            timer.start(1);
         }
 
-        DXView::~DXView()
+        WinView::~WinView()
         {
             Game::Renderer::DeInitialize();
         }
 
-        void DXView::paintEvent(QPaintEvent* e)
+        void WinView::OnFrameUpdate()
+        {
+            Game::Time::Tick();
+            
+            render();
+
+            /*Emit WM_PAINT message to repaint each frame*/
+            SendMessage((HWND)winId(), WM_PAINT, NULL, NULL);
+        }
+
+        void WinView::paintEvent(QPaintEvent* e)
         {
             Q_UNUSED(e);
         }
 
-        void DXView::resizeEvent(QResizeEvent* e)
+        void WinView::resizeEvent(QResizeEvent* e)
         {
-            Game::Renderer::ResizeBuffers(width(), height());
+            Q_UNUSED(e);
+            //Game::Renderer::ResizeBuffers(width(), height());
         }
 
-        bool DXView::nativeEvent(const QByteArray& eventType, void* message, long* result)
+        bool WinView::nativeEvent(const QByteArray& eventType, void* message, long* result)
         {
             switch (((MSG*)message)->message)
             {
@@ -67,9 +86,13 @@ namespace Hatchit {
             return QWidget::nativeEvent(eventType, message, result);
         }
 
-        void DXView::render()
+        void WinView::render()
         {
+            Game::Time::Tick();
+
             Game::Renderer::ClearBuffer(Graphics::ClearArgs::ColorDepthStencil);
+
+            Game::Renderer::Render();
 
             Game::Renderer::Present();
         }

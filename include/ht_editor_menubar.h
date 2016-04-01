@@ -15,6 +15,7 @@
 #pragma once
 
 #include <ht_editor_filemenu.h>
+#include <ht_editor_viewmenu.h>
 #include <ht_editor_helpmenu.h>
 
 #include <QMenuBar>
@@ -30,10 +31,12 @@ namespace Hatchit {
             MenuBar(QWidget* parent = 0);
 
             FileMenu* GetFileMenu();
+            ViewMenu* GetViewMenu();
             HelpMenu* GetHelpMenu();
 
         private:
             FileMenu*  m_fileMenu;
+            ViewMenu*  m_viewMenu;
             HelpMenu*  m_helpMenu;
         };
     }

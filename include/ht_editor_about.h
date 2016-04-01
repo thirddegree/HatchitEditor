@@ -18,7 +18,6 @@
 
 #include <QDialog>
 #include <QTextBrowser>
-#include <QWebView>
 #include <QScrollArea>
 #include <QLabel>
 #include <QEvent>
@@ -42,7 +41,7 @@ namespace Hatchit {
         private:
             QScrollArea*    m_scrollArea;
             QLabel*         m_info;
-            QWebView*       m_webView;
+            
             CollapsePane*   m_collapsePane;
             CollapsePane*   m_aboutPane;
             CollapsePane*   m_versionInfo;

@@ -16,10 +16,10 @@
 #include <ht_editor_viewport.h>
 
 #ifdef HT_SYS_WINDOWS
-#include <ht_editor_dxview.h>
+//#include <ht_editor_dxview.h>
 #endif
 
-#include <ht_editor_glview.h>
+//#include <ht_editor_glview.h>
 
 namespace Hatchit {
 

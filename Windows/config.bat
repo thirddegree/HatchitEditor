@@ -49,8 +49,8 @@ if "%6" == "UWA" SET UWA=1
 
 REM Place all third party libs into the Debug and Release bin folders
 
-copy /Y ..\..\Hatchit\Windows\_build\dependencies\SDL2\bin\Debug\SDL2.dll bin\Debug
-copy /Y ..\..\Hatchit\Windows\_build\dependencies\assimp\bin\Debug\assimp.dll bin\Debug
+copy /Y ..\..\Hatchit\Windows\_build\dependencies\SDL2\bin\Debug\SDL2d.dll bin\Debug
+copy /Y ..\..\Hatchit\Windows\_build\dependencies\assimp\bin\Debug\assimpd.dll bin\Debug
 copy /Y ..\..\Hatchit\Windows\_build\dependencies\glew\bin\Debug\glew32.dll bin\Debug
 copy /Y ..\..\Hatchit\Windows\_build\dependencies\tinyxml2\bin\Debug\tinyxml2.dll bin\Debug
 copy /Y ..\..\Hatchit\Windows\_build\dependencies\Python\bin\Debug\python3.dll bin\Debug
@@ -89,7 +89,3 @@ del CMakeCache.txt
 
 @echo on
 cmake ../../ %languageString% -G "Visual Studio 14 2015 Win64" %buildUniversalApp% -DCMAKE_SYSTEM_VERSION=10.0
-
-
-
-

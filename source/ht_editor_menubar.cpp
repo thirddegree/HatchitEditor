@@ -23,15 +23,22 @@ namespace Hatchit {
             : QMenuBar(parent)
         {
             m_fileMenu = new FileMenu;
+            m_viewMenu = new ViewMenu;
             m_helpMenu = new HelpMenu;
 
             addMenu(m_fileMenu);
+            addMenu(m_viewMenu);
             addMenu(m_helpMenu);
         }
 
         FileMenu* MenuBar::GetFileMenu()
         {
             return m_fileMenu;
+        }
+
+        ViewMenu* MenuBar::GetViewMenu()
+        {
+            return m_viewMenu;
         }
 
         HelpMenu* MenuBar::GetHelpMenu()

@@ -16,8 +16,10 @@
 #include <ht_debug.h>
 #include <ht_editor_about.h>
 
+#include <ht_renderer_singleton.h>
+
 #ifdef HT_SYS_WINDOWS
-#include <ht_editor_dxview.h>
+#include <ht_editor_winview.h>
 #endif
 
 #include <ht_editor_glview.h>
@@ -37,7 +39,7 @@ namespace Hatchit {
             setMenuBar(m_menuBar);
 
 #ifdef HT_SYS_WINDOWS
-            m_view = new DXView;
+            m_view = new WinView(Graphics::RendererType::DIRECTX12);
 #else
             m_view = new GLView;
 #endif
@@ -53,22 +55,24 @@ namespace Hatchit {
             projViewDock->setAllowedAreas(Qt::BottomDockWidgetArea);
             addDockWidget(Qt::BottomDockWidgetArea, projViewDock);
 
+
             QDockWidget* resourcePrevDock = new QDockWidget(tr("Resource Preview"));
             m_resourcePreview = new ResourcePreview;
             resourcePrevDock->setWidget(m_resourcePreview);
             addDockWidget(Qt::RightDockWidgetArea, resourcePrevDock);
 
 
-            QWidget* w = new QWidget;
+            /*QWidget* w = new QWidget;
             QHBoxLayout* layout = new QHBoxLayout;
             layout->addWidget(m_view);
-            w->setLayout(layout);
-            setCentralWidget(w);
+            w->setLayout(layout);*/
+            setCentralWidget(m_view);
 
             ConnectMenuSlots();
 
             connect(m_projViewCont->View(), SIGNAL(ImageFileSelected(const QString&)),
                     m_resourcePreview, SLOT(OnImageResourceSelected(const QString&)));
+            
         }
 
         void Window::OnFileNew()
@@ -96,6 +100,54 @@ namespace Hatchit {
             close();
         }
 
+        void Window::OnViewDirectX()
+        {
+            int w = m_view->width();
+            int h = m_view->height();
+            Game::Renderer::DeInitialize();
+            Graphics::RendererParams params;
+            params.renderer = Graphics::RendererType::DIRECTX12;
+            params.clearColor = Graphics::Colors::CornflowerBlue;
+            params.window = (HWND)m_view->winId();
+            params.viewportWidth = w;
+            params.viewportHeight = h;
+            Game::Renderer::Initialize(params);
+           /* if (m_view)
+                delete m_view;
+            QWidget* placeHolder = new QWidget;
+            placeHolder->resize(w, h);
+            setCentralWidget(placeHolder);
+
+            m_view = new WinView(Graphics::RendererType::DIRECTX12);
+            delete placeHolder;
+            m_view->resize(w, h);
+            setCentralWidget(m_view);*/
+        }
+
+        void Window::OnViewVulkan()
+        {
+            int w = m_view->width();
+            int h = m_view->height();
+            Game::Renderer::DeInitialize();
+            Graphics::RendererParams params;
+            params.renderer = Graphics::RendererType::VULKAN;
+            params.clearColor = Graphics::Colors::CornflowerBlue;
+            params.window = (HWND)m_view->winId();
+            params.viewportWidth = w;
+            params.viewportHeight = h;
+            Game::Renderer::Initialize(params);
+            /*if (m_view)
+                delete m_view;
+            QWidget* placeHolder = new QWidget;
+            placeHolder->resize(w, h);
+            setCentralWidget(placeHolder);
+
+            m_view = new WinView(Graphics::RendererType::VULKAN);
+            m_view->resize(w, h);
+            delete placeHolder;
+            setCentralWidget(m_view);*/
+        }
+
         void Window::OnHelpAbout()
         {
             AboutDialog dialog(this);
@@ -113,6 +165,11 @@ namespace Hatchit {
                 this, SLOT(OnFileSave()));
             connect(m_menuBar->GetFileMenu()->Exit(), SIGNAL(triggered()),
                 this, SLOT(OnFileExit()));
+
+            connect(m_menuBar->GetViewMenu()->DirectXRenderer(), SIGNAL(triggered()),
+                this, SLOT(OnViewDirectX()));
+            connect(m_menuBar->GetViewMenu()->VulkanRenderer(), SIGNAL(triggered()),
+                this, SLOT(OnViewVulkan()));
 
             connect(m_menuBar->GetHelpMenu()->About(), SIGNAL(triggered()),
                 this, SLOT(OnHelpAbout()));

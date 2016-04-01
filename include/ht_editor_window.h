@@ -40,6 +40,9 @@ namespace Hatchit {
             void OnFileSave();
             void OnFileExit();
 
+            void OnViewDirectX();
+            void OnViewVulkan();
+
             void OnHelpAbout();
 
         private:
