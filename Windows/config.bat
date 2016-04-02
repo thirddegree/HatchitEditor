@@ -63,6 +63,9 @@ copy /Y ..\..\Hatchit\Windows\_build\dependencies\tinyxml2\bin\Release\tinyxml2.
 copy /Y ..\..\Hatchit\Windows\_build\dependencies\Python\bin\Release\python3.dll bin\Release
 copy /Y ..\..\Hatchit\Windows\_build\dependencies\Python\bin\Release\python34.dll bin\Release
 
+copy /Y ..\HatchitEditor.ini bin\Debug
+copy /Y ..\HatchitEditor.ini bin\Release
+
 mkdir VS2015
 cd VS2015
 

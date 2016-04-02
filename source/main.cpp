@@ -24,45 +24,68 @@
 
 #include <ht_editor_window.h>
 #include <ht_editor_launcher.h>
+#include <ht_inireader.h>
+#include <ht_path_singleton.h>
+#include <ht_renderer_singleton.h>
 
 using namespace Hatchit;
 using namespace Hatchit::Editor;
+using namespace Hatchit::Core;
+using namespace Hatchit::Game;
 
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
-    //app.setStyle(QStyleFactory::create("fusion"));
+	app.setStyle(QStyleFactory::create("fusion"));
 
-    /*UPDATE PALETTE FOR USE WITH FUSION STYLE*/
-    /*QPalette palette;
-    palette.setColor(QPalette::Highlight, QColor(255, 153, 0));
-    palette.setColor(QPalette::Base, QColor(39, 40, 34));
-    palette.setColor(QPalette::Text, Qt::white);
-    palette.setColor(QPalette::Disabled, QPalette::Text, Qt::gray);
-    palette.setColor(QPalette::Disabled, QPalette::Light, Qt::gray);
-    app.setPalette(palette);*/
+	QPalette palette;
+	palette.setColor(QPalette::Highlight, QColor(148, 100, 229));
+	palette.setColor(QPalette::Base, QColor(35, 43, 43));
+	palette.setColor(QPalette::Text, Qt::white);
+	palette.setColor(QPalette::Disabled, QPalette::Text, Qt::gray);
+	palette.setColor(QPalette::Disabled, QPalette::Light, Qt::gray);
+	app.setPalette(palette);
 
-   
-    //QFile stylesheet(QString::fromStdString(Hatchit::Core::os_exec_dir()) + "HatchitEditor.qss");
-    Window window;
-    /*if (stylesheet.open(QIODevice::ReadOnly))
-        window.setStyleSheet(stylesheet.readAll());*/
+	/*Load editor ini file*/
+	File file;
+	try
+	{
+		file.Open(os_exec_dir() + "HatchitEditor.ini", FileMode::ReadBinary);
+
+		INIReader settings;
+		settings.Load(&file);
+
+		Path::Initialize(&settings);
+	}
+	catch (std::exception& e)
+	{
+		return -1;
+	}
+
+	QFile stylesheet(QString::fromStdString(Hatchit::Core::os_exec_dir()) + "HatchitEditor.qss");
+	Window window;
+	if (stylesheet.open(QIODevice::ReadOnly))
+		window.setStyleSheet(stylesheet.readAll());
 
     /*Create Launcher window and exec first to prompt user for project selection/creation.*/
-    Launcher dlg(&window);
-    dlg.setGeometry(
+    Launcher* dlg = new Launcher(&window);
+    dlg->setGeometry(
         QStyle::alignedRect(
             Qt::LeftToRight,
             Qt::AlignCenter,
-            dlg.size(),
+            dlg->size(),
             qApp->desktop()->availableGeometry()
             )
         );
-    int result = dlg.exec();
+    int result = dlg->exec();
     if(result == QDialog::Rejected)
         return -1;
 
-    window.setProjectPath(dlg.ProjectPath());
+    window.setProjectPath(dlg->ProjectPath());
     window.showMaximized();
-    return app.exec();
+	delete dlg;
+
+	int ret = app.exec();
+	Renderer::DeInitialize();
+    return ret;
 }

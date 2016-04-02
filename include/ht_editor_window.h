@@ -45,6 +45,7 @@ namespace Hatchit {
 
             void OnHelpAbout();
 
+
         private:
             MenuBar*                    m_menuBar;
             QWidget*                    m_view;

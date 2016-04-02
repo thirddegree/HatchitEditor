@@ -6,7 +6,7 @@
 
 QMainWindow {
 	/*43443A*/
-	background-color: #272822;
+	background-color: #232B2B;
 
 
 }
@@ -14,19 +14,6 @@ QMainWindow {
 QListView::item {
 	padding: 5px;
 }
-
-/*
-QMenuBar {
-	background-color: #43443A;
-	border: 1px solid black;
-}
-
-QMenuBar::item {
-	border: 1px solid silver;
-	padding: 10px;
-	background-color: transparent;
-}
-*/
 
 QMenuBar
 {
@@ -40,10 +27,15 @@ QMenuBar::item
 	background: transparent;
 }
 
+/*QMenuBar::item:hovered
+{
+  background: red;
+}*/
+
 QMenuBar::item:selected
 {
-	background: transparent;
-	border: 1px solid #3A3939;
+	background: #9464E5;
+	border: 1px solid #9464E5;
 }
 
 QMenuBar::item:pressed
@@ -57,6 +49,7 @@ QMenuBar::item:pressed
 
 QMenu
 {
+  background-color: #43443A;
 	border: 1px solid #3A3939;
 	color: silver;
 	margin: 2px;
@@ -69,6 +62,7 @@ QMenu::icon
 
 QMenu::item
 {
+  background-color: transparent;
 	padding: 5px 30px 5px 30px;
 	margin-left: 5px;
 	border: 1px solid transparent; /* reserve space for selection border */
@@ -88,7 +82,7 @@ QToolBar {
 
 
 QDialog {
-	background-color: #272822;
+	background-color: #232B2B;
 }
 
 QToolTip {
@@ -146,12 +140,12 @@ QTabBar::tab:!selected {
 
  /*
  QTreeWidget {
-	background-color: #272822;
+	background-color: #232B2B;
  }
  */
 
  QTreeView {
-	background-color: #272822;
+	background-color: #232B2B;
  }
 
  QTreeView::item::selected {
@@ -204,7 +198,7 @@ QPushButton {
 }
 
 QPushButton::disabled {
-	background-color: #272822;
+	background-color: #232B2B;
 }
 
 

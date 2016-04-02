@@ -71,7 +71,7 @@ namespace Hatchit {
         void WinView::resizeEvent(QResizeEvent* e)
         {
             Q_UNUSED(e);
-            //Game::Renderer::ResizeBuffers(width(), height());
+            Game::Renderer::ResizeBuffers(width(), height());
         }
 
         bool WinView::nativeEvent(const QByteArray& eventType, void* message, long* result)
