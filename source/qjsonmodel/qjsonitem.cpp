@@ -43,6 +43,11 @@ QJsonTreeItem *QJsonTreeItem::child(int row)
     return mChilds.value(row);
 }
 
+const QList<QJsonTreeItem*>& QJsonTreeItem::children()
+{
+    return mChilds;
+}
+
 QJsonTreeItem *QJsonTreeItem::parent()
 {
     return mParent;
@@ -81,6 +86,16 @@ void QJsonTreeItem::setEditable(bool canEdit)
     mEditable = canEdit;
 }
 
+void QJsonTreeItem::setModelRow(int row)
+{
+    mModelRow = row;
+}
+
+int QJsonTreeItem::modelRow() const
+{
+    return mModelRow;
+}
+
 QString QJsonTreeItem::key() const
 {
     return mKey;
@@ -89,6 +104,11 @@ QString QJsonTreeItem::key() const
 QString QJsonTreeItem::value() const
 {
     return mValue;
+}
+
+bool QJsonTreeItem::editable() const
+{
+    return mEditable;
 }
 
 QJsonValue::Type QJsonTreeItem::type() const

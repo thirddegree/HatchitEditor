@@ -80,6 +80,23 @@ QToolBar {
 	border-top-left-radius: 7px;
 }
 
+/************ QComboBox***********************/
+
+QComboBox {
+	background-color: #232B2B;
+}
+
+QComboBox:editable {
+	background: #232B2B;
+}
+
+QComboBox:!editable{
+     background: #9464E5;
+}
+
+
+/*********************************************/
+
 
 QDialog {
 	background-color: #232B2B;

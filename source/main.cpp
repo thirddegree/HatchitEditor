@@ -44,6 +44,8 @@ int main(int argc, char* argv[])
 	palette.setColor(QPalette::Text, Qt::white);
 	palette.setColor(QPalette::Disabled, QPalette::Text, Qt::gray);
 	palette.setColor(QPalette::Disabled, QPalette::Light, Qt::gray);
+    palette.setColor(QPalette::Background, QColor(35, 43, 43));
+
 	app.setPalette(palette);
 
 	/*Load editor ini file*/

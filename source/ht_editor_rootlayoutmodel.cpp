@@ -21,13 +21,13 @@ Qt::ItemFlags RootLayoutModel::flags(const QModelIndex& index) const
     if (!index.isValid())
         return 0;
 
-    
+    QModelIndex _index = index;
     QJsonTreeItem* item = static_cast<QJsonTreeItem*>(index.internalPointer());
     if (item)
     {
         if (item->type() != QJsonValue::Array)
         {
-            if (index.column() == 1)
+            if (index.column() == 1 && item->isEditable())
                 return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
         }
     }
@@ -35,6 +35,11 @@ Qt::ItemFlags RootLayoutModel::flags(const QModelIndex& index) const
     
 
     return QAbstractItemModel::flags(index);
+}
+
+QJsonTreeItem * RootLayoutModel::root() const
+{
+    return mRootItem;
 }
 
 bool RootLayoutModel::load(const QString &fileName)
@@ -267,7 +272,12 @@ QModelIndex RootLayoutModel::index(int row, int column, const QModelIndex &paren
     if (childItem)
     {
         if (column == 1)
-            childItem->setEditable(true);
+        {
+            if(!childItem->value().isEmpty())
+                childItem->setEditable(true);
+        }
+       
+        childItem->setModelRow(row);
         return createIndex(row, column, childItem);
     }
     else

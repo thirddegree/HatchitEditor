@@ -36,8 +36,10 @@ public:
 
     Qt::ItemFlags flags(const QModelIndex& index) const;
 
+    QJsonTreeItem* root() const;
 private:
     QJsonTreeItem * mRootItem;
+    std::vector<QModelIndex> mFlagItems;
     QJsonDocument mDocument;
     QStringList mHeaders;
     QHash<QJsonValue::Type, QIcon> mTypeIcons;

@@ -13,18 +13,59 @@
 **/
 
 #include <ht_editor_rootlayoutdialog.h>
+#include <ht_path_singleton.h>
 #include <QBoxLayout>
 #include <QFile>
+#include <QMenuBar>
 
 namespace Hatchit
 {
     namespace Editor
     {
+        class RootLayoutMenuBar : public QMenuBar
+        {
+        public:
+            RootLayoutMenuBar(QWidget* parent = 0);
+
+            QAction* OpenAction();
+            QAction* SaveAction();
+        private:
+            QAction* m_open;
+            QAction* m_save;
+        };
+
+        RootLayoutMenuBar::RootLayoutMenuBar(QWidget* parent)
+            : QMenuBar(parent)
+        {
+            QMenu* fileMenu = new QMenu(tr("File"));
+
+            m_open = new QAction(tr("Open"), nullptr);
+            m_save = new QAction(tr("Save"), nullptr);
+
+            fileMenu->addAction(m_open);
+            fileMenu->addAction(m_save);
+
+            addMenu(fileMenu);
+        }
+
+        QAction* RootLayoutMenuBar::OpenAction()
+        {
+            return m_open;
+        }
+
+        QAction* RootLayoutMenuBar::SaveAction()
+        {
+            return m_save;
+        }
+
         RootLayoutDialog::RootLayoutDialog(QWidget* parent)
             : QDialog(parent)
         {
-            setWindowTitle(tr("RootLayout"));   
+            setWindowTitle(tr("RootLayout"));
+            
             resize(800, 600); 
+
+            RootLayoutMenuBar* menuBar = new RootLayoutMenuBar;
 
             QVBoxLayout* mainLayout = new QVBoxLayout;
 
@@ -32,7 +73,7 @@ namespace Hatchit
             m_textEdit = new QTextEdit;
             m_textEdit->setReadOnly(true);
 
-            QFile rootLayout("TestRootDescriptor.json");
+            QFile rootLayout(QString::fromStdString(Core::Path::Value(Core::Path::Directory::Assets) + "TestRootDescriptor.json"));
             if(rootLayout.open(QIODevice::ReadOnly))
                 m_textEdit->setText(rootLayout.readAll());
 
@@ -42,8 +83,22 @@ namespace Hatchit
             m_tabs->addTab(m_textEdit, tr("Raw"));
 
             mainLayout->addWidget(m_tabs);
+            mainLayout->setMenuBar(menuBar);
             
-            setLayout(mainLayout);            
+            setLayout(mainLayout);          
+
+
+            
+        }
+
+        void RootLayoutDialog::OnFileOpen()
+        {
+
+        }
+
+        void RootLayoutDialog::OnFileSave()
+        {
+
         }
 
     }

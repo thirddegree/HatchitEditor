@@ -101,7 +101,7 @@ set_target_properties(HatchitCore HatchitResource HatchitMath HatchitGraphics Ha
 
 
 #Find QtWidgets library
-find_package(Qt5 COMPONENTS Core Gui Multimedia Network OpenGL Script Svg Xml UiTools)
+find_package(Qt5 COMPONENTS Core Gui UiTools)
 
 include_directories("../include/"
                     "../include/windows/"
@@ -189,5 +189,4 @@ add_custom_command(TARGET HatchitEditor POST_BUILD
 #Use the widgets module from Qt5.
 set(ASSIMP_LIBS debug assimpd optimized assimp)
 
-target_link_libraries(HatchitEditor Qt5::Core Qt5::Gui Qt5::Network Qt5::OpenGL
-  Qt5::Script Qt5::Svg Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitGame ${ASSIMP_LIBS} ${SDL_LIBS} ${DX11_LIBS} ${DX12_LIBS} ${GL_LIBS} ${GLEW_LIBS})
+target_link_libraries(HatchitEditor Qt5::Core Qt5::Gui Qt5::UiTools HatchitCore HatchitResource HatchitGame ${ASSIMP_LIBS} ${SDL_LIBS} ${DX11_LIBS} ${DX12_LIBS} ${GL_LIBS} ${GLEW_LIBS})

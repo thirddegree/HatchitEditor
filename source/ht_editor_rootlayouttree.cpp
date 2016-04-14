@@ -13,6 +13,11 @@
 **/
 
 #include <ht_editor_rootlayouttree.h>
+#include <ht_path_singleton.h>
+#include <ht_debug.h>
+#include <ht_editor_rootlayoutitemdelegate.h>
+#include <QComboBox>
+
 
 namespace Hatchit
 {
@@ -28,9 +33,42 @@ namespace Hatchit
 
             this->setModel(m_model);
 
-            m_model->load("TestRootDescriptor.json");
+            
+
+            m_model->load(QString::fromStdString(Core::Path::Value(Core::Path::Directory::Assets) + "TestRootDescriptor.json"));
+            
 
             this->expandAll();
+        
+            QComboBox* combo = new QComboBox;
+            combo->addItem("test");
+            combo->addItem("test2");
+
+            this->setItemDelegate(new RootLayoutItemDelegate);
+
+            QJsonTreeItem* root = m_model->root();
+            for (int i = 0; i < root->childCount(); i++)
+            {
+                QJsonTreeItem* child = root->child(i);
+                if (child->key() == "Flags")
+                {
+                    QModelIndex parentIndex = m_model->index(child->modelRow(), 0);
+                    
+                    /*Iterate over all flags children*/
+                    
+                    //this->setIndexWidget(m_model->index(child->child(0)->modelRow(), 1, parentIndex), combo);
+                    //this->setIndexWidget(m_model->index(child->child(1)->modelRow(), 1, parentIndex), combo);
+                    /*for (auto flagChild : child->children())
+                    {
+                        if (flagChild->editable())
+                        {
+                            
+                            
+                        }
+                    }*/
+                }
+            }
+            
         }
     }
 }

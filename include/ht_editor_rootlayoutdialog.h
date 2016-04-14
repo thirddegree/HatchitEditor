@@ -17,6 +17,7 @@
 #include <QDialog>
 #include <QTabWidget>
 #include <QTextEdit>
+#include <QMenuBar>
 
 #include <ht_editor_rootlayouttree.h>
 
@@ -26,13 +27,19 @@ namespace Hatchit
     {
         class RootLayoutDialog : public QDialog
         {
+            Q_OBJECT
         public:
             RootLayoutDialog(QWidget* parent = 0);
+
+        protected slots:
+            void OnFileOpen();
+            void OnFileSave();
 
         private:
             QTabWidget*     m_tabs;
             QTextEdit*      m_textEdit;
             RootLayoutTree* m_tree;
+           
         };
     }
 }
