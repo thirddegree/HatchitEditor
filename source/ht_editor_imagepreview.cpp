@@ -23,8 +23,8 @@ namespace Hatchit
         ImagePreview::ImagePreview(QWidget* parent)
             : QWidget(parent)
         {
-            setMinimumSize(150,150);            
-            setMaximumSize(400,400);
+//            setMinimumSize(150,150);            
+//            setMaximumSize(400,400);
 
             QVBoxLayout* layout = new QVBoxLayout;
             m_imageDisplay = new QLabel;

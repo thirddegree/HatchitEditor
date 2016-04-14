@@ -34,12 +34,13 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 
 #Find the QtWidgets library
-find_package(Qt5 COMPONENTS Core Gui Multimedia Network OpenGL Script Svg WebKit WebKitWidgets Xml UiTools)
+find_package(Qt5 COMPONENTS Core Gui Widgets)
 
 include_directories("../include/"
 		    "../include/qjsonmodel/"
                     "../Hatchit/HatchitCore/include/"
                     "../Hatchit/HatchitResource/include"
+                    "../Hatchit/HatchitResource/source/inline"
                     "../Hatchit/HatchitMath/include"
                     "../Hatchit/HatchitMath/source/inline"
                     "../Hatchit/HatchitGraphics/include"
@@ -48,6 +49,7 @@ include_directories("../include/"
 	                  "../Hatchit/HatchitGame/include/xcb"
 		                "../Hatchit/HatchitGame/include/sdl"
                     "../Hatchit/ThirdParty/inih/"
+                    "../Hatchit/ThirdParty/json/src"
                     "../Hatchit/ThirdParty/cppformat/")
 
 file(GLOB HT_EDITOR_INC ../include/*.h ../include/qjsonmodel/*.h)
@@ -64,8 +66,7 @@ add_custom_command(TARGET HatchitEditor POST_BUILD
                    ${PROJECT_SOURCE_DIR}/../LICENSE.GPLv3 $<TARGET_FILE_DIR:HatchitEditor>)
 
 #Use the widgets module from Qt5.
-target_link_libraries(HatchitEditor Qt5::Core Qt5::Gui Qt5::Network Qt5::OpenGL
-  Qt5::Script Qt5::Svg Qt5::WebKit Qt5::WebKitWidgets Qt5::Xml Qt5::UiTools HatchitCore HatchitResource HatchitMath HatchitGraphics HatchitGame SDL2 assimp tinyxml2 GLEW GL GLU)
+target_link_libraries(HatchitEditor Qt5::Core Qt5::Widgets Qt5::Gui HatchitCore HatchitResource HatchitMath HatchitGraphics HatchitGame SDL2 assimp tinyxml2 GLEW GL GLU)
 
 #install
 

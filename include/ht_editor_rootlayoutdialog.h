@@ -3,7 +3,7 @@
 **    Copyright(c) 2015 Third-Degree
 **
 **    GNU General Public License
-**    This file may be used under the terms of
+**    This file may be used under the terms of 
 **    the GNU General Public License version 3 as published by the Free
 **    Software Foundation and appearing in the file LICENSE.GPLv3 included
 **    in the packaging of this file. Please review the following information
@@ -12,17 +12,27 @@
 **
 **/
 
-#include <ht_editor_viewmenu.h>
+#pragma once
 
-namespace Hatchit {
+#include <QDialog>
+#include <QTabWidget>
+#include <QTextEdit>
 
-    namespace Editor {
+#include <ht_editor_rootlayouttree.h>
 
-        ViewMenu::ViewMenu(QWidget* widget /* = 0 */)
-            : QMenu(tr("View"), widget)
+namespace Hatchit
+{
+    namespace Editor
+    {
+        class RootLayoutDialog : public QDialog
         {
+        public:
+            RootLayoutDialog(QWidget* parent = 0);
 
-        }
+        private:
+            QTabWidget*     m_tabs;
+            QTextEdit*      m_textEdit;
+            RootLayoutTree* m_tree;
+        };
     }
-
 }
