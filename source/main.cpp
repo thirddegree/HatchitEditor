@@ -52,7 +52,7 @@ int main(int argc, char* argv[])
 	File file;
 	try
 	{
-		file.Open(os_exec_dir() + "HatchitEditor.ini", FileMode::ReadBinary);
+		file.Open(os_exec_dir() + "HatchitEditor.ini", Core::File::FileMode::ReadBinary);
 
 		INIReader settings;
 		settings.Load(&file);

@@ -21,6 +21,8 @@
 #include <QMessageBox>
 #include <ht_editor_projectinfo.h>
 #include <ht_inireader.h>
+#include <ht_os.h>
+#include <ht_file.h>
 
 namespace Hatchit
 {
@@ -83,7 +85,7 @@ namespace Hatchit
                     Core::File file;
                     try
                     {
-                        file.Open(Core::os_exec_dir() + "projectconf.ini", Core::FileMode::ReadText);
+                        file.Open(Core::os_exec_dir() + "projectconf.ini", Core::File::FileMode::ReadText);
 
                         reader.Load(&file);
                     }
