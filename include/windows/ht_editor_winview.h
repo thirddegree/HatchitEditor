@@ -22,6 +22,7 @@
 #include <ht_renderer.h>
 #include <thread>
 #include <atomic>
+#include <ht_editor_renderthread.h>
 
 namespace Hatchit {
 
@@ -35,28 +36,16 @@ namespace Hatchit {
 
             ~WinView();
 
-            inline virtual QPaintEngine* paintEngine() const { return NULL; }
-
-
             void Start();
 
+            inline virtual QPaintEngine* paintEngine() const { return NULL; }
         signals:
-            void NeedsRepaint();
-
-        protected slots:
-            void OnFrameUpdate();
-
+            void Resize(uint32_t w, uint32_t h);
         protected:
             void paintEvent(QPaintEvent* e);
             void resizeEvent(QResizeEvent* e);
-           
-            virtual bool nativeEvent(const QByteArray& eventType, void* message, long* result);
-            
-            void render();
-            
-            std::thread         m_render;
-            std::atomic_bool    m_destroyed;
-            QTimer      timer;
+
+            RenderThread*       m_thread;
         };
     }
 

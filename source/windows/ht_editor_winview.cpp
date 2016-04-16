@@ -31,55 +31,32 @@ namespace Hatchit {
         WinView::WinView(Graphics::RendererType type, QWidget* parent)
             : QWidget(parent)
         {
-           
             setAttribute(Qt::WA_PaintOnScreen);
             setAttribute(Qt::WA_NativeWindow);
             setUpdatesEnabled(false);
 
-            m_destroyed = false;
+
+            Graphics::RendererParams params;
+            params.renderer = type;
+            params.clearColor = Graphics::Colors::CornflowerBlue;
+            params.window = (HWND)this->winId();
+            params.viewportWidth = this->width();
+            params.viewportHeight = this->height();
+            m_thread = new RenderThread(params);
+
+
+            connect(this, SIGNAL(Resize(uint32_t, uint32_t)),
+                m_thread, SLOT(resize(uint32_t, uint32_t)));
         }
 
         WinView::~WinView()
         {
-            m_destroyed = true;
+            delete m_thread;
         }
 
         void WinView::Start()
         {
-            m_render = std::thread([](std::atomic_bool& dead, HWND wnd) {
-
-                Graphics::RendererParams params;
-                params.renderer = Graphics::RendererType::DIRECTX12;
-                params.clearColor = Graphics::Colors::CornflowerBlue;
-                params.window = wnd;
-                params.viewportWidth = 500;
-                params.viewportHeight = 500;
-
-                Game::Renderer::Initialize(params);
-                Game::Time::Start();
-
-                while (!dead)
-                {
-                    Game::Time::Tick();
-
-                    Game::Renderer::ClearBuffer(Graphics::ClearArgs::ColorDepthStencil);
-
-                    Game::Renderer::Render();
-
-                    Game::Renderer::Present();
-                }
-
-                Game::Renderer::DeInitialize();
-
-            }, std::ref(m_destroyed), (HWND)this->winId());
-
-            m_render.detach();
-        }
-
-        void WinView::OnFrameUpdate()
-        {
-            /*Emit WM_PAINT message to repaint each frame*/
-            SendMessage((HWND)winId(), WM_PAINT, NULL, NULL);
+            m_thread->Start();
         }
 
         void WinView::paintEvent(QPaintEvent* e)
@@ -90,27 +67,10 @@ namespace Hatchit {
         void WinView::resizeEvent(QResizeEvent* e)
         {
             Q_UNUSED(e);
-            //Game::Renderer::ResizeBuffers(width(), height());
-        }
-
-        bool WinView::nativeEvent(const QByteArray& eventType, void* message, long* result)
-        {
-            switch (((MSG*)message)->message)
-            {
-            case WM_PAINT:
-                
-                break;
-            }
-
-            return QWidget::nativeEvent(eventType, message, result);
-        }
-
-        void WinView::render()
-        {
-           
-
             
+            emit Resize(width(), height());
         }
+
     }
 
 }
