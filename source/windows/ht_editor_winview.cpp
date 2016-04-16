@@ -13,10 +13,12 @@
 **/
 
 #include <ht_editor_winview.h>
+#include <ht_window_singleton.h>
 #include <ht_renderer_singleton.h>
 #include <ht_time_singleton.h>
 #include <ht_renderer.h>
 #include <ht_debug.h>
+#include <thread>
 
 #include <QResizeEvent>
 #include <QTimer>
@@ -30,35 +32,52 @@ namespace Hatchit {
             : QWidget(parent)
         {
            
-            Graphics::RendererParams params;
-            params.renderer = type;
-            params.clearColor = Graphics::Colors::CornflowerBlue;
-            params.window = (HWND)winId();
-            params.viewportWidth = this->width();
-            params.viewportHeight = this->height();
-            Game::Renderer::Initialize(params);
-
             setAttribute(Qt::WA_PaintOnScreen);
             setAttribute(Qt::WA_NativeWindow);
             setUpdatesEnabled(false);
 
-            connect(&timer, SIGNAL(timeout()), this, SLOT(OnFrameUpdate()));
-
-            Game::Time::Start();
-            timer.start(1);
+            m_destroyed = false;
         }
 
         WinView::~WinView()
         {
-            Game::Renderer::DeInitialize();
+            m_destroyed = true;
+        }
+
+        void WinView::Start()
+        {
+            m_render = std::thread([](std::atomic_bool& dead, HWND wnd) {
+
+                Graphics::RendererParams params;
+                params.renderer = Graphics::RendererType::DIRECTX12;
+                params.clearColor = Graphics::Colors::CornflowerBlue;
+                params.window = wnd;
+                params.viewportWidth = 500;
+                params.viewportHeight = 500;
+
+                Game::Renderer::Initialize(params);
+                Game::Time::Start();
+
+                while (!dead)
+                {
+                    Game::Time::Tick();
+
+                    Game::Renderer::ClearBuffer(Graphics::ClearArgs::ColorDepthStencil);
+
+                    Game::Renderer::Render();
+
+                    Game::Renderer::Present();
+                }
+
+                Game::Renderer::DeInitialize();
+
+            }, std::ref(m_destroyed), (HWND)this->winId());
+
+            m_render.detach();
         }
 
         void WinView::OnFrameUpdate()
         {
-            Game::Time::Tick();
-            
-            render();
-
             /*Emit WM_PAINT message to repaint each frame*/
             SendMessage((HWND)winId(), WM_PAINT, NULL, NULL);
         }
@@ -71,7 +90,7 @@ namespace Hatchit {
         void WinView::resizeEvent(QResizeEvent* e)
         {
             Q_UNUSED(e);
-            Game::Renderer::ResizeBuffers(width(), height());
+            //Game::Renderer::ResizeBuffers(width(), height());
         }
 
         bool WinView::nativeEvent(const QByteArray& eventType, void* message, long* result)
@@ -79,7 +98,7 @@ namespace Hatchit {
             switch (((MSG*)message)->message)
             {
             case WM_PAINT:
-                render();
+                
                 break;
             }
 
@@ -88,13 +107,9 @@ namespace Hatchit {
 
         void WinView::render()
         {
-            Game::Time::Tick();
+           
 
-            Game::Renderer::ClearBuffer(Graphics::ClearArgs::ColorDepthStencil);
-
-            Game::Renderer::Render();
-
-            Game::Renderer::Present();
+            
         }
     }
 

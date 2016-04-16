@@ -88,6 +88,6 @@ int main(int argc, char* argv[])
 	delete dlg;
 
 	int ret = app.exec();
-	Renderer::DeInitialize();
+	
     return ret;
 }

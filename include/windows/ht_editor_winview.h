@@ -20,6 +20,8 @@
 #include <QTimer>
 
 #include <ht_renderer.h>
+#include <thread>
+#include <atomic>
 
 namespace Hatchit {
 
@@ -35,6 +37,9 @@ namespace Hatchit {
 
             inline virtual QPaintEngine* paintEngine() const { return NULL; }
 
+
+            void Start();
+
         signals:
             void NeedsRepaint();
 
@@ -49,7 +54,9 @@ namespace Hatchit {
             
             void render();
             
-            QTimer timer;
+            std::thread         m_render;
+            std::atomic_bool    m_destroyed;
+            QTimer      timer;
         };
     }
 

@@ -41,6 +41,7 @@ namespace Hatchit {
 
 #ifdef HT_SYS_WINDOWS
             m_view = new WinView(Graphics::RendererType::DIRECTX12);
+            m_view->Start();
 #else
             m_view = new GLView;
 #endif
@@ -53,12 +54,12 @@ namespace Hatchit {
             m_projViewCont = new ProjectViewContainer;
             projViewDock->setWidget(m_projViewCont);
             projViewDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
-            addDockWidget(Qt::LeftDockWidgetArea, projViewDock);
+            addDockWidget(Qt::RightDockWidgetArea, projViewDock);
 
             QDockWidget* consoleDock = new QDockWidget(tr("Console"));
             m_console = new Console;
             consoleDock->setWidget(m_console);
-            addDockWidget(Qt::BottomDockWidgetArea, consoleDock);
+            //addDockWidget(Qt::BottomDockWidgetArea, consoleDock);
 
             setCentralWidget(m_view);
 
