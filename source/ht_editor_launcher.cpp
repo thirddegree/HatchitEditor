@@ -31,7 +31,8 @@ namespace Hatchit
         Launcher::Launcher(QWidget* parent)
             : QDialog(parent)
         {
-            resize(800, 100);
+            setMinimumWidth(500);
+            setMaximumHeight(100);
 
             m_createNew = new QPushButton(tr("Create New"));
             m_openExisting = new QPushButton(tr("Open Existing"));

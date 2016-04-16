@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include <QListView>
+#include <QTreeView>
 #include <QFileSystemModel>
 #include <QDirModel>
 #include <QPushButton>
@@ -24,7 +24,7 @@ namespace Hatchit
 {
     namespace Editor
     {
-        class ProjectView : public QListView
+        class ProjectView : public QTreeView
         {
           Q_OBJECT
         public:

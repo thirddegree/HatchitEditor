@@ -39,6 +39,7 @@ find_package(Qt5 COMPONENTS Core Gui Widgets)
 include_directories("../include/"
 		    "../include/qjsonmodel/"
                     "../Hatchit/HatchitCore/include/"
+                    "../Hatchit/HatchitCore/source/inline"
                     "../Hatchit/HatchitResource/include"
                     "../Hatchit/HatchitResource/source/inline"
                     "../Hatchit/HatchitMath/include"

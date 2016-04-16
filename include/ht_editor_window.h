@@ -16,6 +16,7 @@
 
 #include <ht_editor_menubar.h>
 #include <ht_editor_scenetree.h>
+#include <ht_editor_console.h>
 #include <ht_editor_projectviewcontainer.h>
 
 #include <QMainWindow>
@@ -45,6 +46,7 @@ namespace Hatchit {
         private:
             MenuBar*                    m_menuBar;
             QWidget*                    m_view;
+            Console*                    m_console;
             SceneTree*                  m_sceneTree;
             ProjectViewContainer*       m_projViewCont;
             QString                     m_projPath;

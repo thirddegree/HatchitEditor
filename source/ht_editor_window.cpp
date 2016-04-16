@@ -52,10 +52,13 @@ namespace Hatchit {
             QDockWidget* projViewDock = new QDockWidget(tr("Project View"));
             m_projViewCont = new ProjectViewContainer;
             projViewDock->setWidget(m_projViewCont);
-            projViewDock->setFeatures(QDockWidget::NoDockWidgetFeatures);
-            projViewDock->setAllowedAreas(Qt::BottomDockWidgetArea);
-            addDockWidget(Qt::BottomDockWidgetArea, projViewDock);
+            projViewDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
+            addDockWidget(Qt::LeftDockWidgetArea, projViewDock);
 
+            QDockWidget* consoleDock = new QDockWidget(tr("Console"));
+            m_console = new Console;
+            consoleDock->setWidget(m_console);
+            addDockWidget(Qt::BottomDockWidgetArea, consoleDock);
 
             setCentralWidget(m_view);
 

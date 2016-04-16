@@ -34,7 +34,7 @@ namespace Hatchit
         {
             QFileInfo info = this->fileInfo(index);
                        
-            if(role == Qt::DecorationRole)
+            if(role == Qt::DecorationRole && index.column() == 0)
             {
                 if(m_texExtensionList.contains(info.completeSuffix()))
                 {              

@@ -21,11 +21,11 @@ namespace Hatchit
     namespace Editor
     {
         ProjectView::ProjectView(QWidget* parent)
-            : QListView(parent)
+            : QTreeView(parent)
         {
             m_dirModel = new ProjectViewModel;
 
-            this->setUniformItemSizes(true);
+            //this->setUniformItemSizes(true);
             this->setModel(m_dirModel);
 
             connect(this, SIGNAL(clicked(const QModelIndex&)), SLOT(OnItemClicked(const QModelIndex&)));
