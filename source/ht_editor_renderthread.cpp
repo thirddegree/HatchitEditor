@@ -1,6 +1,7 @@
 
 #include <ht_editor_renderthread.h>
 #include <ht_time_singleton.h>
+#include <ht_timer.h>
 
 namespace Hatchit
 {
@@ -9,11 +10,10 @@ namespace Hatchit
         using namespace Graphics;
 
         RenderThread::RenderThread(RendererParams params)
-            : QObject(nullptr)
+            : m_thread()
         {
             m_params = params;
             m_stop = false;
-            m_thread = std::thread(&RenderThread::thread_main, this);
             m_renderer = nullptr;
             m_completed = false;
             m_resizing = false;
@@ -29,6 +29,7 @@ namespace Hatchit
 
         void RenderThread::Start()
         {
+            m_thread = std::thread(&RenderThread::thread_main, this);
             m_thread.detach();
         }
 
@@ -42,15 +43,22 @@ namespace Hatchit
 
         void RenderThread::thread_main()
         { 
-            Game::Time::Start();
+            Core::Timer timer;
+            m_renderer = nullptr;
 
-            m_renderer = IRenderer::FromType(m_params.renderer);
-            if (!m_renderer->VInitialize(m_params))
-                return;
+            if (!m_renderer)
+            {
+                m_renderer = IRenderer::FromType(m_params.renderer);
+                if (!m_renderer->VInitialize(m_params))
+                    return;
+            }
+                
 
+            timer.Reset();
+            timer.Start();
             while (!m_stop)
             {
-                Game::Time::Tick();
+                timer.Tick();
 
                 if (m_resizing)
                 {
@@ -58,7 +66,7 @@ namespace Hatchit
                     m_resizing = false;
                 }
 
-                m_renderer->VRender(Game::Time::DeltaTime());
+                m_renderer->VRender(timer.DeltaTime());
 
                 m_renderer->VPresent();
             }

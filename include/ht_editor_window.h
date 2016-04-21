@@ -47,6 +47,7 @@ namespace Hatchit {
         private:
             MenuBar*                    m_menuBar;
             WinView*                    m_view;
+            WinView*                    m_view2;
             Console*                    m_console;
             SceneTree*                  m_sceneTree;
             ProjectViewContainer*       m_projViewCont;

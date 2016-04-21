@@ -31,8 +31,8 @@ namespace Hatchit {
         WinView::WinView(Graphics::RendererType type, QWidget* parent)
             : QWidget(parent)
         {
-            setAttribute(Qt::WA_PaintOnScreen);
-            setAttribute(Qt::WA_NativeWindow);
+            /*setAttribute(Qt::WA_PaintOnScreen);
+            setAttribute(Qt::WA_NativeWindow);*/
             setUpdatesEnabled(false);
 
 
@@ -45,8 +45,8 @@ namespace Hatchit {
             m_thread = new RenderThread(params);
 
 
-            connect(this, SIGNAL(Resize(uint32_t, uint32_t)),
-                m_thread, SLOT(resize(uint32_t, uint32_t)));
+            /*connect(this, SIGNAL(Resize(uint32_t, uint32_t)),
+                m_thread, SLOT(resize(uint32_t, uint32_t)));*/
         }
 
         WinView::~WinView()
@@ -68,7 +68,7 @@ namespace Hatchit {
         {
             Q_UNUSED(e);
             
-            emit Resize(width(), height());
+            m_thread->resize(this->width(), this->height());
         }
 
     }

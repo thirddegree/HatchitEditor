@@ -20,14 +20,17 @@
 #include <QFileDialog>
 #include <QMessageBox>
 #include <ht_editor_projectinfo.h>
-#include <ht_inireader.h>
 #include <ht_os.h>
 #include <ht_file.h>
+#include <ht_editor_globals.h>
+#include <ht_inisettings.h>
 
 namespace Hatchit
 {
     namespace Editor
     {
+        using namespace Core;
+
         Launcher::Launcher(QWidget* parent)
             : QDialog(parent)
         {
@@ -36,6 +39,8 @@ namespace Hatchit
 
             m_createNew = new QPushButton(tr("Create New"));
             m_openExisting = new QPushButton(tr("Open Existing"));
+
+            m_defaultCheckBox = new QCheckBox(tr("Set as default directory"));
 
             m_directoryEdit = new QLineEdit;
             m_directoryEdit->setText(QDir::homePath());
@@ -56,14 +61,24 @@ namespace Hatchit
             createOpenLayout->addWidget(m_createNew, Qt::AlignRight);
             createOpenLayout->addWidget(m_openExisting, Qt::AlignRight);
             layout->addLayout(createOpenLayout);
-            layout->addWidget(m_buttonBox);
+            QHBoxLayout* buttonLayout = new QHBoxLayout;
+            buttonLayout->addWidget(m_defaultCheckBox);
+            buttonLayout->addWidget(m_buttonBox);
+            layout->addLayout(buttonLayout);
             setLayout(layout);
 
+            connect(this, SIGNAL(accepted()), this, SLOT(OnAccepted()));
             connect(m_createNew, SIGNAL(clicked()), this, SLOT(OnCreateNew()));
             connect(m_openExisting, SIGNAL(clicked()), this, SLOT(OnOpenExisting()));
 
 
             m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+        }
+
+
+        void Launcher::OnAccepted()
+        {
+           
         }
 
         void Launcher::OnCreateNew()
@@ -82,7 +97,7 @@ namespace Hatchit
                     m_projectPath = dir;
                     m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
                     
-                    Core::INIReader reader;
+                    Core::INISettings reader;
                     Core::File file;
                     try
                     {

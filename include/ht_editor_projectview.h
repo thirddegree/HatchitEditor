@@ -18,6 +18,7 @@
 #include <QFileSystemModel>
 #include <QDirModel>
 #include <QPushButton>
+#include <QMenu>
 #include <ht_editor_projectviewmodel.h>
 
 namespace Hatchit
@@ -45,11 +46,16 @@ namespace Hatchit
         public slots:
             void OnItemClicked(const QModelIndex& index);
             void OnItemDoubleClicked(const QModelIndex& index);
+            void OnCustomContextMenu(const QPoint& point);
+            void OnFileContextOpen();
 
         private:
             ProjectViewModel*   m_dirModel;    
             QString             m_activeDirectory;
-            QString             m_rootDirectory;      
+            QString             m_rootDirectory;
+            QModelIndex         m_activeRightClickIndex;
+
+            QMenu*              m_fileContext;
         };
     }
 }

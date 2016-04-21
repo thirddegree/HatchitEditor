@@ -13,6 +13,7 @@
 **/
 
 #include <ht_editor_window.h>
+#include <ht_editor_globals.h>
 #include <ht_debug.h>
 
 #include <ht_renderer_singleton.h>
@@ -38,10 +39,14 @@ namespace Hatchit {
         {
             m_menuBar = new MenuBar;
             setMenuBar(m_menuBar);
+            setMinimumSize(1280, 720);
 
 #ifdef HT_SYS_WINDOWS
             m_view = new WinView(Graphics::RendererType::DIRECTX12);
             m_view->Start();
+
+            /*m_view2 = new WinView(Graphics::RendererType::DIRECTX12);
+            m_view2->Start();*/
 #else
             m_view = new GLView;
 #endif
@@ -56,10 +61,10 @@ namespace Hatchit {
             projViewDock->setAllowedAreas(Qt::LeftDockWidgetArea | Qt::RightDockWidgetArea);
             addDockWidget(Qt::RightDockWidgetArea, projViewDock);
 
-            QDockWidget* consoleDock = new QDockWidget(tr("Console"));
+            /*QDockWidget* consoleDock = new QDockWidget(tr("Console"));
             m_console = new Console;
-            consoleDock->setWidget(m_console);
-            //addDockWidget(Qt::BottomDockWidgetArea, consoleDock);
+            consoleDock->setWidget(m_view2);
+            addDockWidget(Qt::BottomDockWidgetArea, consoleDock);*/
 
             setCentralWidget(m_view);
 

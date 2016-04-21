@@ -10,9 +10,8 @@ namespace Hatchit
 {
     namespace Editor
     {
-        class RenderThread : public QObject
+        class RenderThread
         {
-            Q_OBJECT
         public:
             RenderThread(Graphics::RendererParams params);
 
@@ -20,11 +19,12 @@ namespace Hatchit
 
             void Start();
 
-        public slots:
             void resize(uint32_t width, uint32_t height);
 
+        /*public slots:
+            void resize(uint32_t width, uint32_t height);*/
+
         private:
-            Core::Timer                 m_timer;
             Graphics::RendererParams    m_params;
             std::thread                 m_thread;
             bool                        m_stop;

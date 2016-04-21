@@ -15,6 +15,8 @@
 #include <ht_editor_projectview.h>
 
 #include <QFileSystemModel>
+#include <QDesktopServices>
+#include <QUrl>
 
 namespace Hatchit
 {
@@ -27,9 +29,16 @@ namespace Hatchit
 
             //this->setUniformItemSizes(true);
             this->setModel(m_dirModel);
+            this->setContextMenuPolicy(Qt::CustomContextMenu);
+
+            //Build file context menu
+            m_fileContext = new QMenu(tr("File Context"));
+            QAction* fileContextOpen = m_fileContext->addAction(tr("Open"));
 
             connect(this, SIGNAL(clicked(const QModelIndex&)), SLOT(OnItemClicked(const QModelIndex&)));
             connect(this, SIGNAL(doubleClicked(const QModelIndex&)), SLOT(OnItemDoubleClicked(const QModelIndex&)));
+            connect(this, SIGNAL(customContextMenuRequested(const QPoint&)), SLOT(OnCustomContextMenu(const QPoint&)));
+            connect(fileContextOpen, SIGNAL(triggered()), this, SLOT(OnFileContextOpen()));
         }
 
         void ProjectView::SetViewDirectory(const QString& path)
@@ -81,6 +90,27 @@ namespace Hatchit
                 this->setRootIndex(m_dirModel->index(m_activeDirectory));
             
                 emit ActiveDirectoryChanged(m_activeDirectory);
+            }
+        }
+
+        void ProjectView::OnCustomContextMenu(const QPoint & point)
+        {
+            QModelIndex index = this->indexAt(point);
+            if (index.isValid())
+            {
+                m_activeRightClickIndex = index;
+                if(!m_dirModel->isDir(index))
+                    m_fileContext->exec(this->mapToGlobal(point));
+            }
+        }
+
+        void ProjectView::OnFileContextOpen()
+        {
+            QString filePath = m_dirModel->filePath(m_activeRightClickIndex);
+            if (!filePath.isEmpty())
+            {
+                //Attempt to open file using DesktopServices
+                QDesktopServices::openUrl(QUrl::fromLocalFile(filePath));
             }
         }
 

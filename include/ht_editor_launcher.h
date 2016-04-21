@@ -18,7 +18,7 @@
 #include <QPushButton>
 #include <QLineEdit>
 #include <QDialogButtonBox>
-
+#include <QCheckBox>
 namespace Hatchit
 {
     namespace Editor
@@ -35,14 +35,17 @@ namespace Hatchit
         protected slots:
             void OnCreateNew();
             void OnOpenExisting();
+            void OnAccepted();
 
         private:
+           
             QString             m_projectPath;
 
             QLineEdit*          m_directoryEdit;            
             QPushButton*        m_createNew;
             QPushButton*        m_openExisting;
             QDialogButtonBox*   m_buttonBox;
+            QCheckBox*          m_defaultCheckBox;
         };
     }
 }

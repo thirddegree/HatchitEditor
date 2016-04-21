@@ -24,7 +24,8 @@
 
 #include <ht_editor_window.h>
 #include <ht_editor_launcher.h>
-#include <ht_inireader.h>
+#include <ht_editor_globals.h>
+#include <ht_inisettings.h>
 #include <ht_path_singleton.h>
 #include <ht_renderer_singleton.h>
 
@@ -54,10 +55,12 @@ int main(int argc, char* argv[])
 	{
 		file.Open(os_exec_dir() + "HatchitEditor.ini", Core::File::FileMode::ReadBinary);
 
-		INIReader settings;
+		INISettings settings;
 		settings.Load(&file);
+      
+		Path::Initialize(settings);
 
-		Path::Initialize(&settings);
+        file.Close();
 	}
 	catch (std::exception& e)
 	{
@@ -88,6 +91,18 @@ int main(int argc, char* argv[])
 	delete dlg;
 
 	int ret = app.exec();
+
+    /*Save editor settings*/
+    /*try
+    {
+        file.Open(os_exec_dir() + "HatchitEditor.ini", Core::File::FileMode::WriteBinary);
+
+        _Settings.Write(&file);
+    }
+    catch (std::exception& e)
+    {
+        HT_DEBUG_PRINTF("Failed to write settings: %s\n", e.what());
+    }*/
 	
     return ret;
 }

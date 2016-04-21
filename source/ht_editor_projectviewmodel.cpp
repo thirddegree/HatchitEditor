@@ -32,21 +32,21 @@ namespace Hatchit
 
         QVariant ProjectViewModel::data(const QModelIndex& index, int role) const
         {
-            QFileInfo info = this->fileInfo(index);
-                       
-            if(role == Qt::DecorationRole && index.column() == 0)
-            {
-                if(m_texExtensionList.contains(info.completeSuffix()))
-                {              
-                    /*We want to return icon of the texture*/
-                    QPixmap image(info.absoluteFilePath());
-                
-                    return QIcon(image);
-                }
-              
-                return QDirModel::data(index, role);
-            }
-            
+            //QFileInfo info = this->fileInfo(index);
+            //           
+            //if(role == Qt::DecorationRole && index.column() == 0)
+            //{
+            //    if(m_texExtensionList.contains(info.completeSuffix()))
+            //    {              
+            //        /*We want to return icon of the texture*/
+            //        QPixmap image(info.absoluteFilePath());
+            //    
+            //        return QIcon(image);
+            //    }
+            //  
+            //    return QDirModel::data(index, role);
+            //}
+            //
             return QDirModel::data(index, role);
 
         }
