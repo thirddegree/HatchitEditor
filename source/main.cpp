@@ -57,6 +57,8 @@ int main(int argc, char* argv[])
 
 		INISettings settings;
 		settings.Load(&file);
+
+        Global::_Settings = settings;
       
 		Path::Initialize(settings);
 
@@ -93,16 +95,16 @@ int main(int argc, char* argv[])
 	int ret = app.exec();
 
     /*Save editor settings*/
-    /*try
+    try
     {
         file.Open(os_exec_dir() + "HatchitEditor.ini", Core::File::FileMode::WriteBinary);
 
-        _Settings.Write(&file);
+        Global::_Settings.Write(&file);
     }
     catch (std::exception& e)
     {
         HT_DEBUG_PRINTF("Failed to write settings: %s\n", e.what());
-    }*/
+    }
 	
     return ret;
 }

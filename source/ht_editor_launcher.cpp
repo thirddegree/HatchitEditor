@@ -72,13 +72,27 @@ namespace Hatchit
             connect(m_openExisting, SIGNAL(clicked()), this, SLOT(OnOpenExisting()));
 
 
-            m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
+            QString path = "E:/GitHub/TestProject";
+            if (!path.isEmpty())
+            {
+                QDir directory(path);
+                QFileInfo checkFile(directory, ".ht_proj");
+                if (checkFile.exists())
+                {
+                    m_directoryEdit->setText(path);
+                    m_projectPath = path;
+                    m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+                }
+            }
+            else
+                m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
         }
 
 
         void Launcher::OnAccepted()
         {
-           
+            if (m_defaultCheckBox->isChecked())
+                Global::_Settings.SetValue("EDITOR", "sDefaultDirectory", m_projectPath.toStdString());
         }
 
         void Launcher::OnCreateNew()

@@ -6,6 +6,6 @@ namespace Hatchit
 {
     namespace Editor
     {
-        
+        Core::INISettings Global::_Settings;
     }
 }
