@@ -12,7 +12,8 @@
 **
 **/
 
-#include <ht_os.h>
+
+/* Qt includes */
 #include <QApplication>
 #include <QFile>
 #include <QStyleFactory>
@@ -22,16 +23,18 @@
 #include <QStyle>
 #include <QDesktopWidget>
 
-#include <ht_editor_window.h>
-#include <ht_editor_launcher.h>
-#include <ht_inireader.h>
+
+#include <ht_os.h>
+#include <ht_file.h>
+//#include <ht_editor_window.h>
+//#include <ht_editor_launcher.h>
+#include <ht_inisettings.h>
 #include <ht_path_singleton.h>
-#include <ht_renderer_singleton.h>
 
 using namespace Hatchit;
-using namespace Hatchit::Editor;
+//using namespace Hatchit::Editor;
 using namespace Hatchit::Core;
-using namespace Hatchit::Game;
+//using namespace Hatchit::Game;
 
 int main(int argc, char* argv[])
 {
@@ -48,29 +51,14 @@ int main(int argc, char* argv[])
 
 	app.setPalette(palette);
 
-	/*Load editor ini file*/
-	File file;
-	try
-	{
-		file.Open(os_exec_dir() + "HatchitEditor.ini", Core::File::FileMode::ReadBinary);
-
-		INIReader settings;
-		settings.Load(&file);
-
-		Path::Initialize(&settings);
-	}
-	catch (std::exception& e)
-	{
-		return -1;
-	}
-
-	QFile stylesheet(QString::fromStdString(Hatchit::Core::os_exec_dir()) + "HatchitEditor.qss");
-	Window window;
+	QFile stylesheet("stylesheets/HatchitEditor.qss");
+	QMainWindow window;
 	if (stylesheet.open(QIODevice::ReadOnly))
 		window.setStyleSheet(stylesheet.readAll());
 
-    /*Create Launcher window and exec first to prompt user for project selection/creation.*/
-    Launcher* dlg = new Launcher(&window);
+
+    //*Create Launcher window and exec first to prompt user for project selection/creation.*//
+    /*Launcher* dlg = new Launcher(&window);
     dlg->setGeometry(
         QStyle::alignedRect(
             Qt::LeftToRight,
@@ -86,8 +74,9 @@ int main(int argc, char* argv[])
     window.setProjectPath(dlg->ProjectPath());
     window.showMaximized();
 	delete dlg;
+    */
 
-	int ret = app.exec();
-	
-    return ret;
+    window.showMaximized();
+
+    return app.exec();
 }
