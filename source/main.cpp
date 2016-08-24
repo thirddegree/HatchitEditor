@@ -19,15 +19,12 @@
 #include <QStyleFactory>
 #include <QPalette>
 #include <QMainWindow>
-#include <QDialog>
 #include <QStyle>
 #include <QDesktopWidget>
 
 
 #include <ht_os.h>
 #include <ht_file.h>
-//#include <ht_editor_window.h>
-//#include <ht_editor_launcher.h>
 #include <ht_inisettings.h>
 #include <ht_path_singleton.h>
 
@@ -55,26 +52,6 @@ int main(int argc, char* argv[])
 	QMainWindow window;
 	if (stylesheet.open(QIODevice::ReadOnly))
 		window.setStyleSheet(stylesheet.readAll());
-
-
-    //*Create Launcher window and exec first to prompt user for project selection/creation.*//
-    /*Launcher* dlg = new Launcher(&window);
-    dlg->setGeometry(
-        QStyle::alignedRect(
-            Qt::LeftToRight,
-            Qt::AlignCenter,
-            dlg->size(),
-            qApp->desktop()->availableGeometry()
-            )
-        );
-    int result = dlg->exec();
-    if(result == QDialog::Rejected)
-        return -1;
-
-    window.setProjectPath(dlg->ProjectPath());
-    window.showMaximized();
-	delete dlg;
-    */
 
     window.showMaximized();
 
