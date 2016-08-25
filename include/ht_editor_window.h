@@ -14,12 +14,6 @@
 
 #pragma once
 
-#include <ht_editor_menubar.h>
-#include <ht_editor_scenetree.h>
-#include <ht_editor_console.h>
-#include <ht_editor_projectviewcontainer.h>
-#include <ht_editor_winview.h>
-
 #include <QMainWindow>
 
 namespace Hatchit {
@@ -31,6 +25,8 @@ namespace Hatchit {
             Q_OBJECT
         public:
             Window(QWidget* parent = 0);
+
+            ~Window();
 
 
             void setProjectPath(QString path);
@@ -45,12 +41,13 @@ namespace Hatchit {
 
 
         private:
-            MenuBar*                    m_menuBar;
+            /*MenuBar*                    m_menuBar;
             WinView*                    m_view;
             Console*                    m_console;
             SceneTree*                  m_sceneTree;
             ProjectViewContainer*       m_projViewCont;
             QString                     m_projPath;
+             */
 
             void ConnectMenuSlots();
         };

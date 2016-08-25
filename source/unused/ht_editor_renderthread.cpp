@@ -1,5 +1,5 @@
 
-#include <ht_editor_renderthread.h>
+#include <include/unused/ht_editor_renderthread.h>
 #include <ht_time_singleton.h>
 
 namespace Hatchit

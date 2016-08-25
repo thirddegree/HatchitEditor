@@ -13,21 +13,15 @@
 **/
 
 #include <ht_editor_window.h>
-#include <ht_debug.h>
 
-#include <ht_renderer_singleton.h>
 
 #ifdef HT_SYS_WINDOWS
 #include <ht_editor_winview.h>
 #endif
 
-#include <ht_editor_glview.h>
-#include <ht_editor_rootlayoutdialog.h>
 
 #include <QDockWidget>
-#include <QFileDialog>
 #include <QApplication>
-#include <QStyle>
 
 namespace Hatchit {
 
@@ -36,15 +30,10 @@ namespace Hatchit {
         Window::Window(QWidget* parent /* = 0 */)
             : QMainWindow(parent)
         {
+            /*
             m_menuBar = new MenuBar;
             setMenuBar(m_menuBar);
 
-#ifdef HT_SYS_WINDOWS
-            m_view = new WinView(Graphics::RendererType::DIRECTX12);
-            m_view->Start();
-#else
-            m_view = new GLView;
-#endif
             QDockWidget* sceneDock = new QDockWidget(tr("Scene View"));
             m_sceneTree = new SceneTree;
             sceneDock->setWidget(m_sceneTree);
@@ -61,9 +50,13 @@ namespace Hatchit {
             consoleDock->setWidget(m_console);
             //addDockWidget(Qt::BottomDockWidgetArea, consoleDock);
 
-            setCentralWidget(m_view);
 
             ConnectMenuSlots();
+*/
+        }
+
+        Window::~Window()
+        {
 
         }
 
@@ -74,12 +67,14 @@ namespace Hatchit {
 
         void Window::OnFileOpen()
         {
+            /*
             QString dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),
                     "/home", QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
             if(!dir.isEmpty())
             {
                 m_projViewCont->View()->SetViewDirectory(dir);
             }
+             */
         }
 
         void Window::OnFileSave()
@@ -95,9 +90,7 @@ namespace Hatchit {
 
         void Window::OnHelpAbout()
         {
-            RootLayoutDialog dialog(this);
 
-            dialog.exec();
          
             //AboutDialog dialog(this);
 
@@ -106,6 +99,7 @@ namespace Hatchit {
 
         void Window::ConnectMenuSlots()
         {
+            /*
             connect(m_menuBar->GetFileMenu()->NewProject(), SIGNAL(triggered()),
                 this, SLOT(OnFileNew()));
             connect(m_menuBar->GetFileMenu()->OpenProject(), SIGNAL(triggered()),
@@ -117,13 +111,16 @@ namespace Hatchit {
 
             connect(m_menuBar->GetHelpMenu()->About(), SIGNAL(triggered()),
                 this, SLOT(OnHelpAbout()));
+                */
         }
 
         void Window::setProjectPath(QString path)
         {
+            /*
             m_projPath = path;
             m_projViewCont->View()->SetRootDirectory(m_projPath);
             m_projViewCont->View()->SetViewDirectory(m_projPath);
+             */
         }
     }
 

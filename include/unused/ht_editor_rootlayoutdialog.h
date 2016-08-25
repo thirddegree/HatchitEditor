@@ -19,7 +19,7 @@
 #include <QTextEdit>
 #include <QMenuBar>
 
-#include <ht_editor_rootlayouttree.h>
+#include <include/unused/ht_editor_rootlayouttree.h>
 
 namespace Hatchit
 {

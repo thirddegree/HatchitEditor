@@ -21,9 +21,9 @@
 #include <QSplitter>
 #include <QCheckBox>
 
-#include <ht_editor_rdtreeview.h>
-#include <ht_editor_rdtextview.h>
-#include <ht_editor_rdjsontree.h>
+#include <include/unused/ht_editor_rdtreeview.h>
+#include <include/unused/ht_editor_rdtextview.h>
+#include <include/unused/ht_editor_rdjsontree.h>
 
 namespace Hatchit
 {

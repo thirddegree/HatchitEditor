@@ -24,14 +24,10 @@
 
 
 #include <ht_os.h>
-#include <ht_file.h>
-#include <ht_inisettings.h>
-#include <ht_path_singleton.h>
+#include <ht_editor_window.h>
+
 
 using namespace Hatchit;
-//using namespace Hatchit::Editor;
-using namespace Hatchit::Core;
-//using namespace Hatchit::Game;
 
 int main(int argc, char* argv[])
 {
@@ -49,11 +45,13 @@ int main(int argc, char* argv[])
 	app.setPalette(palette);
 
 	QFile stylesheet("stylesheets/HatchitEditor.qss");
-	QMainWindow window;
+	Editor::Window window;
 	if (stylesheet.open(QIODevice::ReadOnly))
 		window.setStyleSheet(stylesheet.readAll());
 
     window.showMaximized();
+
+
 
     return app.exec();
 }

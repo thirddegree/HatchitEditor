@@ -14,9 +14,9 @@
 
 #pragma once
 
-#include <ht_editor_filemenu.h>
-#include <ht_editor_viewmenu.h>
-#include <ht_editor_helpmenu.h>
+#include <include/unused/ht_editor_filemenu.h>
+#include <include/unused/ht_editor_viewmenu.h>
+#include <include/unused/ht_editor_helpmenu.h>
 
 #include <QMenuBar>
 

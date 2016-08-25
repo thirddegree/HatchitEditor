@@ -13,7 +13,7 @@
 **/
 
 
-#include <ht_editor_rdjsontree.h>
+#include <include/unused/ht_editor_rdjsontree.h>
 
 namespace Hatchit
 {

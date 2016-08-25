@@ -15,7 +15,7 @@
 #pragma once
 
 #include <QTreeView>
-#include <ht_editor_rootlayoutmodel.h>
+#include <include/unused/ht_editor_rootlayoutmodel.h>
 
 namespace Hatchit
 {

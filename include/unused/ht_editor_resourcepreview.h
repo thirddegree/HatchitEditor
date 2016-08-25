@@ -16,7 +16,7 @@
 
 #include <QStackedWidget>
 
-#include <ht_editor_imagepreview.h>
+#include <include/unused/ht_editor_imagepreview.h>
 
 namespace Hatchit
 {

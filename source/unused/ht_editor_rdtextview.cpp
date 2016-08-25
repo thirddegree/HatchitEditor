@@ -12,7 +12,7 @@
 **
 **/
 
-#include <ht_editor_rdtextview.h>
+#include <include/unused/ht_editor_rdtextview.h>
 
 #include <QLayout>
 

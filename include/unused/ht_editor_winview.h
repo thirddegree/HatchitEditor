@@ -14,26 +14,37 @@
 
 #pragma once
 
-#include <QOpenGLWidget>
+#include <QWidget>
+#include <QEvent>
+#include <QPaintEngine>
+#include <QTimer>
+
+#include <thread>
+#include <atomic>
 
 namespace Hatchit {
 
-    namespace Editor {
-
-        class GLView : public QOpenGLWidget
+    namespace Editor
+    {
+        class WinView : public QWidget
         {
+            Q_OBJECT
         public:
-            GLView(QWidget* parent = 0);
+            WinView(QWidget* parent = 0);
 
+            ~WinView();
+
+            void Start();
+
+            inline virtual QPaintEngine* paintEngine() const { return NULL; }
+        signals:
+            void Resize(uint32_t w, uint32_t h);
         protected:
-            virtual void initializeGL();
-            virtual void paintGL();
-            virtual void resizeGL(int w, int h);
+            void paintEvent(QPaintEvent* e);
+            void resizeEvent(QResizeEvent* e);
 
-        private:
 
         };
-
     }
 
 }

@@ -12,7 +12,7 @@
 **
 **/
 
-#include <ht_editor_rootlayoutdialog.h>
+#include <include/unused/ht_editor_rootlayoutdialog.h>
 #include <ht_path_singleton.h>
 #include <QBoxLayout>
 #include <QFile>

@@ -12,7 +12,7 @@
 **
 **/
 
-#include <ht_editor_projectview.h>
+#include <include/unused/ht_editor_projectview.h>
 
 #include <QFileSystemModel>
 

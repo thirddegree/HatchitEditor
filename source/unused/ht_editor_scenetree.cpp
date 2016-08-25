@@ -12,7 +12,7 @@
 **
 **/
 
-#include <ht_editor_scenetree.h>
+#include <include/unused/ht_editor_scenetree.h>
 
 #include <QHeaderView>
 

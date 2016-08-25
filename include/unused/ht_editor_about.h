@@ -14,7 +14,7 @@
 
 #pragma once
 
-#include <ht_editor_collapsepane.h>
+#include <include/unused/ht_editor_collapsepane.h>
 
 #include <QDialog>
 #include <QTextBrowser>

@@ -13,7 +13,7 @@
 **/
 
 #include <ht_platform.h>
-#include <ht_editor_viewport.h>
+#include <include/unused/ht_editor_viewport.h>
 
 #ifdef HT_SYS_WINDOWS
 //#include <ht_editor_dxview.h>

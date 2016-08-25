@@ -12,11 +12,8 @@
 **
 **/
 
-#include <ht_editor_winview.h>
-#include <ht_window_singleton.h>
-#include <ht_renderer_singleton.h>
+#include <include/unused/ht_editor_winview.h>
 #include <ht_time_singleton.h>
-#include <ht_renderer.h>
 #include <ht_debug.h>
 #include <thread>
 
@@ -28,7 +25,7 @@ namespace Hatchit {
 
     namespace Editor {
 
-        WinView::WinView(Graphics::RendererType type, QWidget* parent)
+        WinView::WinView(QWidget* parent)
             : QWidget(parent)
         {
             setAttribute(Qt::WA_PaintOnScreen);
@@ -36,27 +33,18 @@ namespace Hatchit {
             setUpdatesEnabled(false);
 
 
-            Graphics::RendererParams params;
-            params.renderer = type;
-            params.clearColor = Graphics::Colors::CornflowerBlue;
-            params.window = (HWND)this->winId();
-            params.viewportWidth = this->width();
-            params.viewportHeight = this->height();
-            m_thread = new RenderThread(params);
 
 
-            connect(this, SIGNAL(Resize(uint32_t, uint32_t)),
-                m_thread, SLOT(resize(uint32_t, uint32_t)));
         }
 
         WinView::~WinView()
         {
-            delete m_thread;
+
         }
 
         void WinView::Start()
         {
-            m_thread->Start();
+
         }
 
         void WinView::paintEvent(QPaintEvent* e)

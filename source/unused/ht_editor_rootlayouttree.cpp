@@ -12,10 +12,10 @@
 **
 **/
 
-#include <ht_editor_rootlayouttree.h>
+#include <include/unused/ht_editor_rootlayouttree.h>
 #include <ht_path_singleton.h>
 #include <ht_debug.h>
-#include <ht_editor_rootlayoutitemdelegate.h>
+#include <include/unused/ht_editor_rootlayoutitemdelegate.h>
 #include <QComboBox>
 
 

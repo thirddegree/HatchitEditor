@@ -12,7 +12,7 @@
 **
 **/
 
-#include <ht_editor_preferences.h>
+#include <include/unused/ht_editor_preferences.h>
 
 namespace Hatchit
 {

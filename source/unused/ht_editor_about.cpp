@@ -12,8 +12,8 @@
 **
 **/
 
-#include <ht_editor_about.h>
-#include <ht_editor_version.h>
+#include <include/unused/ht_editor_about.h>
+#include <include/unused/ht_editor_version.h>
 #include <ht_os.h>
 
 #include <QBoxLayout>
@@ -47,6 +47,8 @@ namespace Hatchit {
             m_mainLayout->addWidget(m_aboutPane);
             m_mainLayout->setAlignment(m_aboutPane, Qt::AlignTop);
         }
+
+
 
         void AboutDialog::keyPressEvent(QKeyEvent* e)
         {

@@ -12,7 +12,7 @@
 **
 **/
 
-#include <ht_editor_rdtreeview.h>
+#include <include/unused/ht_editor_rdtreeview.h>
 
 namespace Hatchit
 {

@@ -12,8 +12,8 @@
 **
 **/
 
-#include <ht_editor_menubar.h>
-#include <ht_editor_filemenu.h>
+#include <include/unused/ht_editor_menubar.h>
+#include <include/unused/ht_editor_filemenu.h>
 
 namespace Hatchit {
 
