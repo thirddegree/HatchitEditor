@@ -48,7 +48,7 @@ elseif(UNIX)
     file(GLOB HT_EDITOR_INC include/*.h)
     file(GLOB HT_EDITOR_SRC source/*.cpp)
 
-    add_executable(HEditor ${HT_EDITOR_SRC})
+    add_executable(HEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC})
 
     target_link_libraries(HEditor Qt5::Core Qt5::Widgets Qt5::Gui) #HatchitCore HatchitGraphics HatchitGame ${SDL2_LIBRARY} Qt5::Core Qt5::Widgets Qt5::Gui)
 

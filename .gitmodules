@@ -1,6 +1,3 @@
 [submodule "Hatchit"]
 	path = Hatchit
 	url = https://github.com/thirddegree/Hatchit
-[submodule "HatchitForms"]
-	path = HatchitForms
-	url = https://github.com/thirddegree/HatchitForms.git
