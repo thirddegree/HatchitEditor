@@ -19,7 +19,7 @@
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <include/unused/ht_editor_projectinfo.h>
+#include <include/ht_editor_projectinfo.h>
 #include <ht_inireader.h>
 #include <ht_os.h>
 #include <ht_file.h>

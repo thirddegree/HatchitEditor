@@ -12,13 +12,14 @@
 **
 **/
 
-#include <include/unused/ht_editor_about.h>
-#include <include/unused/ht_editor_version.h>
+#include <include/ht_editor_about.h>
+#include <include/ht_editor_version.h>
 #include <ht_os.h>
 
 #include <QBoxLayout>
 #include <QFile>
 #include <QKeyEvent>
+#include <QWebEngineView>
 
 namespace Hatchit {
 
@@ -65,7 +66,7 @@ namespace Hatchit {
                 if (!ok)
                 {
                     QTextBrowser* browser = new QTextBrowser;
-                    QFile license(QString::fromStdString(Hatchit::Core::os_exec_dir()) + "LICENSE.GPLv3");
+                    QFile license("LICENSE.GPLv3");
                     license.open(QIODevice::ReadOnly);
                     browser->setText(license.readAll());
 

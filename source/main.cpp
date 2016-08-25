@@ -24,6 +24,7 @@
 
 
 #include <ht_os.h>
+#include <ht_debug.h>
 #include <ht_editor_window.h>
 
 
@@ -44,7 +45,8 @@ int main(int argc, char* argv[])
 
 	app.setPalette(palette);
 
-	QFile stylesheet("stylesheets/HatchitEditor.qss");
+
+	QFile stylesheet(QString::fromStdString(Core::os_exec_dir() + "HatchitEditor.qss"));
 	Editor::Window window;
 	if (stylesheet.open(QIODevice::ReadOnly))
 		window.setStyleSheet(stylesheet.readAll());

@@ -12,7 +12,7 @@
 **
 **/
 
-#include <include/unused/ht_editor_winview.h>
+#include <include/ht_editor_winview.h>
 #include <ht_time_singleton.h>
 #include <ht_debug.h>
 #include <thread>

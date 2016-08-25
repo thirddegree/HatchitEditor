@@ -12,7 +12,7 @@
 **
 **/
 
-#include <include/unused/ht_editor_projectviewcontainer.h>
+#include <include/ht_editor_projectviewcontainer.h>
 #include <QBoxLayout>
 #include <QStyle>
 #include <QApplication>

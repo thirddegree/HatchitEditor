@@ -12,33 +12,26 @@
 **
 **/
 
-#include <include/unused/ht_editor_imagepreview.h>
-
-#include <QBoxLayout>
+#include <ht_editor_resourcepreview.h>
 
 namespace Hatchit
 {
+
     namespace Editor
     {
-        ImagePreview::ImagePreview(QWidget* parent)
-            : QWidget(parent)
+        ResourcePreview::ResourcePreview(QWidget* parent)
+            : QStackedWidget(parent)
         {
-//            setMinimumSize(150,150);            
-//            setMaximumSize(400,400);
+        
+            m_imagePreview = new ImagePreview;
 
-            QVBoxLayout* layout = new QVBoxLayout;
-            m_imageDisplay = new QLabel;
-            layout->addWidget(m_imageDisplay);
-
-            setLayout(layout);
+            addWidget(m_imagePreview);            
+        
         }
 
-        void ImagePreview::SetImageFromPath(const QString& path)
+        void ResourcePreview::OnImageResourceSelected(const QString& path)
         {
-            QPixmap pixmap(path);
-
-            m_imageDisplay->setPixmap(pixmap);
+            m_imagePreview->SetImageFromPath(path);
         }
-             
     }
 }

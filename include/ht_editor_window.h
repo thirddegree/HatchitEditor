@@ -16,9 +16,13 @@
 
 #include <QMainWindow>
 
+
+
 namespace Hatchit {
 
     namespace Editor {
+
+        class MenuBar;
 
         class Window : public QMainWindow
         {
@@ -41,8 +45,8 @@ namespace Hatchit {
 
 
         private:
-            /*MenuBar*                    m_menuBar;
-            WinView*                    m_view;
+            MenuBar*                    m_menuBar;
+            /*WinView*                    m_view;
             Console*                    m_console;
             SceneTree*                  m_sceneTree;
             ProjectViewContainer*       m_projViewCont;

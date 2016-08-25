@@ -3,7 +3,7 @@
 **    Copyright(c) 2015 Third-Degree
 **
 **    GNU General Public License
-**    This file may be used under the terms of
+**    This file may be used under the terms of 
 **    the GNU General Public License version 3 as published by the Free
 **    Software Foundation and appearing in the file LICENSE.GPLv3 included
 **    in the packaging of this file. Please review the following information
@@ -12,25 +12,16 @@
 **
 **/
 
-#include <include/unused/ht_editor_helpmenu.h>
+#include <include/ht_editor_console.h>
 
-namespace Hatchit {
-
-    namespace Editor {
-
-        HelpMenu::HelpMenu(QWidget* widget /* = 0 */)
-            : QMenu(tr("Help"), widget)
+namespace Hatchit
+{
+    namespace Editor
+    {
+        Console::Console(QWidget* parent)
+            : QWidget(parent)
         {
 
-            m_about = new QAction(tr("About"), nullptr);
-
-            addAction(m_about);
-        }
-
-        QAction* HelpMenu::About()
-        {
-            return m_about;
         }
     }
-
 }

@@ -1,6 +1,6 @@
 /**
 **    Hatchit Editor
-**    Copyright(c) 2015 Third-Degree
+**    Copyright(c) 2015-2016 Third-Degree
 **
 **    GNU General Public License
 **    This file may be used under the terms of
@@ -12,27 +12,16 @@
 **
 **/
 
-#pragma once
-
-#include <QStackedWidget>
-
-#include <include/unused/ht_editor_imagepreview.h>
+#include <include/ht_editor_preferences.h>
 
 namespace Hatchit
 {
     namespace Editor
     {
-        class ResourcePreview : public QStackedWidget
+        PreferencesEditor::PreferencesEditor(QWidget* parent)
+            : QDialog(parent)
         {
-            Q_OBJECT
-        public:
-            ResourcePreview(QWidget* parent = 0);
 
-        public slots:
-            void OnImageResourceSelected(const QString& path);
-
-        private:
-            ImagePreview* m_imagePreview;
-        };
+        }
     }
 }

@@ -12,17 +12,25 @@
 **
 **/
 
-#include <include/unused/ht_editor_viewmenu.h>
+#include <ht_platform.h>
+#include <include/ht_editor_viewport.h>
+
+#ifdef HT_SYS_WINDOWS
+//#include <ht_editor_dxview.h>
+#endif
+
+//#include <ht_editor_glview.h>
 
 namespace Hatchit {
 
     namespace Editor {
 
-        ViewMenu::ViewMenu(QWidget* widget /* = 0 */)
-            : QMenu(tr("View"), widget)
+        Viewport::Viewport(QWidget* parent)
+            : QWidget(parent)
         {
 
         }
+
     }
 
 }

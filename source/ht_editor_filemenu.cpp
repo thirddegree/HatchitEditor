@@ -12,7 +12,7 @@
 **
 **/
 
-#include <include/unused/ht_editor_filemenu.h>
+#include <ht_editor_filemenu.h>
 
 namespace Hatchit {
 

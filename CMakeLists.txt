@@ -24,11 +24,11 @@ if(WIN32)
     find_package(Qt5Widgets)
 
 elseif(UNIX)
-    #add_subdirectory(Hatchit/)
+    add_subdirectory(Hatchit/)
 
     set(CMAKE_PREFIX_PATH "~/Qt/5.7/gcc_64/")
 
-    find_package(Qt5 COMPONENTS Core Gui Widgets)
+    find_package(Qt5 COMPONENTS Core Gui Widgets WebEngine WebEngineWidgets)
     find_package(SDL2 REQUIRED)
 
     include_directories("include"
@@ -47,9 +47,18 @@ elseif(UNIX)
 
     file(GLOB HT_EDITOR_INC include/*.h)
     file(GLOB HT_EDITOR_SRC source/*.cpp)
+    file(GLOB HT_EDITOR_QRC source/HatchitEditor.qrc)
 
-    add_executable(HEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC})
+    add_executable(HEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ${HT_EDITOR_QRC})
 
-    target_link_libraries(HEditor Qt5::Core Qt5::Widgets Qt5::Gui) #HatchitCore HatchitGraphics HatchitGame ${SDL2_LIBRARY} Qt5::Core Qt5::Widgets Qt5::Gui)
+
+    add_custom_command(TARGET HEditor POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${PROJECT_SOURCE_DIR}/stylesheets/HatchitEditor.qss $<TARGET_FILE_DIR:HEditor>)
+    add_custom_command(TARGET HEditor POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E copy
+            ${PROJECT_SOURCE_DIR}/LICENSE.GPLv3 $<TARGET_FILE_DIR:HEditor>)
+
+    target_link_libraries(HEditor Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore HatchitGraphics HatchitGame ${SDL2_LIBRARY})
 
 endif()

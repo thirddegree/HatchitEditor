@@ -12,25 +12,33 @@
 **
 **/
 
-#include <ht_platform.h>
-#include <include/unused/ht_editor_viewport.h>
+#pragma once
 
-#ifdef HT_SYS_WINDOWS
-//#include <ht_editor_dxview.h>
-#endif
+#include <ht_editor_filemenu.h>
+#include <ht_editor_viewmenu.h>
+#include <ht_editor_helpmenu.h>
 
-//#include <ht_editor_glview.h>
+#include <QMenuBar>
 
 namespace Hatchit {
 
     namespace Editor {
 
-        Viewport::Viewport(QWidget* parent)
-            : QWidget(parent)
+        class MenuBar : public QMenuBar
         {
+            Q_OBJECT
+        public:
+            MenuBar(QWidget* parent = 0);
 
-        }
+            FileMenu* GetFileMenu();
+            ViewMenu* GetViewMenu();
+            HelpMenu* GetHelpMenu();
 
+        private:
+            FileMenu*  m_fileMenu;
+            ViewMenu*  m_viewMenu;
+            HelpMenu*  m_helpMenu;
+        };
     }
 
 }

@@ -12,26 +12,17 @@
 **
 **/
 
-#include <include/unused/ht_editor_resourcepreview.h>
+#include <include/ht_editor_viewmenu.h>
 
-namespace Hatchit
-{
+namespace Hatchit {
 
-    namespace Editor
-    {
-        ResourcePreview::ResourcePreview(QWidget* parent)
-            : QStackedWidget(parent)
+    namespace Editor {
+
+        ViewMenu::ViewMenu(QWidget* widget /* = 0 */)
+            : QMenu(tr("View"), widget)
         {
-        
-            m_imagePreview = new ImagePreview;
 
-            addWidget(m_imagePreview);            
-        
-        }
-
-        void ResourcePreview::OnImageResourceSelected(const QString& path)
-        {
-            m_imagePreview->SetImageFromPath(path);
         }
     }
+
 }
