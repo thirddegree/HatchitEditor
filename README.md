@@ -11,7 +11,7 @@ An Open Source 3D Game Editor written in C++ with Qt
 This project is open to any community developed
 pull-requests and we encourage all skill levels to contribute. 
 
-NOTE: All code submitted to HatchitEditor will subject to license under GPLv3
+<b>NOTE:</b> All code submitted to HatchitEditor will subject to license under GPLv3
 
 ##Build Instructions
 
@@ -28,7 +28,7 @@ Install the following dependencies:
 The follow the follwing instructions:
 
 Then follow these simple directions:
-* Clone down the repo with `git clone --recursive http://github.com/thirddegree/Hatchit`
+* Clone down the repo with `git clone --recursive http://github.com/thirddegree/HatchitEditor.git`
 * Make a build dir (e.g. mkdir build)
 * cd into build/ and run cmake ..
 * Now just run make to build HatchitEditor
