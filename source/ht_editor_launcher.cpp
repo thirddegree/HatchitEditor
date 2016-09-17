@@ -12,15 +12,15 @@
 **
 **/
 
-#include <include/unused/ht_editor_launcher.h>
+#include <ht_editor_launcher.h>
 #include <QBoxLayout>
 #include <QLabel>
 #include <QDir>
 #include <QFile>
 #include <QFileDialog>
 #include <QMessageBox>
-#include <include/ht_editor_projectinfo.h>
-#include <ht_inireader.h>
+#include <ht_editor_projectinfo.h>
+#include <ht_inisettings.h>
 #include <ht_os.h>
 #include <ht_file.h>
 
@@ -82,7 +82,7 @@ namespace Hatchit
                     m_projectPath = dir;
                     m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
                     
-                    Core::INIReader reader;
+                    /*Core::INIReader reader;
                     Core::File file;
                     try
                     {
@@ -93,9 +93,9 @@ namespace Hatchit
                     catch(std::exception& e)
                     {
                         
-                    }
+                    }*/
 
-                    QString assetPath = QString::fromStdString(reader.GetValue("PATHS", "sAssetPath", std::string("")));
+                    /*QString assetPath = QString::fromStdString(reader.GetValue("PATHS", "sAssetPath", std::string("")));
                     QString modelPath = QString::fromStdString(reader.GetValue("PATHS", "sModelPath", std::string("")));
                     QString texturePath = QString::fromStdString(reader.GetValue("PATHS", "sTexturePath", std::string("")));
                     directory.mkpath(m_projectPath + QDir::separator() + assetPath);
@@ -103,7 +103,7 @@ namespace Hatchit
                     directory.mkpath(m_projectPath + QDir::separator() + texturePath);
                     QFile assetFile(m_projectPath + QDir::separator() + assetPath + ".ht_asset");
                     assetFile.open(QIODevice::ReadWrite);
-
+                    */
                 }
             }
         }

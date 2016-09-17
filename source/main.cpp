@@ -26,9 +26,10 @@
 #include <ht_os.h>
 #include <ht_debug.h>
 #include <ht_editor_window.h>
-
+#include <ht_editor_launcher.h>
 
 using namespace Hatchit;
+using namespace Hatchit::Editor;
 
 int main(int argc, char* argv[])
 {
@@ -45,11 +46,42 @@ int main(int argc, char* argv[])
 
 	app.setPalette(palette);
 
+    /**
+     * Check command line arguments.
+     * For now, just check if project path was passed to be
+     * opened.
+     *
+     * TODO:
+     *      Implement command-line parse logic to handle
+     *      other editor settings passed as parameters.
+     */
+    QStringList _args = app.arguments();
+    if(_args.size() >= 2)
+    {
+        std::string projectPath = _args[1].toStdString();
+    }
+
+
 
 	QFile stylesheet(QString::fromStdString(Core::os_exec_dir() + "HatchitEditor.qss"));
 	Editor::Window window;
 	if (stylesheet.open(QIODevice::ReadOnly))
 		window.setStyleSheet(stylesheet.readAll());
+    window.setWindowIcon(QIcon(":icons/hatchit.png"));
+
+    /*Create Launcher window and exec first to prompt user for project selection/creation.*/
+    Launcher* dlg = new Launcher(&window);
+    dlg->setGeometry(
+        QStyle::alignedRect(
+            Qt::LeftToRight,
+            Qt::AlignCenter,
+            dlg->size(),
+            qApp->desktop()->availableGeometry()
+            )
+        );
+    int result = dlg->exec();
+    if(result == QDialog::Rejected)
+        return -1;
 
     window.showMaximized();
 
