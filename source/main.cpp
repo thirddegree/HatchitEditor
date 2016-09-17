@@ -27,6 +27,7 @@
 #include <ht_debug.h>
 #include <ht_editor_window.h>
 #include <ht_editor_launcher.h>
+#include <ht_editor_version.h>
 
 using namespace Hatchit;
 using namespace Hatchit::Editor;
@@ -35,6 +36,7 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
 	app.setStyle(QStyleFactory::create("fusion"));
+    app.setApplicationName(HatchitEditor_TITLE);
 
 	QPalette palette;
 	palette.setColor(QPalette::Highlight, QColor(148, 100, 229));
