@@ -33,6 +33,8 @@ namespace Hatchit
 {
     namespace Editor
     {
+
+
         Launcher::Launcher(QWidget* parent)
             : QDialog(parent)
         {
@@ -41,6 +43,34 @@ namespace Hatchit
 
             SetupUI();
             ProcessRecent();
+
+            /**
+             * Create recent tree context menu
+             */
+            m_recentContext = new QMenu(this);
+            m_removeRecent = new QAction(tr("Remove"));
+            m_recentContext->addAction(m_removeRecent);
+
+            connect(m_removeRecent, SIGNAL(triggered()), this, SLOT(OnRemoveRecent()));
+        }
+
+        void Launcher::OnRemoveRecent()
+        {
+            /**
+             * Here we will remove the currently selected item
+             * in the recent projects list.
+             */
+            int index = m_recentList->currentRow();
+            m_recent.erase(m_recent.begin() + index);
+
+            delete m_recentList->takeItem(index);
+        }
+
+        void Launcher::OnRecentCustomContext(QPoint p)
+        {
+            QPoint globalP = m_recentList->mapToGlobal(p);
+
+            m_recentContext->exec(globalP);
         }
 
         void Launcher::OnCreateNew()
@@ -58,29 +88,7 @@ namespace Hatchit
                     m_directoryEdit->setText(dir);
                     m_projectPath = dir;
                     m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
-                    
-                    /*Core::INIReader reader;
-                    Core::File file;
-                    try
-                    {
-                        file.Open(Core::os_exec_dir() + "projectconf.ini", Core::File::FileMode::ReadText);
-
-                        reader.Load(&file);
-                    }
-                    catch(std::exception& e)
-                    {
-                        
-                    }*/
-
-                    /*QString assetPath = QString::fromStdString(reader.GetValue("PATHS", "sAssetPath", std::string("")));
-                    QString modelPath = QString::fromStdString(reader.GetValue("PATHS", "sModelPath", std::string("")));
-                    QString texturePath = QString::fromStdString(reader.GetValue("PATHS", "sTexturePath", std::string("")));
-                    directory.mkpath(m_projectPath + QDir::separator() + assetPath);
-                    directory.mkpath(m_projectPath + QDir::separator() + modelPath);
-                    directory.mkpath(m_projectPath + QDir::separator() + texturePath);
-                    QFile assetFile(m_projectPath + QDir::separator() + assetPath + ".ht_asset");
-                    assetFile.open(QIODevice::ReadWrite);
-                    */
+                    m_recent.push_back(dir.toStdString());
                 }
             }
         }
@@ -263,10 +271,14 @@ namespace Hatchit
             layout->addWidget(m_buttonBox);
             mainWLayout->addLayout(layout);
 
+            m_recentList->setContextMenuPolicy(Qt::CustomContextMenu);
+
             connect(m_createNew, SIGNAL(clicked()), this, SLOT(OnCreateNew()));
             connect(m_openExisting, SIGNAL(clicked()), this, SLOT(OnOpenExisting()));
             connect(m_recentList, SIGNAL(itemActivated(QListWidgetItem*)),
                     this, SLOT(OnRecentActivated(QListWidgetItem*)));
+            connect(m_recentList, SIGNAL(customContextMenuRequested(QPoint)),
+                    this, SLOT(OnRecentCustomContext(QPoint)));
 
 
             m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);

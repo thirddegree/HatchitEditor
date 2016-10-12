@@ -19,6 +19,8 @@
 #include <QLineEdit>
 #include <QDialogButtonBox>
 #include <QListWidget>
+#include <QMenu>
+#include <QAction>
 
 #include <vector>
 
@@ -26,6 +28,7 @@ namespace Hatchit
 {
     namespace Editor
     {
+
         class Launcher : public QDialog
         {
             Q_OBJECT
@@ -40,6 +43,8 @@ namespace Hatchit
             void OnCreateNew();
             void OnOpenExisting();
             void OnRecentActivated(QListWidgetItem* item);
+            void OnRemoveRecent();
+            void OnRecentCustomContext(QPoint p);
 
         private:
             std::vector<std::string> m_recent;
@@ -51,6 +56,8 @@ namespace Hatchit
             QPushButton*             m_openExisting;
             QDialogButtonBox*        m_buttonBox;
 
+            QMenu*                   m_recentContext;
+            QAction*                 m_removeRecent;
 
 
         private:

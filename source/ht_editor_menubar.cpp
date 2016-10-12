@@ -22,42 +22,13 @@ namespace Hatchit {
         MenuBar::MenuBar(QWidget* parent /* = 0 */)
             : QMenuBar(parent)
         {
-            m_fileMenu = new FileMenu;
-            m_viewMenu = new ViewMenu;
-            m_helpMenu = new HelpMenu;
-
-
-
-            /**
-             * The following code is necessary to force the menubar submenus
-             * to have the correct styling to match the rest of the editor
-             *
-             * NOTE:
-             *      If anyone figures out a way to correctly apply
-             *      this styling through the editor's stylesheet, this code
-             *      should then be removed in favor of styling from the stylesheet
-             */
-            QPalette p = this->palette();
-            p.setColor(QPalette::Highlight, QColor(148, 100, 229));
-            p.setColor(QPalette::Base, QColor(35, 43, 43));
-            p.setColor(QPalette::Text, Qt::white);
-            p.setColor(QPalette::Disabled, QPalette::Text, Qt::gray);
-            p.setColor(QPalette::Disabled, QPalette::Light, Qt::gray);
-            p.setColor(QPalette::Background, QColor(35, 43, 43));
-            m_fileMenu->setPalette(p);
-            m_viewMenu->setPalette(p);
-            m_helpMenu->setPalette(p);
+            m_fileMenu = new FileMenu(this);
+            m_viewMenu = new ViewMenu(this);
+            m_helpMenu = new HelpMenu(this);
 
             addMenu(m_fileMenu);
             addMenu(m_viewMenu);
             addMenu(m_helpMenu);
-
-            /**
-             * Attempt to set menu text color from appstyle
-             */
-
-
-            setPalette(p);
         }
 
         FileMenu* MenuBar::GetFileMenu()

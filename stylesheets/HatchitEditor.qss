@@ -23,6 +23,10 @@ QMainWindow QMenuBar::item
 	background: transparent;
 }
 
+QMenu {
+    background-color: #232B2B;
+}
+
 /***************** Launcher *****************************/
 
 QWidget#Launcher_Main {

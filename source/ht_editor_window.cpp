@@ -31,7 +31,7 @@ namespace Hatchit {
             : QMainWindow(parent)
         {
 
-            m_menuBar = new MenuBar;
+            m_menuBar = new MenuBar(this);
             setMenuBar(m_menuBar);
 
             ConnectMenuSlots();
