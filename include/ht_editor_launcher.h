@@ -18,6 +18,9 @@
 #include <QPushButton>
 #include <QLineEdit>
 #include <QDialogButtonBox>
+#include <QListWidget>
+
+#include <vector>
 
 namespace Hatchit
 {
@@ -30,6 +33,7 @@ namespace Hatchit
             Launcher(QWidget* parent = 0);
 
 
+            void    SaveRecent();
             QString ProjectPath();
 
         protected slots:
@@ -37,12 +41,20 @@ namespace Hatchit
             void OnOpenExisting();
 
         private:
-            QString             m_projectPath;
+            std::vector<std::string> m_recent;
+            QListWidget*             m_recentList;
+            QString                  m_projectPath;
 
-            QLineEdit*          m_directoryEdit;            
-            QPushButton*        m_createNew;
-            QPushButton*        m_openExisting;
-            QDialogButtonBox*   m_buttonBox;
+            QLineEdit*               m_directoryEdit;
+            QPushButton*             m_createNew;
+            QPushButton*             m_openExisting;
+            QDialogButtonBox*        m_buttonBox;
+
+
+
+        private:
+            void SetupUI();
+            bool ProcessRecent();
         };
     }
 }

@@ -18,6 +18,9 @@
 
 #include <QResizeEvent>
 #include <QTimer>
+#include <QPaintEvent>
+#include <QPainter>
+#include <QPaintDevice>
 #include <QApplication>
 
 namespace Hatchit {
@@ -27,8 +30,8 @@ namespace Hatchit {
         WinView::WinView(QWidget* parent)
             : QWidget(parent)
         {
-            setAttribute(Qt::WA_PaintOnScreen);
-            setAttribute(Qt::WA_NativeWindow);
+            //setAttribute(Qt::WA_PaintOnScreen);
+            //setAttribute(Qt::WA_NativeWindow);
             setUpdatesEnabled(false);
 
 
@@ -49,6 +52,8 @@ namespace Hatchit {
         void WinView::paintEvent(QPaintEvent* e)
         {
             Q_UNUSED(e);
+
+
         }
 
         void WinView::resizeEvent(QResizeEvent* e)

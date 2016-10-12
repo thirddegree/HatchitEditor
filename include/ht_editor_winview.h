@@ -36,7 +36,7 @@ namespace Hatchit {
 
             void Start();
 
-            inline virtual QPaintEngine* paintEngine() const { return NULL; }
+            //inline virtual QPaintEngine* paintEngine() const { return NULL; }
         signals:
             void Resize(uint32_t w, uint32_t h);
         protected:

@@ -15,10 +15,8 @@
 #include <ht_editor_window.h>
 #include <ht_editor_menubar.h>
 #include <ht_editor_about.h>
-
-#ifdef HT_SYS_WINDOWS
+#include <ht_editor_scenetree.h>
 #include <ht_editor_winview.h>
-#endif
 
 
 #include <QDockWidget>
@@ -37,6 +35,15 @@ namespace Hatchit {
             setMenuBar(m_menuBar);
 
             ConnectMenuSlots();
+
+            m_sceneTree = new SceneTree;
+
+            QDockWidget* sceneTreeDock = new QDockWidget(tr("Scene Graph"));
+            sceneTreeDock->setWidget(m_sceneTree);
+            this->addDockWidget(Qt::LeftDockWidgetArea, sceneTreeDock);
+
+            m_view = new WinView;
+            setCentralWidget(m_view);
 
         }
 

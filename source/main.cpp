@@ -22,7 +22,6 @@
 #include <QStyle>
 #include <QDesktopWidget>
 
-
 #include <ht_os.h>
 #include <ht_debug.h>
 #include <ht_editor_window.h>
@@ -30,23 +29,19 @@
 #include <ht_editor_version.h>
 
 using namespace Hatchit;
+using namespace Hatchit::Core;
 using namespace Hatchit::Editor;
+
+#include <ht_jsonhelper.h>
+#include <unordered_map>
+
 
 int main(int argc, char* argv[])
 {
+
     QApplication app(argc, argv);
 	app.setStyle(QStyleFactory::create("fusion"));
     app.setApplicationName(HatchitEditor_TITLE);
-
-	QPalette palette;
-	palette.setColor(QPalette::Highlight, QColor(148, 100, 229));
-	palette.setColor(QPalette::Base, QColor(35, 43, 43));
-	palette.setColor(QPalette::Text, Qt::white);
-	palette.setColor(QPalette::Disabled, QPalette::Text, Qt::gray);
-	palette.setColor(QPalette::Disabled, QPalette::Light, Qt::gray);
-    palette.setColor(QPalette::Background, QColor(35, 43, 43));
-
-	app.setPalette(palette);
 
     /**
      * Check command line arguments.
@@ -62,7 +57,6 @@ int main(int argc, char* argv[])
     {
         std::string projectPath = _args[1].toStdString();
     }
-
 
 
 	QFile stylesheet(QString::fromStdString(Core::os_exec_dir() + "HatchitEditor.qss"));
@@ -84,7 +78,7 @@ int main(int argc, char* argv[])
     int result = dlg->exec();
     if(result == QDialog::Rejected)
         return -1;
-
+    dlg->SaveRecent();
     window.showMaximized();
 
 
