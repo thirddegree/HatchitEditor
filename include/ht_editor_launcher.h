@@ -39,6 +39,7 @@ namespace Hatchit
         protected slots:
             void OnCreateNew();
             void OnOpenExisting();
+            void OnRecentActivated(QListWidgetItem* item);
 
         private:
             std::vector<std::string> m_recent;

@@ -4,12 +4,18 @@
 	font-family: "Ubuntu", "Arial";
 }
 
+QWidget#Launcher_Main {
+    padding: 10px;
+}
+
+QWidget#Launcher_Main QLabel, QPushButton, QLineEdit {
+    font-size: 18px;
+}
+
 QListWidget#Launcher_RecentList {
     font-size: 16px;
 }
 
-QListWidget#Launcher_RecentList {
-    border: none;
-    margin: 0px;
-    padding: 0px;
+QListWidget#Launcher_RecentList::item {
+    margin: 8px;
 }

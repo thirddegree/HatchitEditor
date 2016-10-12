@@ -27,6 +27,7 @@
 #include <ht_file.h>
 #include <ht_jsonhelper.h>
 #include <ht_os.h>
+#include <ht_editor_version.h>
 
 namespace Hatchit
 {
@@ -112,6 +113,17 @@ namespace Hatchit
             }
         }
 
+        void Launcher::OnRecentActivated(QListWidgetItem *item)
+        {
+            if(item)
+            {
+                QString path = item->text();
+                m_projectPath = path;
+                m_directoryEdit->setText(m_projectPath);
+                m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(true);
+            }
+        }
+
         QString Launcher::ProjectPath()
         {
             return m_projectPath;
@@ -156,7 +168,6 @@ namespace Hatchit
                 return false;
 
             JSON j = JSON::parse(file.readAll().toStdString());
-
             JSON recent = j["RecentProjects"];
             if(!recent.is_null() && recent.is_array())
             {
@@ -165,6 +176,8 @@ namespace Hatchit
                 {
                     if(os_isdir(s))
                     {
+
+
                         QDir dir(QString::fromStdString(s));
                         QFileInfo check(dir, ".ht_proj");
                         if(check.exists())
@@ -195,18 +208,28 @@ namespace Hatchit
         {
             m_recentList = new QListWidget;
             m_recentList->setObjectName("Launcher_RecentList");
-            //m_recentList->setFixedSize(300, 600);
 
             QHBoxLayout* mainLayout = new QHBoxLayout;
             QSplitter*   mainSplitter = new QSplitter;
             mainSplitter->addWidget(m_recentList);
 
+
             QWidget* mainWidget = new QWidget;
             mainWidget->setObjectName("Launcher_Main");
-            QLabel* label = new QLabel("Hatchit Editor");
-            label->setAlignment(Qt::AlignCenter);
+            QVBoxLayout* iconTitleLyt = new QVBoxLayout;
+            iconTitleLyt->setContentsMargins(0, 0, 0, 0);
+            QLabel* icon = new QLabel;
+            icon->setTextFormat(Qt::RichText);
+            QString version = QString("Version %1.%2.%3").arg(HatchitEditor_VERSION_MAJOR).arg(
+                                                              HatchitEditor_VERSION_MINOR).arg(
+                                                              HatchitEditor_VERSION_BUILD);
+
+            icon->setText("<img src=:/icons/hatchit.png width=128 height=128> <br> <h2>"
+                          + QString(HatchitEditor_TITLE) + "</h2><br>" + version);
+            icon->setAlignment(Qt::AlignCenter);
+            iconTitleLyt->addWidget(icon);
             QVBoxLayout* mainWLayout = new QVBoxLayout;
-            mainWLayout->addWidget(label);
+            mainWLayout->addLayout(iconTitleLyt);
             mainWidget->setLayout(mainWLayout);
 
             mainSplitter->addWidget(mainWidget);
@@ -242,6 +265,8 @@ namespace Hatchit
 
             connect(m_createNew, SIGNAL(clicked()), this, SLOT(OnCreateNew()));
             connect(m_openExisting, SIGNAL(clicked()), this, SLOT(OnOpenExisting()));
+            connect(m_recentList, SIGNAL(itemActivated(QListWidgetItem*)),
+                    this, SLOT(OnRecentActivated(QListWidgetItem*)));
 
 
             m_buttonBox->button(QDialogButtonBox::Ok)->setEnabled(false);
