@@ -1,8 +1,29 @@
 
 * {
-	color: black;
+	color: silver;
 	font-family: "Ubuntu", "Arial";
 }
+
+QWidget {
+	selection-background-color: #9464E5;
+}
+
+QMainWindow, QDialog {
+    background-color: #232B2B;
+}
+
+QMainWindow QMenuBar {
+    background-color: #43443A;
+    color: silver;
+    font-size: 14px;
+}
+
+QMainWindow QMenuBar::item
+{
+	background: transparent;
+}
+
+/***************** Launcher *****************************/
 
 QWidget#Launcher_Main {
     padding: 10px;
@@ -18,4 +39,120 @@ QListWidget#Launcher_RecentList {
 
 QListWidget#Launcher_RecentList::item {
     margin: 8px;
+}
+
+/***************** QTabWidget ***************************/
+
+QTabWidget {
+	background-color: #43443A;
+}
+
+QTabBar::tab {
+	background-color: #636363;
+	border-top-right-radius: 7px;
+	border-top-left-radius: 7px;
+	padding: 10px;
+	min-width: 100px;
+}
+
+QTabBar::tab:hover {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 gray, stop:0.8 #636363);
+}
+
+QTabBar::tab:selected {
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 gray, stop:0.8 #636363);
+	color: #9464E5;
+	font-weight: bold;
+}
+
+/***************** QDockWidget **************************/
+
+
+QDockWidget {
+    font-size: 16px;
+}
+
+QDockWidget::title
+{
+	text-align: center;
+	spacing: 3px; /* spacing between items in the tool bar */
+	background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 gray, stop:0.8 #636363);
+}
+
+QDockWidget::close-button, QDockWidget::float-button
+{
+	spacing: 1px; /* spacing between items in the tool bar */
+}
+
+QDockWidget::close-button:hover, QDockWidget::float-button:hover
+{
+	border: none;
+	background: transparent;
+	titlebar-close-icon: url(:icons/dock_close_hover.png);
+	titlebar-normal-icon: url(:icons/dock_float.png);
+}
+
+
+/***************** QTreeView ****************************/
+
+QTreeView {
+	background-color: #232B2B;
+ }
+
+ QTreeView::item::selected {
+    background-color: #9464E5;
+}
+
+QTreeView QHeaderView:section {
+    background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
+                 stop:0 gray, stop:0.8 #636363);
+}
+
+QTreeView::item:selected {
+	background-color: #9464E5;
+}
+
+/***************** QListWidget **************************/
+
+QListWidget {
+    background-color: #414747;
+}
+
+/***************** QListView **************************/
+
+QListView {
+    background-color: #414747;
+}
+
+/***************** QLineEdit ****************************/
+
+QLineEdit {
+    background-color: #414747;
+}
+
+/***************** QComboBox ****************************/
+
+QComboBox {
+	background-color: #232B2B;
+}
+
+QComboBox:editable {
+	background: #414747;
+}
+
+QComboBox:!editable{
+     background: #43443A;
+}
+
+/****************** QPushButton **************************/
+
+QPushButton {
+	background-color: #43443A;
+}
+
+QPushButton::disabled {
+	background-color: #232B2B;
 }

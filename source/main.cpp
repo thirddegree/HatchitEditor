@@ -59,6 +59,7 @@ int main(int argc, char* argv[])
     }
 
 
+
 	QFile stylesheet(QString::fromStdString(Core::os_exec_dir() + "HatchitEditor.qss"));
 	Editor::Window window;
 	if (stylesheet.open(QIODevice::ReadOnly))
