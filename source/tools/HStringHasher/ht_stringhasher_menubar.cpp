@@ -1,6 +1,6 @@
 /**
 **    Hatchit Editor
-**    Copyright(c) 2015 Third-Degree
+**    Copyright(c) 2015-2016 Third-Degree
 **
 **    GNU General Public License
 **    This file may be used under the terms of
@@ -12,38 +12,26 @@
 **
 **/
 
-#include <ht_editor_menubar.h>
-#include <ht_editor_filemenu.h>
+#include <ht_stringhasher_menubar.h>
+#include <ht_stringhasher_filemenu.h>
 
-namespace Hatchit {
-
-    namespace Editor {
-
+namespace Hatchit
+{
+    namespace StringHasher
+    {
         MenuBar::MenuBar(QWidget* parent)
             : QMenuBar(parent)
         {
             m_fileMenu = new FileMenu(this);
-            m_viewMenu = new ViewMenu(this);
-            m_helpMenu = new HelpMenu(this);
 
             addMenu(m_fileMenu);
-            addMenu(m_viewMenu);
-            addMenu(m_helpMenu);
         }
 
-        FileMenu* MenuBar::GetFileMenu() const
+        MenuBar::~MenuBar()
         {
-            return m_fileMenu;
+            
         }
 
-        ViewMenu* MenuBar::GetViewMenu() const
-        {
-            return m_viewMenu;
-        }
 
-        HelpMenu* MenuBar::GetHelpMenu() const
-        {
-            return m_helpMenu;
-        }
     }
 }

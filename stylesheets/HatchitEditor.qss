@@ -23,6 +23,17 @@ QMainWindow QMenuBar::item
 	background: transparent;
 }
 
+QDialog QMenuBar {
+    background-color: #43443A;
+    color: silver;
+    font-size: 14px;
+}
+
+QDialog QMenuBar::item
+{
+	background: transparent;
+}
+
 QMenu {
     background-color: #232B2B;
 }

@@ -30,6 +30,7 @@ if(WIN32)
     find_package(Qt5 COMPONENTS Core Gui Widgets WebEngine WebEngineWidgets REQUIRED)
 
     include_directories("include"
+                        "include/tools/HStringHasher"
                         "Hatchit/HatchitCore/include"
                         "Hatchit/HatchitCore/include/windows"
                         "Hatchit/HatchitCore/source/inline"
@@ -48,7 +49,11 @@ if(WIN32)
     file(GLOB HT_EDITOR_SRC source/*.cpp)
     file(GLOB HT_EDITOR_QRC source/HatchitEditor.qrc)
 
+    file(GLOB HT_STRINGHASHER_INC include/tools/HStringHasher/*.h)
+    file(GLOB HT_STRINGHASHER_SRC source/tools/HStringHasher/*.cpp)
+
     add_executable(HEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ${HT_EDITOR_QRC})
+    add_executable(HStringHasher ${HT_STRINGHASHER_INC} ${HT_STRINGHASHER_SRC})
 
     add_custom_command(TARGET HEditor POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
@@ -57,13 +62,15 @@ if(WIN32)
             COMMAND ${CMAKE_COMMAND} -E copy
             ${PROJECT_SOURCE_DIR}/LICENSE.GPLv3 $<TARGET_FILE_DIR:HEditor>)
 
+    target_link_libraries(HStringHasher Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore)
     target_link_libraries(HEditor Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore HatchitGraphics HatchitGame)
 
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 
-    set_target_properties(HEditor
+    set_target_properties(HEditor HStringHasher
 	                    PROPERTIES
 	                    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+    set_target_properties(HStringHasher PROPERTIES FOLDER Tools)
 
 elseif(UNIX)
     add_subdirectory(Hatchit/)
@@ -73,6 +80,7 @@ elseif(UNIX)
     find_package(Qt5 COMPONENTS Core Gui Widgets WebEngine WebEngineWidgets REQUIRED)
 
     include_directories("include"
+                        "include/tools/HStringHasher"
                         "Hatchit/HatchitCore/include"
                         "Hatchit/HatchitCore/include/linux"
                         "Hatchit/HatchitCore/source/inline"
@@ -89,7 +97,11 @@ elseif(UNIX)
     file(GLOB HT_EDITOR_SRC source/*.cpp)
     file(GLOB HT_EDITOR_QRC source/HatchitEditor.qrc)
 
+    file(GLOB HT_STRINGHASHER_INC include/tools/HStringHasher/*.h)
+    file(GLOB HT_STRINGHASHER_SRC source/tools/HStringHasher/*.cpp)
+
     add_executable(HEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ${HT_EDITOR_QRC})
+    add_executable(HStringHasher ${HT_STRINGHASHER_INC} ${HT_STRINGHASHER_SRC})
 
 
     add_custom_command(TARGET HEditor POST_BUILD
@@ -103,7 +115,7 @@ elseif(UNIX)
 
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 
-    set_target_properties(HEditor
+    set_target_properties(HEditor HStringHasher
 	                    PROPERTIES
 	                    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
 	

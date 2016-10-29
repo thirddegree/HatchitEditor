@@ -1,6 +1,6 @@
 /**
 **    Hatchit Editor
-**    Copyright(c) 2015 Third-Degree
+**    Copyright(c) 2015-2016 Third-Degree
 **
 **    GNU General Public License
 **    This file may be used under the terms of
@@ -16,28 +16,19 @@
 
 #include <QMenu>
 
-namespace Hatchit {
-
-    namespace Editor {
-
+namespace Hatchit
+{
+    namespace StringHasher
+    {
         class FileMenu : public QMenu
         {
         public:
             FileMenu(QWidget* parent = 0);
 
-            QAction* NewProject() const;
-            QAction* OpenProject() const;
-            QAction* SaveProject() const;
-            QAction* ProjectSettings() const;
-            QAction* Exit() const;
+            ~FileMenu();
 
         private:
-            QAction*    m_newProject;
-            QAction*    m_openProject;
-            QAction*    m_saveProject;
-            QAction*    m_projectSettings;
-            QAction*    m_exit;
+            
         };
-
     }
 }

@@ -36,27 +36,27 @@ namespace Hatchit {
             addAction(m_exit);
         }
 
-        QAction* FileMenu::NewProject()
+        QAction* FileMenu::NewProject() const
         {
             return m_newProject;
         }
 
-        QAction* FileMenu::OpenProject()
+        QAction* FileMenu::OpenProject() const
         {
             return m_openProject;
         }
 
-        QAction* FileMenu::SaveProject()
+        QAction* FileMenu::SaveProject() const
         {
             return m_saveProject;
         }
 
-        QAction* FileMenu::ProjectSettings()
+        QAction* FileMenu::ProjectSettings() const
         {
             return m_projectSettings;
         }
 
-        QAction* FileMenu::Exit()
+        QAction* FileMenu::Exit() const
         {
             return m_exit;
         }
