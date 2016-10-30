@@ -32,13 +32,15 @@ namespace Hatchit
                 return 0;
 
             JsonItem* item = static_cast<JsonItem*>(index.internalPointer());
-            if(item)
+            if (item)
             {
                 /**
                  * Here we could add optional
                  * flag checking to determine if
                  * the model item should be editable.
                  */
+                if (index.column() == 1)
+                    return Qt::ItemIsEditable | QAbstractItemModel::flags(index);
             }
 
             return QAbstractItemModel::flags(index);
@@ -56,7 +58,8 @@ namespace Hatchit
 
         bool JsonModel::load(QIODevice* device)
         {
-            Core::JSON j = Core::JSON::parse(device->readAll());
+            auto j = Core::JSON::parse(static_cast<const char*>(device->readAll()));
+
             return read(j);
         }
 
@@ -93,6 +96,28 @@ namespace Hatchit
                     return item->GetKey();
                 if(index.column() == 1)
                     return item->GetValue();
+            }
+
+            if(role == Qt::EditRole)
+            {
+                if (index.column() == 1)
+                    return item->GetValue();
+            }
+
+            return QVariant();
+        }
+
+        QVariant JsonModel::headerData(int section, Qt::Orientation orientation, int role) const
+        {
+            if (role != Qt::DisplayRole)
+                return QVariant();
+
+            if(orientation == Qt::Horizontal)
+            {
+                if (section == 0)
+                    return "Key";
+                else
+                    return "Value";
             }
 
             return QVariant();

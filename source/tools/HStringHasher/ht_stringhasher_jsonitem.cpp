@@ -19,7 +19,10 @@ namespace Hatchit
     namespace StringHasher
     {
         JsonItem::JsonItem(JsonItem *parent)
-            : m_parent(parent)
+            : m_key(""),
+              m_value(""),
+              m_editable(true),
+              m_parent(parent)
         {
 
         }
@@ -39,6 +42,10 @@ namespace Hatchit
             m_value = value;
         }
 
+        void JsonItem::SetEditable(bool edit)
+        {
+            m_editable = edit;
+        }
 
 
         JsonItem* JsonItem::GetChild(int row) const
@@ -71,6 +78,11 @@ namespace Hatchit
         QString JsonItem::GetValue() const
         {
             return m_value;
+        }
+
+        bool JsonItem::IsEditable() const
+        {
+            return m_editable;
         }
 
         void JsonItem::AppendChild(JsonItem* child)

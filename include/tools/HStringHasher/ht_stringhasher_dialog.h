@@ -24,6 +24,7 @@ namespace Hatchit
         class MenuBar;
         class SyntaxHighlighter;
         class ValueTree;
+        class FileTree;
 
         class Dialog : public QDialog
         {
@@ -34,12 +35,13 @@ namespace Hatchit
             ~Dialog();
 
         protected slots:
-            void OnFileOpen();
+            void OnFileOpen() const;
         
         private:
             MenuBar*            m_menuBar;
             SyntaxHighlighter*  m_highlighter;
             ValueTree*          m_valueTree;
+            FileTree*           m_fileTree;
             QTextEdit*          m_textEdit;
         };
     }

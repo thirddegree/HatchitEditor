@@ -38,9 +38,11 @@ namespace Hatchit
 
             void SetKey(const QString& key);
             void SetValue(const QString& value);
+            void SetEditable(bool edit);
 
             QString GetKey() const;
             QString GetValue() const;
+            bool    IsEditable() const;
 
             static JsonItem* load(const Core::JSON& value,
                                   JsonItem* parent = nullptr);
@@ -50,6 +52,7 @@ namespace Hatchit
         private:
             QString             m_key;
             QString             m_value;
+            bool                m_editable;
 
             QList<JsonItem*>    m_children;
             JsonItem*           m_parent;

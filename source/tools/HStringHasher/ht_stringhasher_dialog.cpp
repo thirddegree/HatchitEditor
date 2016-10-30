@@ -17,6 +17,7 @@
 #include <ht_stringhasher_syntaxhighlighter.h>
 #include <ht_stringhasher_valuetree.h>
 #include <ht_stringhasher_filemenu.h>
+#include <ht_stringhasher_filetree.h>
 #include <ht_debug.h>
 #include <ht_os.h>
 #include <QBoxLayout>
@@ -38,14 +39,16 @@ namespace Hatchit
             m_textEdit->setReadOnly(true);
 
             m_valueTree = new ValueTree;
+            m_fileTree = new FileTree;
 
             m_highlighter = new SyntaxHighlighter(m_textEdit->document());
 
             auto mainLayout = new QVBoxLayout;
             auto splitter = new QSplitter;
+            splitter->addWidget(m_fileTree);
             splitter->addWidget(m_textEdit);
             splitter->addWidget(m_valueTree);
-            splitter->setSizes({750, 300});
+            splitter->setSizes({250, 600, 225});
             mainLayout->setMenuBar(m_menuBar);
             mainLayout->addWidget(splitter);
 
@@ -61,12 +64,16 @@ namespace Hatchit
             
         }
 
-        void Dialog::OnFileOpen()
+        void Dialog::OnFileOpen() const
         {
-            QString fileName = QFileDialog::getOpenFileName();
-            QFile file(fileName);
-            if(file.open(QFile::ReadOnly | QFile::Text))
-                m_textEdit->setPlainText(file.readAll());
+            QString directory = QFileDialog::getExistingDirectory();
+            if(!directory.isEmpty())
+            {
+                m_fileTree->OnDirectorySelected(directory);
+                /*QFile file(fileName);
+                if (file.open(QFile::ReadOnly | QFile::Text))
+                    m_textEdit->setPlainText(file.readAll());*/
+            }
         }
 
     }

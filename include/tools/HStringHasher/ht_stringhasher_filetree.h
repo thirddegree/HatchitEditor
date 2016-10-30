@@ -12,30 +12,28 @@
 **
 **/
 
-#include <ht_stringhasher_valuetree.h>
-#include <ht_stringhasher_jsonmodel.h>
+#pragma once
+
+#include <QTreeView>
+#include <QFileSystemModel>
 
 namespace Hatchit
 {
     namespace StringHasher
     {
-        ValueTree::ValueTree(QWidget* parent)
-            : QTreeView(parent)
+        class FileTree : public QTreeView
         {
-            m_model = new JsonModel;
-            setModel(m_model);
-
-            m_model->load("E:/GitHub/HatchitEditor/build/JsonTest.json");
-
-
-            update();
-        }
-
-        ValueTree::~ValueTree()
-        {
+            Q_OBJECT
+        public:
+            explicit FileTree(QWidget* parent = nullptr);
             
-        }
+            ~FileTree();
 
+        public slots:
+            void OnDirectorySelected(const QString& path);
 
+        private:
+            QFileSystemModel* m_model;
+        };
     }
 }
