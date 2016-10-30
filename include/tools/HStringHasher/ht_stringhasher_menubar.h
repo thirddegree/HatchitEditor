@@ -29,7 +29,7 @@ namespace Hatchit
 
             ~MenuBar();
 
-            FileMenu* GetFileMenu();
+            FileMenu* GetFileMenu() const;
 
         private:
             FileMenu* m_fileMenu;

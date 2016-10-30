@@ -21,12 +21,19 @@ namespace Hatchit
         FileMenu::FileMenu(QWidget* parent)
             : QMenu(tr("File"), parent)
         {
-            addAction(tr("Test"));
+            m_open = new QAction(tr("Open"));
+
+            addAction(m_open);
         }
 
         FileMenu::~FileMenu()
         {
             
+        }
+
+        QAction* FileMenu::GetOpen() const
+        {
+            return m_open;
         }
     }
 }

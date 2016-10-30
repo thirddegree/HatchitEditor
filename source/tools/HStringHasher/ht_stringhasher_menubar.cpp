@@ -32,6 +32,10 @@ namespace Hatchit
             
         }
 
+        FileMenu* MenuBar::GetFileMenu() const
+        {
+            return m_fileMenu;
+        }
 
     }
 }

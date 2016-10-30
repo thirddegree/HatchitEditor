@@ -104,15 +104,17 @@ elseif(UNIX)
     add_executable(HStringHasher ${HT_STRINGHASHER_INC} ${HT_STRINGHASHER_SRC})
 
 
-    add_custom_command(TARGET HEditor POST_BUILD
+    add_custom_command(TARGET HEditor HStringHasher POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
             ${PROJECT_SOURCE_DIR}/stylesheets/HatchitEditor.qss $<TARGET_FILE_DIR:HEditor>)
-    add_custom_command(TARGET HEditor POST_BUILD
+    add_custom_command(TARGET HEditor HStringHasher POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
             ${PROJECT_SOURCE_DIR}/LICENSE.GPLv3 $<TARGET_FILE_DIR:HEditor>)
 
     target_link_libraries(HEditor Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore HatchitGraphics HatchitGame)
-
+    target_link_libraries(HStringHasher Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore)
+ 
+        
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 
     set_target_properties(HEditor HStringHasher

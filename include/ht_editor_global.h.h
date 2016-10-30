@@ -12,30 +12,30 @@
 **
 **/
 
-#include <ht_stringhasher_valuetree.h>
-#include <ht_stringhasher_jsonmodel.h>
+#pragma once
+
+#include <ht_singleton.h>
 
 namespace Hatchit
 {
-    namespace StringHasher
+
+    namespace Graphics {
+        namespace Vulkan {
+            class VKApplication;
+        }
+    }
+
+    namespace Editor
     {
-        ValueTree::ValueTree(QWidget* parent)
-            : QTreeView(parent)
+        class Global : public Core::Singleton<Global>
         {
-            m_model = new JsonModel;
-            setModel(m_model);
+        public:
+            static bool Initialize();
 
-            m_model->load("/home/debunez/JsonTest.json");
+            static void Shutdown();
 
-
-            update();
-        }
-
-        ValueTree::~ValueTree()
-        {
-            
-        }
-
-
+        private:
+            VKApplication* m_vkAppInstance;
+        };
     }
 }

@@ -171,3 +171,10 @@ QPushButton {
 QPushButton::disabled {
 	background-color: #232B2B;
 }
+
+
+/****************** HStringHasher ************************/
+
+QDialog#StringHasher QTreeView {
+    font-size: 14px;
+}

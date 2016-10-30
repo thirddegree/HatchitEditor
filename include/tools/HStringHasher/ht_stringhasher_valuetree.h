@@ -20,6 +20,8 @@ namespace Hatchit
 {
     namespace StringHasher
     {
+        class JsonModel;
+
         class ValueTree : public QTreeView
         {
         public:
@@ -28,6 +30,8 @@ namespace Hatchit
             ~ValueTree();
 
         private:
+            JsonModel* m_model;
+
         };
     }
 }

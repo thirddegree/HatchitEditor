@@ -27,8 +27,10 @@ namespace Hatchit
 
             ~FileMenu();
 
+            QAction* GetOpen() const;
+
         private:
-            
+            QAction* m_open;
         };
     }
 }

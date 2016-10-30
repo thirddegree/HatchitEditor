@@ -16,10 +16,12 @@
 #include <ht_stringhasher_menubar.h>
 #include <ht_stringhasher_syntaxhighlighter.h>
 #include <ht_stringhasher_valuetree.h>
+#include <ht_stringhasher_filemenu.h>
 #include <ht_debug.h>
 #include <ht_os.h>
 #include <QBoxLayout>
 #include <QSplitter>
+#include <QFileDialog>
 
 namespace Hatchit
 {
@@ -28,6 +30,9 @@ namespace Hatchit
         Dialog::Dialog(QWidget* parent)
             : QDialog(parent)
         {
+            setObjectName("StringHasher");
+
+            resize(1280, 720);
             m_menuBar = new MenuBar(this);
             m_textEdit = new QTextEdit;
             m_textEdit->setReadOnly(true);
@@ -40,22 +45,29 @@ namespace Hatchit
             auto splitter = new QSplitter;
             splitter->addWidget(m_textEdit);
             splitter->addWidget(m_valueTree);
+            splitter->setSizes({750, 300});
             mainLayout->setMenuBar(m_menuBar);
             mainLayout->addWidget(splitter);
 
-            QFile file("E:/GitHub/HatchitEditor/Hatchit/HatchitTest/app_test/apptest.cpp");
-            if (file.open(QFile::ReadOnly | QFile::Text))
-                m_textEdit->setPlainText(file.readAll());
 
             this->setLayout(mainLayout);
 
-            
+            connect(m_menuBar->GetFileMenu()->GetOpen(), SIGNAL(triggered()),
+                this, SLOT(OnFileOpen()));
         }
 
         Dialog::~Dialog()
         {
             
         }
-        
+
+        void Dialog::OnFileOpen()
+        {
+            QString fileName = QFileDialog::getOpenFileName();
+            QFile file(fileName);
+            if(file.open(QFile::ReadOnly | QFile::Text))
+                m_textEdit->setPlainText(file.readAll());
+        }
+
     }
 }
