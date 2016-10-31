@@ -31,6 +31,10 @@ namespace Hatchit
 
         public slots:
             void OnDirectorySelected(const QString& path);
+            void OnItemDoubleClicked(const QModelIndex& index);
+
+        signals:
+            void FileSelected(const QString& path);
 
         private:
             QFileSystemModel* m_model;

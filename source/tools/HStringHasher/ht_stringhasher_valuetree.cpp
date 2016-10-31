@@ -14,6 +14,7 @@
 
 #include <ht_stringhasher_valuetree.h>
 #include <ht_stringhasher_jsonmodel.h>
+#include <ht_stringhasher_document.h>
 
 namespace Hatchit
 {
@@ -25,10 +26,6 @@ namespace Hatchit
             m_model = new JsonModel;
             setModel(m_model);
 
-            m_model->load("E:/GitHub/HatchitEditor/build/JsonTest.json");
-
-
-            update();
         }
 
         ValueTree::~ValueTree()
@@ -36,6 +33,10 @@ namespace Hatchit
             
         }
 
-
+        void ValueTree::SetDocument(const Document& document)
+        {
+            Core::JSON json = Core::JSON::parse(document.Serialize());
+            m_model->read(json);
+        }
     }
 }

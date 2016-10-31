@@ -18,11 +18,13 @@
 #include <ht_stringhasher_valuetree.h>
 #include <ht_stringhasher_filemenu.h>
 #include <ht_stringhasher_filetree.h>
+#include <ht_stringhasher_document.h>
 #include <ht_debug.h>
 #include <ht_os.h>
 #include <QBoxLayout>
 #include <QSplitter>
 #include <QFileDialog>
+#include <QStatusBar>
 
 namespace Hatchit
 {
@@ -36,12 +38,15 @@ namespace Hatchit
             resize(1280, 720);
             m_menuBar = new MenuBar(this);
             m_textEdit = new QTextEdit;
+            m_textEdit->setWordWrapMode(QTextOption::NoWrap);
             m_textEdit->setReadOnly(true);
 
             m_valueTree = new ValueTree;
             m_fileTree = new FileTree;
 
             m_highlighter = new SyntaxHighlighter(m_textEdit->document());
+
+            m_activeDocText = new QLabel;
 
             auto mainLayout = new QVBoxLayout;
             auto splitter = new QSplitter;
@@ -52,11 +57,14 @@ namespace Hatchit
             mainLayout->setMenuBar(m_menuBar);
             mainLayout->addWidget(splitter);
 
+            
 
             this->setLayout(mainLayout);
 
             connect(m_menuBar->GetFileMenu()->GetOpen(), SIGNAL(triggered()),
-                this, SLOT(OnFileOpen()));
+                this, SLOT(OnDirectoryOpen()));
+            connect(m_fileTree, SIGNAL(FileSelected(const QString&)),
+                this, SLOT(OnFileSelected(const QString&)));
         }
 
         Dialog::~Dialog()
@@ -64,17 +72,29 @@ namespace Hatchit
             
         }
 
-        void Dialog::OnFileOpen() const
+        void Dialog::OnDirectoryOpen() const
         {
             QString directory = QFileDialog::getExistingDirectory();
             if(!directory.isEmpty())
             {
                 m_fileTree->OnDirectorySelected(directory);
-                /*QFile file(fileName);
-                if (file.open(QFile::ReadOnly | QFile::Text))
-                    m_textEdit->setPlainText(file.readAll());*/
             }
         }
 
+        void Dialog::OnFileSelected(const QString& path) const
+        {
+            QFile file(path);
+            QFileInfo info(path);
+            if (file.open(QFile::ReadOnly | QFile::Text))
+            {
+                QString text = file.readAll();
+                m_textEdit->setPlainText(text);
+                file.reset();
+
+                Document d;
+                d.Load(file);
+                m_valueTree->SetDocument(d);
+            }
+        }
     }
 }

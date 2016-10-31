@@ -20,6 +20,7 @@
 #include <ht_stringhasher_dialog.h>
 #include <ht_os.h>
 #include <ht_stringhasher_jsonitem.h>
+#include <ht_stringhasher_document.h>
 
 using namespace Hatchit;
 using namespace Hatchit::StringHasher;
@@ -28,14 +29,6 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
     app.setStyle(QStyleFactory::create("fusion"));
-
-    QFile file("/home/debunez/JsonTest.json");
-    if(file.open(QFile::ReadOnly))
-    {
-        const Core::JSON j = Core::JSON::parse(file.readAll().toStdString());
-        JsonItem* item = JsonItem::load(j);
-        item->Print();
-    }
 
 
     QFile stylesheet(QString::fromStdString(Core::os_exec_dir() + "HatchitEditor.qss"));

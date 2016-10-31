@@ -36,6 +36,7 @@ namespace Hatchit {
                                                                            .arg(HatchitEditor_VERSION_MINOR)
                                                                            .arg(HatchitEditor_VERSION_BUILD);
 
+
             QString creditsText = QString("Copyright(c) 2015 Third - Degree\nCopyright(c) 2015 Matt Guerrette");
 
             QTextBrowser* aboutBrowser = new QTextBrowser;

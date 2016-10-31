@@ -14,33 +14,38 @@
 
 #pragma once
 
-#include <ht_jsonhelper.h>
-#include <ht_string.h>
+#include <ht_stringhasher_value.h>
+
+#include <vector>
+#include <QString>
+#include <QFile>
+#include <QTemporaryFile>
 
 namespace Hatchit
 {
     namespace StringHasher
     {
-        class Value
+        class Document
         {
         public:
-            Value();
+            Document();
 
-            ~Value();
+            ~Document();
 
-            const std::string& GetText() const;
-            uint32_t           GetHash() const;
-
-            void SetText(const std::string& text);
-            void Hash();
+            bool Load(QFile& file);
+                
+            void Deserialize(const Core::JSON& json);
 
             std::string Serialize() const;
 
-            bool operator==(const Value& other) const;
-
         private:
-            std::string m_text;
-            uint32_t    m_hash;
+            std::string        m_filePath;
+            std::string        m_fileName;
+            std::vector<Value> m_values;
+            QString            m_original;
+            QTemporaryFile     m_modified;
+
+            bool Load(const QString& text);
         };
     }
 }

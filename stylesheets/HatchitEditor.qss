@@ -172,6 +172,11 @@ QPushButton::disabled {
 	background-color: #232B2B;
 }
 
+/****************** QTextEdit ****************************/
+
+QTextEdit {
+	background-color: #414747;
+}
 
 /****************** HStringHasher ************************/
 

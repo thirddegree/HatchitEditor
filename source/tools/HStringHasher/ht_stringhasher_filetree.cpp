@@ -33,6 +33,9 @@ namespace Hatchit
             this->resizeColumnToContents(1);
             this->resizeColumnToContents(2);
             this->resizeColumnToContents(3);
+
+            connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
+                this, SLOT(OnItemDoubleClicked(const QModelIndex&)));
         }
 
         FileTree::~FileTree()
@@ -44,6 +47,14 @@ namespace Hatchit
         {
             setRootIndex(m_model->setRootPath(path));
         }
+
+        void FileTree::OnItemDoubleClicked(const QModelIndex& index)
+        {
+            QFileInfo info(m_model->filePath(index));
+            if(info.isFile())
+                emit FileSelected(info.absoluteFilePath());
+        }
+
 
 
 

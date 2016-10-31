@@ -16,6 +16,7 @@
 
 #include <QDialog>
 #include <QTextEdit>
+#include <QLabel>
 
 namespace Hatchit
 {
@@ -35,7 +36,8 @@ namespace Hatchit
             ~Dialog();
 
         protected slots:
-            void OnFileOpen() const;
+            void OnDirectoryOpen() const;
+            void OnFileSelected(const QString& path) const;
         
         private:
             MenuBar*            m_menuBar;
@@ -43,6 +45,7 @@ namespace Hatchit
             ValueTree*          m_valueTree;
             FileTree*           m_fileTree;
             QTextEdit*          m_textEdit;
+            QLabel*             m_activeDocText;
         };
     }
 }

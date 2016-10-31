@@ -21,6 +21,7 @@ namespace Hatchit
     namespace StringHasher
     {
         class JsonModel;
+        class Document;
 
         class ValueTree : public QTreeView
         {
@@ -29,9 +30,10 @@ namespace Hatchit
 
             ~ValueTree();
 
+            void SetDocument(const Document& document);
+
         private:
             JsonModel* m_model;
-
         };
     }
 }

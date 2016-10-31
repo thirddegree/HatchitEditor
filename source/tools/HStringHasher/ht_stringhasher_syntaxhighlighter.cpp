@@ -71,12 +71,12 @@ namespace Hatchit
                 * that were matched with information about them
                 * such as the line number in the document.
                 */
-                std::string text = match.capturedTexts()[0].toStdString();
+                /*std::string text = match.capturedTexts()[0].toStdString();
                 std::string subj = match.captured().toStdString();
                 int lineNumber = currentBlock().firstLineNumber();
                 HT_DEBUG_PRINTF("Subject: %s\n", subj);
                 HT_DEBUG_PRINTF("Captured: %s\n", text);
-                HT_DEBUG_PRINTF("Line Number: %d\n", lineNumber);
+                HT_DEBUG_PRINTF("Line Number: %d\n", lineNumber);*/
             }
             
         }

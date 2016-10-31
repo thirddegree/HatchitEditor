@@ -25,12 +25,6 @@ namespace Hatchit
             
         }
 
-        Value::Value(Core::JSON j)
-        {
-            Core::JsonExtract(j, "Text", m_text);
-            Core::JsonExtract(j, "Hash", m_hash);
-        }
-
         Value::~Value()
         {
             
@@ -56,11 +50,10 @@ namespace Hatchit
             m_hash = std::hash<std::string>{}(m_text);
         }
 
-        std::string Value::Serialize() const
+        bool Value::operator==(const Value& other) const
         {
-            Core::JSON json = { { "Text", m_text }, { "Hash", m_hash } };
-            
-            return json;
+            return (m_hash == other.m_hash);
         }
+
     }
 }
