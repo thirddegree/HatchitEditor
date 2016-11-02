@@ -35,7 +35,7 @@ namespace Hatchit
 
             m_stringRule.format.setForeground(QColor(255, 153, 102));
             m_stringRule.format.setFontWeight(QFont::Bold);
-            m_stringRule.pattern = QRegularExpression("(?<=HID\\()\".*\"|(?<=HID\\()\'.*\'");
+            m_stringRule.pattern = QRegularExpression("(?<=HID\\()[0-9]+");
 
         }
 
