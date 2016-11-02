@@ -13,6 +13,7 @@
 **/
 
 #include <ht_stringhasher_value.h>
+#include <ht_hash.h>
 
 namespace Hatchit
 {
@@ -47,7 +48,7 @@ namespace Hatchit
 
         void Value::Hash()
         {
-            m_hash = std::hash<std::wstring>{}(m_text);
+            m_hash = Core::FNV1A_Hash(m_text);//std::_Fnv_hash_impl::hash(m_text);
         }
 
         bool Value::operator==(const Value& other) const
