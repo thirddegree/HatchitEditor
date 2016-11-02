@@ -16,11 +16,14 @@
 #include <QFile>
 #include <QIcon>
 #include <QStyleFactory>
+#include <QDir>
 
 #include <ht_stringhasher_dialog.h>
 #include <ht_os.h>
+#include <ht_debug.h>
 #include <ht_stringhasher_jsonitem.h>
 #include <ht_stringhasher_document.h>
+#include <ht_stringhasher_processor.h>
 
 using namespace Hatchit;
 using namespace Hatchit::StringHasher;
@@ -28,15 +31,82 @@ using namespace Hatchit::StringHasher;
 int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
-    app.setStyle(QStyleFactory::create("fusion"));
-    QFile stylesheet(QString::fromStdString(Core::os_exec_dir() + "HatchitEditor.qss"));
-    if (stylesheet.open(QIODevice::ReadOnly))
-        app.setStyleSheet(stylesheet.readAll());
 
-    Dialog dlg;
-    dlg.setWindowIcon(QIcon(":icons/hatchit.png"));
-    dlg.show();
+    /**
+     * Determine if stringhasher has been run with command line user arguments,
+     * if no arguments specified then the application GUI is executed.
+     */
+    QStringList _args = app.arguments();
+    if(_args.size() > 1)
+    {
+        /**
+         * We will check for specific command line arguments.
+         * Options:
+         *
+         * -i -- the input directory to recursively search, and process files
+         * -o -- the output directory to write processed files
+         * --dump -- dump the processed files (i.e don't match directory structure)
+         *           NOTE: this could result in file name clashes which will NOT be handled.
+         */
+
+        QString inDir;
+        QString outDir;
+        auto it = std::find(_args.begin(), _args.end(), "-i");
+        if(it != _args.end())
+            inDir = *(++it);
+
+        it = std::find(_args.begin(), _args.end(), "-o");
+        if(it != _args.end())
+            outDir = *(++it);
+
+        bool shouldDump = false;
+        it = std::find(_args.begin(), _args.end(), "--dump");
+        if(it != _args.end())
+            shouldDump = true;
+
+        /**
+         * We should first check the arguments of the input and output
+         * to make sure they are valid arguments.
+         *
+         * Check Input Directory
+         * Check Output Directory
+         */
+        QFileInfo _in(inDir);
+        if(!_in.isDir()) {
+            HT_ERROR_PRINTF("Invalid input directory.\n");
+            return -1;
+        }
+
+        QFileInfo _out(outDir);
+        if(!_out.isDir()) {
+            HT_ERROR_PRINTF("Invalid output directory.\n");
+            return -1;
+        }
 
 
-    return app.exec();
+        /**
+         * Now, we instantiate a processor object with the parsed information.
+         * It will then process recursively the files multi-threaded and output
+         * the results.
+         */
+        Processor processor(inDir, outDir, shouldDump);
+
+        if(!processor.Execute())
+            return -1;
+
+        return 0;
+    }
+    else
+    {
+        app.setStyle(QStyleFactory::create("fusion"));
+        QFile stylesheet(QString::fromStdString(Core::os_exec_dir() + "HatchitEditor.qss"));
+        if (stylesheet.open(QIODevice::ReadOnly))
+            app.setStyleSheet(stylesheet.readAll());
+
+        Dialog dlg;
+        dlg.setWindowIcon(QIcon(":icons/hatchit.png"));
+        dlg.show();
+
+        return app.exec();
+    }
 }

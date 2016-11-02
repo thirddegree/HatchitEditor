@@ -40,6 +40,8 @@ namespace Hatchit
 
             QString     GetModified() const;
 
+            int         GetValueCount() const;
+
         private:
             std::string        m_filePath;
             std::string        m_fileName;

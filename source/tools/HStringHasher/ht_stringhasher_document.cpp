@@ -149,6 +149,11 @@ namespace Hatchit
             return m_modified;
         }
 
+        int Document::GetValueCount() const
+        {
+            return m_values.size();
+        }
+
 
     }
 }
