@@ -21,15 +21,15 @@ namespace Hatchit
 {
     namespace StringHasher
     {
-        class SyntaxHighlighter : public QSyntaxHighlighter
+        class ProcessedSyntaxHighlight : public QSyntaxHighlighter
         {
-            Q_OBJECT
+        Q_OBJECT
         public:
-            SyntaxHighlighter(QTextDocument* document);
+            ProcessedSyntaxHighlight(QTextDocument* document);
 
         protected:
             void highlightBlock(const QString& text) override;
-        
+
         private:
             struct HighlightRule
             {
@@ -40,9 +40,11 @@ namespace Hatchit
             QVector<HighlightRule> m_rules;
 
             QTextCharFormat m_keywordFormat;
-            
+
             HighlightRule   m_hashMacroRule;
             HighlightRule   m_stringRule;
+
+            QList<QString>  m_selectList;
         };
     }
 }

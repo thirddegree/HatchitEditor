@@ -28,18 +28,18 @@ namespace Hatchit
 
             ~Value();
 
-            const std::string& GetText() const;
+            const std::wstring& GetText() const;
             uint32_t           GetHash() const;
 
-            void SetText(const std::string& text);
+            void SetText(const std::wstring& text);
             void Hash();
 
-            std::string Serialize() const;
+            std::wstring Serialize() const;
 
             bool operator==(const Value& other) const;
 
         private:
-            std::string m_text;
+            std::wstring m_text;
             uint32_t    m_hash;
         };
     }

@@ -38,12 +38,14 @@ namespace Hatchit
 
             std::string Serialize() const;
 
+            QString     GetModified() const;
+
         private:
             std::string        m_filePath;
             std::string        m_fileName;
             std::vector<Value> m_values;
             QString            m_original;
-            QTemporaryFile     m_modified;
+            QString            m_modified;
 
             bool Load(const QString& text);
         };

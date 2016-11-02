@@ -14,7 +14,8 @@
 
 #include <ht_stringhasher_dialog.h>
 #include <ht_stringhasher_menubar.h>
-#include <ht_stringhasher_syntaxhighlighter.h>
+#include <ht_stringhasher_sourcesyntaxhighlight.h>
+#include <ht_stringhasher_processedsyntaxhighlight.h>
 #include <ht_stringhasher_valuetree.h>
 #include <ht_stringhasher_filemenu.h>
 #include <ht_stringhasher_filetree.h>
@@ -41,17 +42,26 @@ namespace Hatchit
             m_textEdit->setWordWrapMode(QTextOption::NoWrap);
             m_textEdit->setReadOnly(true);
 
+            m_processedView = new QTextEdit;
+            m_processedView->setWordWrapMode(QTextOption::NoWrap);
+            m_processedView->setReadOnly(true);
+
+            m_documentTabs = new QTabWidget;
+            m_documentTabs->addTab(m_textEdit, tr("Source"));
+            m_documentTabs->addTab(m_processedView, tr("Processed"));
+
             m_valueTree = new ValueTree;
             m_fileTree = new FileTree;
 
-            m_highlighter = new SyntaxHighlighter(m_textEdit->document());
+            m_sourceHighlight = new SourceSyntaxHighlight(m_textEdit->document());
+            m_processedHighlight = new ProcessedSyntaxHighlight(m_processedView->document());
 
             m_activeDocText = new QLabel;
 
             auto mainLayout = new QVBoxLayout;
             auto splitter = new QSplitter;
             splitter->addWidget(m_fileTree);
-            splitter->addWidget(m_textEdit);
+            splitter->addWidget(m_documentTabs);
             splitter->addWidget(m_valueTree);
             splitter->setSizes({250, 600, 225});
             mainLayout->setMenuBar(m_menuBar);
@@ -93,6 +103,7 @@ namespace Hatchit
 
                 Document d;
                 d.Load(file);
+                m_processedView->setPlainText(d.GetModified());
                 m_valueTree->SetDocument(d);
             }
         }

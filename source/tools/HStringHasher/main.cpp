@@ -29,14 +29,14 @@ int main(int argc, char* argv[])
 {
     QApplication app(argc, argv);
     app.setStyle(QStyleFactory::create("fusion"));
-
-
     QFile stylesheet(QString::fromStdString(Core::os_exec_dir() + "HatchitEditor.qss"));
-    Dialog dlg;
     if (stylesheet.open(QIODevice::ReadOnly))
-        dlg.setStyleSheet(stylesheet.readAll());
+        app.setStyleSheet(stylesheet.readAll());
+
+    Dialog dlg;
     dlg.setWindowIcon(QIcon(":icons/hatchit.png"));
     dlg.show();
+
 
     return app.exec();
 }

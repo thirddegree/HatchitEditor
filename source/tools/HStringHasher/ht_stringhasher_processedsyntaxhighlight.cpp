@@ -12,7 +12,7 @@
 **
 **/
 
-#include <ht_stringhasher_syntaxhighlighter.h>
+#include <ht_stringhasher_processedsyntaxhighlight.h>
 #include <ht_debug.h>
 
 #include <QBrush>
@@ -23,8 +23,8 @@ namespace Hatchit
 {
     namespace StringHasher
     {
-        SyntaxHighlighter::SyntaxHighlighter(QTextDocument* document)
-            : QSyntaxHighlighter(document)
+        ProcessedSyntaxHighlight::ProcessedSyntaxHighlight(QTextDocument* document)
+                : QSyntaxHighlighter(document)
         {
             /**
              * HATCHIT Hash ID Macro
@@ -36,10 +36,10 @@ namespace Hatchit
             m_stringRule.format.setForeground(QColor(255, 153, 102));
             m_stringRule.format.setFontWeight(QFont::Bold);
             m_stringRule.pattern = QRegularExpression("(?<=HID\\()\".*\"|(?<=HID\\()\'.*\'");
-            
+
         }
 
-        void SyntaxHighlighter::highlightBlock(const QString& text)
+        void ProcessedSyntaxHighlight::highlightBlock(const QString& text)
         {
             /**
              * HashID Macro Rule
@@ -65,20 +65,8 @@ namespace Hatchit
                 int index = match.capturedStart();
                 int length = match.capturedLength();
                 setFormat(index, length, m_stringRule.format);
-
-                /**
-                * We need to build a list of all the string values
-                * that were matched with information about them
-                * such as the line number in the document.
-                */
-                /*std::string text = match.capturedTexts()[0].toStdString();
-                std::string subj = match.captured().toStdString();
-                int lineNumber = currentBlock().firstLineNumber();
-                HT_DEBUG_PRINTF("Subject: %s\n", subj);
-                HT_DEBUG_PRINTF("Captured: %s\n", text);
-                HT_DEBUG_PRINTF("Line Number: %d\n", lineNumber);*/
             }
-            
+
         }
     }
 }

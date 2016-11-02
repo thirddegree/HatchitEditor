@@ -22,6 +22,7 @@ namespace Hatchit
             : QWidget(parent)
         {
 
+
         }
     }
 }

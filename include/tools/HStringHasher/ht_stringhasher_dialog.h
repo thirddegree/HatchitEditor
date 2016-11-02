@@ -17,13 +17,15 @@
 #include <QDialog>
 #include <QTextEdit>
 #include <QLabel>
+#include <QTabWidget>
 
 namespace Hatchit
 {
     namespace StringHasher
     {
         class MenuBar;
-        class SyntaxHighlighter;
+        class SourceSyntaxHighlight;
+        class ProcessedSyntaxHighlight;
         class ValueTree;
         class FileTree;
 
@@ -40,12 +42,15 @@ namespace Hatchit
             void OnFileSelected(const QString& path) const;
         
         private:
-            MenuBar*            m_menuBar;
-            SyntaxHighlighter*  m_highlighter;
-            ValueTree*          m_valueTree;
-            FileTree*           m_fileTree;
-            QTextEdit*          m_textEdit;
-            QLabel*             m_activeDocText;
+            MenuBar*                    m_menuBar;
+            SourceSyntaxHighlight*      m_sourceHighlight;
+            ProcessedSyntaxHighlight*   m_processedHighlight;
+            ValueTree*                  m_valueTree;
+            FileTree*                   m_fileTree;
+            QTabWidget*                 m_documentTabs;
+            QTextEdit*                  m_processedView;
+            QTextEdit*                  m_textEdit;
+            QLabel*                     m_activeDocText;
         };
     }
 }

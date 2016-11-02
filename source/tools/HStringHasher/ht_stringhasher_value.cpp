@@ -19,7 +19,7 @@ namespace Hatchit
     namespace StringHasher
     {
         Value::Value()
-            : m_text(""),
+            : m_text(L""),
               m_hash(0)
         {
             
@@ -30,7 +30,7 @@ namespace Hatchit
             
         }
 
-        const std::string & Value::GetText() const
+        const std::wstring & Value::GetText() const
         {
             return m_text;
         }
@@ -40,14 +40,14 @@ namespace Hatchit
             return m_hash;
         }
 
-        void Value::SetText(const std::string& text)
+        void Value::SetText(const std::wstring& text)
         {
             m_text = text;
         }
 
         void Value::Hash()
         {
-            m_hash = std::hash<std::string>{}(m_text);
+            m_hash = std::hash<std::wstring>{}(m_text);
         }
 
         bool Value::operator==(const Value& other) const

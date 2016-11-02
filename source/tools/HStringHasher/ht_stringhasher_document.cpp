@@ -65,15 +65,16 @@ namespace Hatchit
                 * that were matched with information about them
                 * such as the line number in the document.
                 */
-                std::string _text = match.capturedTexts()[0].trimmed().toStdString();
+                std::wstring _text = match.capturedTexts()[0].trimmed().toStdWString();
                 QTextDocument document(text);
-                QTextCursor cursor = document.find(QString::fromStdString(_text),
+                QTextCursor cursor = document.find(QString::fromStdWString(_text),
                     index);
                 int lineNumber = cursor.block().firstLineNumber();
-                std::string subj = match.captured().toStdString();
-                HT_DEBUG_PRINTF("Subject: %s\n", subj);
-                HT_DEBUG_PRINTF("Captured: %s\n", _text);
-                HT_DEBUG_PRINTF("Line Number: %d\n", lineNumber);
+
+                /**
+                 * We want to remove the actual quote characters that surround
+                 * the text, as they will be turned into string values anyway.
+                 */
                 _text.erase(std::remove(_text.begin(), _text.end(), '\''), _text.end());
                 _text.erase(std::remove(_text.begin(), _text.end(), '"'), _text.end());
 
@@ -87,6 +88,25 @@ namespace Hatchit
                 
             }
 
+
+            /**
+             * Create the temporary file from replaced text values with the
+             * calculated hash value, to show how the source file
+             * will look post-processing
+             */
+            m_modified = m_original;
+            for(auto val : m_values)
+            {
+                QString text = QString::fromStdWString(val.GetText());
+                QString hash = QString::number(val.GetHash());
+
+                QRegularExpression exp("(?<=HID\\()\"" + text + "\"|(?<=HID\\()\'" + text + "'");
+
+                m_modified = m_modified.replace(exp, hash);
+            }
+
+
+
             return true;
         }
 
@@ -99,7 +119,7 @@ namespace Hatchit
             for(auto v : values)
             {
                 Value _val;
-                std::string text;
+                std::wstring text;
                 Core::JsonExtract(v, "Text", text);
 
                 _val.SetText(text);
@@ -124,7 +144,10 @@ namespace Hatchit
             return text;
         }
 
-
+        QString Document::GetModified() const
+        {
+            return m_modified;
+        }
 
 
     }
