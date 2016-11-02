@@ -48,7 +48,7 @@ namespace Hatchit
 
         void Value::Hash()
         {
-            m_hash = Core::FNV1A_Hash(m_text);//std::_Fnv_hash_impl::hash(m_text);
+            m_hash = Core::Hash::FNV1A(m_text);//std::_Fnv_hash_impl::hash(m_text);
         }
 
         bool Value::operator==(const Value& other) const
