@@ -14,33 +14,24 @@
 
 #pragma once
 
-#include <QTreeView>
-#include <QFileSystemModel>
+#include <QSortFilterProxyModel>
 
 namespace Hatchit
 {
     namespace StringHasher
     {
-        class FileTreeProxyFilter;
-
-        class FileTree : public QTreeView
+        class FileTreeProxyFilter : public QSortFilterProxyModel
         {
-            Q_OBJECT
         public:
-            explicit FileTree(QWidget* parent = nullptr);
-            
-            ~FileTree();
+            FileTreeProxyFilter(QObject* parent = nullptr);
 
-        public slots:
-            void OnDirectorySelected(const QString& path);
-            void OnItemDoubleClicked(const QModelIndex& index);
+            ~FileTreeProxyFilter();
 
-        signals:
-            void FileSelected(const QString& path);
+        protected:
+            bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceIndex) const override;
 
         private:
-            QFileSystemModel*    m_model;
-            FileTreeProxyFilter* m_filter;
+
         };
     }
 }
