@@ -63,6 +63,7 @@ int main(int argc, char* argv[])
         it = std::find(_args.begin(), _args.end(), "--dump");
         if(it != _args.end())
             shouldDump = true;
+        shouldDump = true; //for now, this will always be true
 
         /**
          * We should first check the arguments of the input and output
