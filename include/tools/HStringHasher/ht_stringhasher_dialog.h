@@ -46,7 +46,7 @@ namespace Hatchit
             SourceSyntaxHighlight*      m_sourceHighlight;
             ProcessedSyntaxHighlight*   m_processedHighlight;
             ValueTree*                  m_valueTree;
-            FileTree*                   m_fileTree
+            FileTree*                   m_fileTree;
             QTabWidget*                 m_documentTabs;
             QTextEdit*                  m_processedView;
             QTextEdit*                  m_textEdit;
