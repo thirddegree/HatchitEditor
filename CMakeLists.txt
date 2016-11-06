@@ -120,5 +120,9 @@ elseif(UNIX)
     set_target_properties(HEditor HStringHasher
 	                    PROPERTIES
 	                    RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/bin")
+
+    install (TARGETS HEditor HStringHasher DESTINATION bin)
+    install (DIRECTORY ${CMAKE_SOURCE_DIR}/icons DESTINATION bin)
+    install (FILES ${CMAKE_SOURCE_DIR}/stylesheets/HatchitEditor.qss DESTINATION bin)
 	
 endif()
