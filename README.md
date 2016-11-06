@@ -22,7 +22,8 @@ All build instructions are subject to change
 All Linux develop has currently been done on Ubuntu 16.04 XENIAL
 
 Install the following dependencies:
-* Qt 5.7 SDK
+* Qt 5.7 SDK (installed in home `~/Qt`)
+    * <b>Prefix path must be located</b> `~/Qt/5.7/gcc_64`
 * All dependencies of [Hatchit](https://www.github.com/thirddegree/Hatchit.git)
 
 The follow the follwing instructions:
@@ -32,3 +33,6 @@ Then follow these simple directions:
 * Make a build dir (e.g. mkdir build)
 * cd into build/ and run cmake ..
 * Now just run make to build HatchitEditor
+* <b>Optional</b>
+    * `sudo make install` to install to `/usr/local/bin`
+        * <b>NOTE: Qt 5.7 libraries must be in path</b>
