@@ -61,7 +61,7 @@ namespace Hatchit
              */
 
             std::thread processors[2];
-            auto processFunc = [](const QList<QFileInfo>& files)
+            auto processFunc = [](const QList<QFileInfo>& files, const QString out, bool dump)
             {
                 /**
                  * Here we need to process the files. But first,
@@ -80,35 +80,40 @@ namespace Hatchit
                         */
                         if(document.GetValueCount() > 0)
                         {
-                            HT_DEBUG_PRINTF("File: %s\n", info.filePath().toStdString());
+                            /**
+                             * In the case that dump is true, we should just output the modified
+                             * files into the output directory
+                             */
+                            if(dump)
+                            {
+                                QDir dir(out);
+                                if(dir.exists())
+                                {
+                                    QFile file(dir.filePath(info.fileName()));
+                                    if(file.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
+                                        file.write(document.GetModified().toLocal8Bit());
+                                    }
+                                    file.close();
+                                }
+                            }
                         }
                     }
                 }
             };
 
             QList<QFileInfo> left = m_files.mid(0, m_files.size()/2);
-            QFile fileLeft("/home/debunez/left.txt");
-            if(fileLeft.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
-                for(auto info : left) {
-                    fileLeft.write(info.filePath().toLocal8Bit());
-                    fileLeft.write("\n");
-                }
-                fileLeft.close();
-            }
-            int val = m_files.size()/2;
             QList<QFileInfo> right = m_files.mid((m_files.size()/2)+1, m_files.size());
-            QFile fileRight("/home/debunez/right.txt");
-            if(fileRight.open(QIODevice::WriteOnly | QIODevice::Truncate | QIODevice::Text)) {
-                for(auto info : right) {
-                    fileRight.write(info.filePath().toLocal8Bit());
-                    fileRight.write("\n");
-                }
-                fileRight.close();
-            }
-            processors[0] = std::thread(processFunc, std::ref(left));
-            processors[1] = std::thread(processFunc, std::ref(right));
+            processors[0] = std::thread(processFunc, std::ref(left), std::ref(m_outputDirectory), std::ref(m_shouldDump));
+            processors[1] = std::thread(processFunc, std::ref(right), std::ref(m_outputDirectory), std::ref(m_shouldDump));
             for(int i = 0; i < 2; i++)
                 processors[i].join();
+
+            /**
+             * Now we want to build the hash project file. This will contain
+             * all the information about the processing we just completed, such
+             * as the requested directory to process, the output directory, and
+             * all the files that were processed.
+             */
 
             return true;
         }
