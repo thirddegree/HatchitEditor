@@ -40,6 +40,8 @@ namespace Hatchit
 
             connect(this, SIGNAL(doubleClicked(const QModelIndex&)),
                 this, SLOT(OnItemDoubleClicked(const QModelIndex&)));
+            connect(m_filter, SIGNAL(FileAccepted(const QFileInfo&)),
+                this, SLOT(OnFileAccepted(const QFileInfo&)));
         }
 
         FileTree::~FileTree()
@@ -57,6 +59,11 @@ namespace Hatchit
             QFileInfo info(m_model->filePath(m_filter->mapToSource(index)));
             if(info.isFile())
                 emit FileSelected(info.absoluteFilePath());
+        }
+
+        void FileTree::OnFileAccepted(const QFileInfo &info)
+        {
+            emit FilterFileAccepted(info);
         }
 
 

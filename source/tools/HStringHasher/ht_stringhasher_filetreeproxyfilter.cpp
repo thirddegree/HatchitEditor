@@ -51,8 +51,11 @@ namespace Hatchit
                     QString text = file.readAll();
                     QRegularExpression pattern("(?<=HID\\()\".*\"|(?<=HID\\()\'.*\'");
                     auto iter = pattern.globalMatch(text);
-                    if (iter.hasNext())
+                    if (iter.hasNext()) {
+                        emit FileAccepted(info);
+                        iter.next();
                         return true;
+                    }
                     else
                         return false;
                 }

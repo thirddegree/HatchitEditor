@@ -14,35 +14,27 @@
 
 #pragma once
 
-#include <QTreeView>
+#include <QListView>
+#include <QFileInfo>
 #include <QFileSystemModel>
 
 namespace Hatchit
 {
     namespace StringHasher
     {
-        class FileTreeProxyFilter;
-
-        class FileTree : public QTreeView
+        class DocumentList : public QListView
         {
             Q_OBJECT
         public:
-            explicit FileTree(QWidget* parent = nullptr);
-            
-            ~FileTree();
+            DocumentList(QWidget* parent = nullptr);
+
+            ~DocumentList();
 
         public slots:
-            void OnDirectorySelected(const QString& path);
-            void OnItemDoubleClicked(const QModelIndex& index);
-            void OnFileAccepted(const QFileInfo& info);
-
-        signals:
-            void FileSelected(const QString& path);
-            void FilterFileAccepted(const QFileInfo& info);
+            void OnFileTreeItemFound(const QFileInfo& file);
 
         private:
-            QFileSystemModel*    m_model;
-            FileTreeProxyFilter* m_filter;
+            QFileSystemModel* m_model;
         };
     }
 }

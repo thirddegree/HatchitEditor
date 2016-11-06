@@ -15,6 +15,7 @@
 #pragma once
 
 #include <QSortFilterProxyModel>
+#include <QFileInfo>
 
 namespace Hatchit
 {
@@ -22,10 +23,14 @@ namespace Hatchit
     {
         class FileTreeProxyFilter : public QSortFilterProxyModel
         {
+            Q_OBJECT
         public:
             FileTreeProxyFilter(QObject* parent = nullptr);
 
             ~FileTreeProxyFilter();
+
+        signals:
+            void FileAccepted(const QFileInfo& info) const;
 
         protected:
             bool filterAcceptsRow(int sourceRow, const QModelIndex& sourceIndex) const override;
