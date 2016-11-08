@@ -13,6 +13,7 @@
 **/
 
 #include <ht_stringhasher_jsonitem.h>
+#include <ht_debug.h>
 
 namespace Hatchit
 {

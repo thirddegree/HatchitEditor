@@ -52,8 +52,8 @@ if(WIN32)
     file(GLOB HT_STRINGHASHER_INC include/tools/HStringHasher/*.h)
     file(GLOB HT_STRINGHASHER_SRC source/tools/HStringHasher/*.cpp)
 
-    add_executable(HEditor ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ${HT_EDITOR_QRC})
-    add_executable(HStringHasher ${HT_STRINGHASHER_INC} ${HT_STRINGHASHER_SRC})
+    add_executable(HEditor WIN32 ${HT_EDITOR_INC} ${HT_EDITOR_SRC} ${HT_EDITOR_QRC})
+    add_executable(HStringHasher WIN32 ${HT_STRINGHASHER_INC} ${HT_STRINGHASHER_SRC})
 
     add_custom_command(TARGET HEditor POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy
@@ -62,8 +62,8 @@ if(WIN32)
             COMMAND ${CMAKE_COMMAND} -E copy
             ${PROJECT_SOURCE_DIR}/LICENSE.GPLv3 $<TARGET_FILE_DIR:HEditor>)
 
-    target_link_libraries(HStringHasher Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore)
-    target_link_libraries(HEditor Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore HatchitGraphics HatchitGame)
+    target_link_libraries(HStringHasher Qt5::Core Qt5::WinMain Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore)
+    target_link_libraries(HEditor Qt5::Core Qt5::WinMain Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore HatchitGraphics HatchitGame)
 
     set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
 
