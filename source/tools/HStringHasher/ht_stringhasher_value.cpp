@@ -36,7 +36,7 @@ namespace Hatchit
             return m_text;
         }
 
-        uint32_t Value::GetHash() const
+        uint64_t Value::GetHash() const
         {
             return m_hash;
         }

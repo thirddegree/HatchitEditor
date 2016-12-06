@@ -29,7 +29,7 @@ namespace Hatchit
             ~Value();
 
             const std::wstring& GetText() const;
-            uint32_t           GetHash() const;
+            uint64_t           GetHash() const;
 
             void SetText(const std::wstring& text);
             void Hash();
@@ -40,7 +40,7 @@ namespace Hatchit
 
         private:
             std::wstring m_text;
-            uint32_t    m_hash;
+            uint64_t    m_hash;
         };
     }
 }
