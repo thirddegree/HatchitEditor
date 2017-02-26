@@ -75,7 +75,7 @@ if(WIN32)
 elseif(UNIX)
     add_subdirectory(Hatchit/)
 
-    set(CMAKE_PREFIX_PATH "~/Qt/5.7/gcc_64/")
+    set(CMAKE_PREFIX_PATH "~/Qt/5.8/gcc_64/")
 
     find_package(Qt5 COMPONENTS Core Gui Widgets WebEngine WebEngineWidgets REQUIRED)
 
