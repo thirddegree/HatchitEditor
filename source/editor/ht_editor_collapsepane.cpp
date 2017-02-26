@@ -12,7 +12,7 @@
 **
 **/
 
-#include <include/ht_editor_collapsepane.h>
+#include <ht_editor_collapsepane.h>
 #include <QBoxLayout>
 #include <QLabel>
 #include <QStyleOption>

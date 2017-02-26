@@ -12,7 +12,7 @@
 **
 **/
 
-#include <include/ht_editor_projectviewmodel.h>
+#include <ht_editor_projectviewmodel.h>
 
 #include <QFileInfo>
 #include <QApplication>

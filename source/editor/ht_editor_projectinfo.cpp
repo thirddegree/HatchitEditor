@@ -12,25 +12,15 @@
 **
 **/
 
-#include <ht_platform.h>
-#include <include/ht_editor_viewport.h>
+#include <ht_editor_projectinfo.h>
 
-#ifdef HT_SYS_WINDOWS
-//#include <ht_editor_dxview.h>
-#endif
+namespace Hatchit
+{
 
-//#include <ht_editor_glview.h>
-
-namespace Hatchit {
-
-    namespace Editor {
-
-        Viewport::Viewport(QWidget* parent)
-            : QWidget(parent)
-        {
-
-        }
-
+    namespace Editor
+    {
+        QString ProjectInfo::_AssetFolder = "Assets";
+        QString ProjectInfo::_AssetModelFolder = "Models";
+        QString ProjectInfo::_AssetTextureFolder = "Textures";
     }
-
 }

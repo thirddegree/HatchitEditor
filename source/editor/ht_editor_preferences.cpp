@@ -1,6 +1,6 @@
 /**
 **    Hatchit Editor
-**    Copyright(c) 2015 Third-Degree
+**    Copyright(c) 2015-2016 Third-Degree
 **
 **    GNU General Public License
 **    This file may be used under the terms of
@@ -12,15 +12,16 @@
 **
 **/
 
-#include <include/ht_editor_projectinfo.h>
+#include <ht_editor_preferences.h>
 
 namespace Hatchit
 {
-
     namespace Editor
     {
-        QString ProjectInfo::_AssetFolder = "Assets";
-        QString ProjectInfo::_AssetModelFolder = "Models";
-        QString ProjectInfo::_AssetTextureFolder = "Textures";
+        PreferencesEditor::PreferencesEditor(QWidget* parent)
+            : QDialog(parent)
+        {
+
+        }
     }
 }

@@ -12,8 +12,8 @@
 **
 **/
 
-#include <include/ht_editor_about.h>
-#include <include/ht_editor_version.h>
+#include <ht_editor_about.h>
+#include <ht_editor_version.h>
 #include <ht_os.h>
 
 #include <QBoxLayout>

@@ -12,18 +12,17 @@
 **
 **/
 
-#include <include/ht_editor_scenetree.h>
+#include <ht_editor_viewmenu.h>
 
-#include <QHeaderView>
+namespace Hatchit {
 
-namespace Hatchit
-{
-    namespace Editor
-    {
-        SceneTree::SceneTree(QWidget* parent)
-            : QTreeWidget(parent)
+    namespace Editor {
+
+        ViewMenu::ViewMenu(QWidget* widget /* = 0 */)
+            : QMenu(tr("View"), widget)
         {
-            this->header()->close();
+
         }
     }
+
 }

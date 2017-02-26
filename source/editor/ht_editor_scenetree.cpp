@@ -1,6 +1,6 @@
 /**
 **    Hatchit Editor
-**    Copyright(c) 2015-2016 Third-Degree
+**    Copyright(c) 2015 Third-Degree
 **
 **    GNU General Public License
 **    This file may be used under the terms of
@@ -12,16 +12,18 @@
 **
 **/
 
-#include <include/ht_editor_preferences.h>
+#include <ht_editor_scenetree.h>
+
+#include <QHeaderView>
 
 namespace Hatchit
 {
     namespace Editor
     {
-        PreferencesEditor::PreferencesEditor(QWidget* parent)
-            : QDialog(parent)
+        SceneTree::SceneTree(QWidget* parent)
+            : QTreeWidget(parent)
         {
-
+            this->header()->close();
         }
     }
 }

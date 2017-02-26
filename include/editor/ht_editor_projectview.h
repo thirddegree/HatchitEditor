@@ -18,7 +18,7 @@
 #include <QFileSystemModel>
 #include <QDirModel>
 #include <QPushButton>
-#include <include/ht_editor_projectviewmodel.h>
+#include <ht_editor_projectviewmodel.h>
 
 namespace Hatchit
 {

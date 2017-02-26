@@ -18,8 +18,8 @@ set(HatchitEditor_VERSION_BUILD 1)
 set(HatchitEditor_TITLE "HatchitEditor")
 
 configure_file(
-    "${CMAKE_SOURCE_DIR}/include/ht_editor_version.h.in"
-    "${CMAKE_SOURCE_DIR}/include/ht_editor_version.h"
+    "${CMAKE_SOURCE_DIR}/include/editor/ht_editor_version.h.in"
+    "${CMAKE_SOURCE_DIR}/include/editor/ht_editor_version.h"
 )
 
 if(WIN32)
@@ -77,9 +77,12 @@ elseif(UNIX)
 
     set(CMAKE_PREFIX_PATH "~/Qt/5.8/gcc_64/")
 
+
     find_package(Qt5 COMPONENTS Core Gui Widgets WebEngine WebEngineWidgets REQUIRED)
+    find_package(PythonLibs REQUIRED)
 
     include_directories("include"
+                        "include/editor"
                         "include/tools/HStringHasher"
                         "Hatchit/HatchitCore/include"
                         "Hatchit/HatchitCore/include/linux"
@@ -91,11 +94,13 @@ elseif(UNIX)
                         "Hatchit/ThirdParty/inih/"
                         "Hatchit/ThirdParty/cppformat/cppformat"
                         "Hatchit/ThirdParty/json/src/"
-                        "Hatchit/ThirdParty/stb")
+                        "Hatchit/ThirdParty/stb"
+                        "Hatchit/ThirdParty/pybind11/include"
+                        ${PYTHON_INCLUDE_DIR})
 
-    file(GLOB HT_EDITOR_INC include/*.h)
-    file(GLOB HT_EDITOR_SRC source/*.cpp)
-    file(GLOB HT_EDITOR_QRC source/HatchitEditor.qrc)
+    file(GLOB HT_EDITOR_INC include/*.h include/editor/*.h)
+    file(GLOB HT_EDITOR_SRC source/*.cpp source/editor/*.cpp)
+    file(GLOB HT_EDITOR_QRC source/editor/HatchitEditor.qrc)
 
     file(GLOB HT_STRINGHASHER_INC include/tools/HStringHasher/*.h)
     file(GLOB HT_STRINGHASHER_SRC source/tools/HStringHasher/*.cpp)
@@ -111,7 +116,7 @@ elseif(UNIX)
             COMMAND ${CMAKE_COMMAND} -E copy
             ${PROJECT_SOURCE_DIR}/LICENSE.GPLv3 $<TARGET_FILE_DIR:HEditor>)
 
-    target_link_libraries(HEditor Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore HatchitGraphics HatchitGame)
+    target_link_libraries(HEditor ${PYTHON_LIBRARY} Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore HatchitGraphics HatchitGame)
     target_link_libraries(HStringHasher Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore pthread)
  
         

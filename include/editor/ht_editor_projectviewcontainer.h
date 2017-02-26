@@ -18,7 +18,7 @@
 #include <QPushButton>
 #include <QLabel>
 
-#include <include/ht_editor_projectview.h>
+#include <ht_editor_projectview.h>
 
 namespace Hatchit
 {
