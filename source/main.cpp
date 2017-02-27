@@ -12,7 +12,6 @@
 **
 **/
 
-
 /* Qt includes */
 #include <QApplication>
 #include <QFile>
@@ -23,10 +22,13 @@
 #include <QDesktopWidget>
 
 #include <ht_os.h>
+#include <ht_string.h>
 #include <ht_debug.h>
 #include <ht_editor_window.h>
 #include <ht_editor_launcher.h>
 #include <ht_editor_version.h>
+
+#include <hpy_python.h>
 
 using namespace Hatchit;
 using namespace Hatchit::Core;
@@ -35,11 +37,24 @@ using namespace Hatchit::Editor;
 #include <ht_jsonhelper.h>
 #include <unordered_map>
 
+void cleanup()
+{
+    /**
+     * Shutdown Python runtime
+     */
+    hpy::Python::ShutDown();
+}
 
 int main(int argc, char* argv[])
 {
+    std::atexit(cleanup);
 
-    QApplication app(argc, argv);
+    /**
+     * Initialize Python runtime
+     */
+    hpy::Python::Init(argc, argv);
+
+    QApplication app(argc, (char**)argv);
 	app.setStyle(QStyleFactory::create("fusion"));
     app.setApplicationName(HatchitEditor_TITLE);
 
@@ -77,12 +92,13 @@ int main(int argc, char* argv[])
             )
         );
     int result = dlg->exec();
-    if(result == QDialog::Rejected)
+    if(result == QDialog::Rejected) {
         return -1;
+    }
     dlg->SaveRecent();
     window.showMaximized();
 
+    app.exec();
 
-
-    return app.exec();
+    return 0;
 }

@@ -75,7 +75,7 @@ if(WIN32)
 elseif(UNIX)
     add_subdirectory(Hatchit/)
 
-    set(CMAKE_PREFIX_PATH "~/Qt/5.8/gcc_64/")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH} ~/Qt/5.8/gcc_64/")
 
 
     find_package(Qt5 COMPONENTS Core Gui Widgets WebEngine WebEngineWidgets REQUIRED)
@@ -83,6 +83,7 @@ elseif(UNIX)
 
     include_directories("include"
                         "include/editor"
+                        "include/python"
                         "include/tools/HStringHasher"
                         "Hatchit/HatchitCore/include"
                         "Hatchit/HatchitCore/include/linux"
@@ -97,6 +98,11 @@ elseif(UNIX)
                         "Hatchit/ThirdParty/stb"
                         "Hatchit/ThirdParty/pybind11/include"
                         ${PYTHON_INCLUDE_DIR})
+
+    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
+
+    add_subdirectory("${CMAKE_SOURCE_DIR}/Hatchit/ThirdParty/pybind11")
+    add_subdirectory("${CMAKE_SOURCE_DIR}/cmake/python")
 
     file(GLOB HT_EDITOR_INC include/*.h include/editor/*.h)
     file(GLOB HT_EDITOR_SRC source/*.cpp source/editor/*.cpp)
@@ -116,11 +122,11 @@ elseif(UNIX)
             COMMAND ${CMAKE_COMMAND} -E copy
             ${PROJECT_SOURCE_DIR}/LICENSE.GPLv3 $<TARGET_FILE_DIR:HEditor>)
 
-    target_link_libraries(HEditor ${PYTHON_LIBRARY} Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore HatchitGraphics HatchitGame)
+    target_link_libraries(HEditor ${PYTHON_LIBRARY} hpy Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore HatchitGraphics HatchitGame)
     target_link_libraries(HStringHasher Qt5::Core Qt5::Widgets Qt5::Gui Qt5::WebEngine Qt5::WebEngineWidgets HatchitCore pthread)
  
         
-    set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -D_DEBUG")
+
 
     set_target_properties(HEditor HStringHasher
 	                    PROPERTIES
