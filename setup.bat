@@ -1,13 +1,18 @@
 @echo off
 
-IF NOT EXIST  %~dp0build mkdir build
+IF NOT EXIST build mkdir build
 
 cd build
 
-IF NOT EXIST %cd%ThirdParty mkdir ThirdParty
+IF NOT EXIST ThirdParty mkdir ThirdParty
 
 cd ThirdParty
-cmake ../../Hatchit/ThirdParty -G "Visual Studio 14 2015 Win64" -DDIRECTX=NO -DASSIMP_BUILD_ASSIMP_TOOLS=NO
+
+cmake ../../Hatchit/ThirdParty -G "Visual Studio 14 2015 Win64" -DDIRECTX=NO -DBUILD_SHARED_LIBS=ON -DBUILD_REQUIRED=ON
+msbuild.exe ThirdPartyLibs.sln /p:Configuration=Debug
+msbuild.exe ThirdPartyLibs.sln /p:Configuration=Release
+
+cmake ../../Hatchit/ThirdParty -G "Visual Studio 14 2015 Win64" -DBUILD_REQUIRED=OFF -DASSIMP_BUILD_ASSIMP_TOOLS=NO -DASSIMP_BUILD_TESTS=NO  -DBUILD_SHARED_LIBS=ON
 msbuild.exe ThirdPartyLibs.sln /p:Configuration=Debug
 msbuild.exe ThirdPartyLibs.sln /p:Configuration=Release
 

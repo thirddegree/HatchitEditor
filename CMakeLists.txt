@@ -25,7 +25,7 @@ configure_file(
 if(WIN32)
     add_subdirectory(Hatchit/)
     
-    set (CMAKE_PREFIX_PATH "C:\\Qt\\5.7\\msvc2015_64")
+    set (CMAKE_PREFIX_PATH "C:\\Qt\\5.9\\msvc2015_64")
     
     find_package(Qt5 COMPONENTS Core Gui Widgets WebEngine WebEngineWidgets REQUIRED)
 
